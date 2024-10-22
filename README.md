@@ -15,8 +15,20 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 
 > Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
 
-# Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
+# Functional Requirements
+1. **Project Proposal Management**: Researchers can submit project proposals to the institution, and the institution can approve or reject them.
+2. **Project Status Review**: The application displays the current status of projects (e.g., ongoing, completed, pending).
+3. **Expense Tracking and Reporting**: If a project is funded, the application tracks expenses associated with the project. Expenses can be presented and exported as a PDF document.
+4. **Notification System**: Notifications about the state of ongoing project and new projects are sent to users via email or push notifications.
+5. **Integration with Research Paper Databases**: The application connects to external research paper databases (e.g., arXiv, PubMed), fetching relevant papers for display within the application.
+6. **Authentication and Authorization**: External services (OAuth2) are used for authentication and authorization processes.
+7. **Responsive Design**: The application has a responsive design, allowing it to adapt to various types of devices (e.g., desktops, laptops, mobile phones).
+
+# Non-Functional Requirements
+1. **Security**: The application should ensure the confidentiality, integrity, and availability of user data.
+2. **Usability**: The application should be easy to use for all intended users.
+3. **Scalability**: The application should be able to handle a large number of users and projects without compromising performance.
+4. **Performance**: The application should respond quickly to user interactions and load times should be minimized.
 
 # Tehnologije
 
