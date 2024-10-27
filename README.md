@@ -103,6 +103,11 @@ Add mobile navigation to enhance user experience on smaller screens.
 3. **Scalability**: The application should be able to handle a large number of users and projects without compromising performance.
 4. **Performance**: The application should respond quickly to user interactions and load times should be minimized.
 
+# Actors 
+1. **Researches**: Acctors who receive the status of the project via electronic mail. These are the actors who are waiting for the completion of the system's functionality to be able to perform their duties. Although they look like active actors, they are actually passive actors, because the application will not provide feedback from researchers on whether they are satisfied with the status of the project.
+2. **External databases of research works**: Passive actors that provide access to similar works and relevant content via API.
+3. **OAuth2**: Passive actor to which the application sends an authentication request, after which it waits for a response in the form of approval or rejection.
+
 # Tehnologije
 
 #Instalcija
