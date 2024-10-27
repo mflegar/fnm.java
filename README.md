@@ -108,6 +108,44 @@ Add mobile navigation to enhance user experience on smaller screens.
 2. **External databases of research works**: Passive actors that provide access to similar works and relevant content via API. In our case, it will be the arXiv or PubMed database, which we will decide during this week, in which we will put a more detailed focus on the development of the system architecture.
 3. **OAuth2**: Passive actor to which the application sends an authentication request, after which it waits for a response in the form of approval or rejection.
 
+# Stakeholders
+**Researchers**
+	Role: Users of the application who work on research projects. They propose new projects and execute tasks. They are the majority of the application's users.
+	Interests: Easy and quick access to collaboration tools and a straightforward project overview.
+
+**Project Managers**
+	Role: Responsible for managing the project and assigning tasks within the team.
+	Interests: Simple and practical overview of the project and tasks assigned in real-time and potential costs.
+
+**Institution Management**
+	Role: Responsible for the decision to approve or reject projects, overseeing the costs of all projects.
+	Interests: Practical overview of all projects and simple cost control tools.
+
+**Quality Assurance Engineers**
+	Role: Testing models and AI algorithms of the project.
+	Interests: Reliable testing tools.
+
+**IT Administrator**
+	Role: Maintains the application.
+	Interests: Application security and performance improvement.
+
+**Investors**
+	Role: Provide funding for the project.
+	Interests: Monitoring project costs and results.
+
+**External Research Databases**
+	Role: Provide insight into relevant research papers.
+	Interests: Proper connection to the database and access to content important for the project.
+
+**Application Development Team**
+	Role: The team developing the application.
+	Interests: Clear tasks.
+
+**End Users**
+	Role: Individuals who use the results obtained from the project.
+	Interests: A quality project that has undergone testing.
+
+
 # Tehnologije
 
 #Instalcija
