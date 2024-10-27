@@ -17,62 +17,81 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 
 # Functional Requirements
 
-1. **Project Proposal Management**
+1. **Project Proposal Management** 
 Description: Researchers can submit project proposals, which the institution can then review, approve, or reject.
+
 Backend (Spring):
 Create a REST API endpoint (/projects/proposals) for submitting proposals, where users can send project data.
 Implement service logic to save proposals to the database and update the proposal’s status to approved or rejected.
-Create an endpoint to display all proposals, including filters for status (approved, rejected, pending).
+Create an endpoint to display all proposals, including filters for status (approved, rejected, pending).  
+
 Frontend (React):
 Form for submitting proposals, with fields such as project title, description, objectives, and resources.
 On the admin page, display a list of proposals with options to approve or reject.
-Use React state to update the display based on backend responses.
-2. **Project Status Review**
-Description: Display the current status of projects (e.g., ongoing, completed, pending).
+Use React state to update the display based on backend responses.  
+
+2. **Project Status Review**  
+Description: Display the current status of projects (e.g., ongoing, completed, pending).  
+
 Backend (Spring):
 Endpoint (/projects/status) to retrieve the status of all projects.
-Schedule periodic status updates for projects nearing their end dates or those marked as completed.
+Schedule periodic status updates for projects nearing their end dates or those marked as completed.  
+
 Frontend (React):
 Component displaying the project list with status tags using different colors (e.g., green for completed, yellow for ongoing, grey for pending).
-Ability to filter projects by status using React state and effects (useEffect) to fetch updated data from the backend.
-3. **Expense Tracking and Reporting**
-Description: Track and generate reports on project expenses, which can be exported as PDFs.
+Ability to filter projects by status using React state and effects (useEffect) to fetch updated data from the backend.  
+
+3. **Expense Tracking and Reporting**  
+Description: Track and generate reports on project expenses, which can be exported as PDFs.  
+
 Backend (Spring):
 Create a model and endpoint (/projects/expenses) for entering and displaying expenses related to each project.
-Implement report generation (e.g., using the iText library for PDF generation) which can be downloaded via the frontend.
+Implement report generation (e.g., using the iText library for PDF generation) which can be downloaded via the frontend.  
+
 Frontend (React):
 Form for expense entry with fields like expense category, amount, and date.
 Real-time display of total expenses per project.
-Button to generate and download a PDF report, triggering backend generation and download of the document.
-4. **Notification System**
-Description: Notify users via email or push notifications about project status updates and new projects.
+Button to generate and download a PDF report, triggering backend generation and download of the document.  
+
+4. **Notification System**  
+Description: Notify users via email or push notifications about project status updates and new projects.  
+
 Backend (Spring):
 Create a notification service using Spring Mail for email notifications and add push notifications with WebSocket for real-time alerts.
-Endpoint (/notifications) allowing users to select their preferred notification method.
+Endpoint (/notifications) allowing users to select their preferred notification method.  
+
 Frontend (React):
 Notification management component allowing users to choose between email and push notifications.
-Display real-time notifications within the user interface using React Context for global notification state management.
+Display real-time notifications within the user interface using React Context for global notification state management.  
+
 5. **Integration with Research Paper Databases**
 Description: Connect with external research paper databases (e.g., arXiv, PubMed) to display relevant papers when opening a project and, if possible, calculate the project’s relevance to existing research in the field.
+
 Backend (Spring):
 Use external REST APIs like arXiv or PubMed to fetch data on relevant papers based on project topics.
 Algorithm to calculate relevance based on project keywords and the retrieved papers.
-Endpoint (/projects/research-papers) to retrieve and display relevant papers.
+Endpoint (/projects/research-papers) to retrieve and display relevant papers.  
+
 Frontend (React):
 Component to display a list of relevant papers with relevance tags.
 Option for users to open links to the papers in a new window for detailed reading.
-Use React state to update and display fetched paper data from the backend.
+Use React state to update and display fetched paper data from the backend.  
+
 6. **Authentication and Authorization**
 Description: User login and registration using external services like Google or GitHub (OAuth2).
+
 Backend (Spring):
 Integrate Spring Security with OAuth2 for user authentication through external services.
-Endpoint (/auth/login) for OAuth2-based authentication, allowing users to securely access the application.
+Endpoint (/auth/login) for OAuth2-based authentication, allowing users to securely access the application.  
+
 Frontend (React):
 Implement login interface with options for signing in via Google, GitHub, or other services.
 Display user data (e.g., name, profile image) after login and allow for logout.
-Manage user session and state using React Context or Redux.
-7. **Responsive Design**
-Description: Adapt the user interface for various device types (desktop, laptop, mobile).
+Manage user session and state using React Context or Redux. 
+7. **Responsive Design**  
+
+Description: Adapt the user interface for various device types (desktop, laptop, mobile).  
+
 Frontend (React):
 Use a CSS framework like Bootstrap or Material-UI for responsive design.
 Utilize CSS Flexbox and Grid for flexible layouts suited to different screen sizes.
