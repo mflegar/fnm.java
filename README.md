@@ -16,14 +16,68 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 > Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
 
 # Functional Requirements
-1. **Project Proposal Management**: Researchers can submit project proposals to the institution, and the institution can approve or reject them.
-2. **Project Status Review**: The application displays the current status of projects (e.g., ongoing, completed, pending).
-3. **Expense Tracking and Reporting**: If a project is funded, the application tracks expenses associated with the project. Expenses can be presented and exported as a PDF document.
-4. **Notification System**: Notifications about the state of ongoing project and new projects are sent to users via email or push notifications.
-5. **Integration with Research Paper Databases**: The application connects to external research paper databases (e.g., arXiv, PubMed), fetching relevant papers for display within the application.
-6. **Authentication and Authorization**: External services (OAuth2) are used for authentication and authorization processes.
-7. **Responsive Design**: The application has a responsive design, allowing it to adapt to various types of devices (e.g., desktops, laptops, mobile phones).
 
+1. **Project Proposal Management**
+Description: Researchers can submit project proposals, which the institution can then review, approve, or reject.
+Backend (Spring):
+Create a REST API endpoint (/projects/proposals) for submitting proposals, where users can send project data.
+Implement service logic to save proposals to the database and update the proposal’s status to approved or rejected.
+Create an endpoint to display all proposals, including filters for status (approved, rejected, pending).
+Frontend (React):
+Form for submitting proposals, with fields such as project title, description, objectives, and resources.
+On the admin page, display a list of proposals with options to approve or reject.
+Use React state to update the display based on backend responses.
+2. **Project Status Review**
+Description: Display the current status of projects (e.g., ongoing, completed, pending).
+Backend (Spring):
+Endpoint (/projects/status) to retrieve the status of all projects.
+Schedule periodic status updates for projects nearing their end dates or those marked as completed.
+Frontend (React):
+Component displaying the project list with status tags using different colors (e.g., green for completed, yellow for ongoing, grey for pending).
+Ability to filter projects by status using React state and effects (useEffect) to fetch updated data from the backend.
+3. **Expense Tracking and Reporting**
+Description: Track and generate reports on project expenses, which can be exported as PDFs.
+Backend (Spring):
+Create a model and endpoint (/projects/expenses) for entering and displaying expenses related to each project.
+Implement report generation (e.g., using the iText library for PDF generation) which can be downloaded via the frontend.
+Frontend (React):
+Form for expense entry with fields like expense category, amount, and date.
+Real-time display of total expenses per project.
+Button to generate and download a PDF report, triggering backend generation and download of the document.
+4. **Notification System**
+Description: Notify users via email or push notifications about project status updates and new projects.
+Backend (Spring):
+Create a notification service using Spring Mail for email notifications and add push notifications with WebSocket for real-time alerts.
+Endpoint (/notifications) allowing users to select their preferred notification method.
+Frontend (React):
+Notification management component allowing users to choose between email and push notifications.
+Display real-time notifications within the user interface using React Context for global notification state management.
+5. **Integration with Research Paper Databases**
+Description: Connect with external research paper databases (e.g., arXiv, PubMed) to display relevant papers when opening a project and, if possible, calculate the project’s relevance to existing research in the field.
+Backend (Spring):
+Use external REST APIs like arXiv or PubMed to fetch data on relevant papers based on project topics.
+Algorithm to calculate relevance based on project keywords and the retrieved papers.
+Endpoint (/projects/research-papers) to retrieve and display relevant papers.
+Frontend (React):
+Component to display a list of relevant papers with relevance tags.
+Option for users to open links to the papers in a new window for detailed reading.
+Use React state to update and display fetched paper data from the backend.
+6. **Authentication and Authorization**
+Description: User login and registration using external services like Google or GitHub (OAuth2).
+Backend (Spring):
+Integrate Spring Security with OAuth2 for user authentication through external services.
+Endpoint (/auth/login) for OAuth2-based authentication, allowing users to securely access the application.
+Frontend (React):
+Implement login interface with options for signing in via Google, GitHub, or other services.
+Display user data (e.g., name, profile image) after login and allow for logout.
+Manage user session and state using React Context or Redux.
+7. **Responsive Design**
+Description: Adapt the user interface for various device types (desktop, laptop, mobile).
+Frontend (React):
+Use a CSS framework like Bootstrap or Material-UI for responsive design.
+Utilize CSS Flexbox and Grid for flexible layouts suited to different screen sizes.
+Test across various devices and adjust layout as needed for clear and functional displays.
+Add mobile navigation to enhance user experience on smaller screens.
 # Non-Functional Requirements
 1. **Security**: The application should ensure the confidentiality, integrity, and availability of user data.
 2. **Usability**: The application should be easy to use for all intended users.
