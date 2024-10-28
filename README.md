@@ -7,6 +7,40 @@
 >
 > Zašto ovaj dokument? Samo manji dio timova je do sada propoznao potrebu (a i meni je lakše pratiti Vaš rad).
 
+# Functionality
+Registration and Login
+> OAuth2 Registration: Utilizing external services for authentication.
+> Login Forms: Standard forms with options for login using a username and password or through external services.
+> User Management: The administrator can view and edit user profiles and assign or remove roles.
+
+Roles and Permissions
+> Access Control: Precisely defined permissions for viewing, editing, and deleting data.
+> Role Assignment: Ability to assign and remove roles from users.
+
+Project Management
+> Project Proposal Forms: Researchers can enter key information (title, description, etc.).
+> Proposal Review: Project Manager can review proposals and add comments or modifications.
+
+Budget Management
+> Entering Financial Information: Ability to enter details about project expenses.
+> Funding Overview: Display of the current state of funding and projected costs.
+> Report: Creation of PDF reports on costs by categories or specific tasks.
+
+Project Testing
+> Algorithm Testing: Basic functionalities for testing developed models and products.
+> Automated Testing: Creation of test scenarios that run automatically after every code change or new data entry, with notifications in case of failed tests.
+
+Database
+> Research Paper Search: Tool for connecting to databases like arXiv, PubMed, allowing researchers to view relevant papers.
+> Search Filter: Search by keywords, author, or similar criteria.
+
+Communication
+> Email and Push Notifications: Automatic sending of notifications related to project status changes, task assignments, etc.
+
+Responsive Design
+> Device Adaptability: The application must look and function well on mobile devices, computers, and tablets.
+> Use of Modern Tools: Flexible and intuitive controls, clear navigation, and easy access to key functions.
+
 # Opis projekta
 Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
 
