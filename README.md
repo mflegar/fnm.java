@@ -164,15 +164,17 @@ Interests: A quality project that has undergone testing.
 
 ## Instalcija
 
-## Članovi tima
+## Team members
 
-Filip Alaber<br>
-Marko Flegar<br>
-Josip Koprivnjak<br>
-Vedran Maksić<br>
-Antonija Pandžić<br>
-Antonio Tolić<br>
-Niko Žužul
+| Name             | GitHub account                                           |
+|------------------|----------------------------------------------------------|
+| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             |
+| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   |
+| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) |
+| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         |
+| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) |
+| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         |
+| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               |
 
 ## Kontribucije
 >
