@@ -1,24 +1,24 @@
 drop schema public cascade;
 create schema public;
 
-CREATE TABLE "USER"
+CREATE TABLE ACTOR
 (
-  userID INT NOT NULL,
-  email VARCHAR NOT NULL,
-  "role" VARCHAR NOT NULL,
-  "name" VARCHAR NOT NULL,
-  surname VARCHAR NOT NULL,
-  PRIMARY KEY (userID)
+  actorID INT NOT NULL,
+  actorEmail VARCHAR NOT NULL,
+  actorRole VARCHAR NOT NULL,
+  actorName VARCHAR NOT NULL,
+  actorSurname VARCHAR NOT NULL,
+  PRIMARY KEY (actorID)
 );
 
 CREATE TABLE INSTITUTION
 (
   institutionID INT NOT NULL,
-  "name" VARCHAR NOT NULL,
-  "link" VARCHAR NOT NULL,
-  userID INT NOT NULL,
+  institutionName VARCHAR NOT NULL,
+  institutionLink VARCHAR NOT NULL,
+  actorID INT NOT NULL,
   PRIMARY KEY (institutionID),
-  FOREIGN KEY (userID) REFERENCES "USER"(userID)
+  FOREIGN KEY (actorID) REFERENCES ACTOR(actorID)
 );
 
 CREATE TABLE PROJECT_PROPOSAL
@@ -26,17 +26,17 @@ CREATE TABLE PROJECT_PROPOSAL
   proposalID INT NOT NULL,
   attachment VARCHAR NOT NULL,
   title VARCHAR NOT NULL,
-  userID INT NOT NULL,
+  actorID INT NOT NULL,
   institutionID INT NOT NULL,
   PRIMARY KEY (proposalID),
-  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  FOREIGN KEY (actorID) REFERENCES ACTOR(actorID),
   FOREIGN KEY (institutionID) REFERENCES INSTITUTION(institutionID)
 );
 
 CREATE TABLE PROJECT
 (
   projectID INT NOT NULL,
-  "name" VARCHAR NOT NULL,
+  projectName VARCHAR NOT NULL,
   startTime TIMESTAMP NOT NULL,
   proposalID INT NOT NULL,
   PRIMARY KEY (projectID),
@@ -48,29 +48,29 @@ CREATE TABLE TASK
   taskID INT NOT NULL,
   description VARCHAR NOT NULL,
   projectID INT NOT NULL,
-  userID INT NOT NULL,
+  actorID INT NOT NULL,
   PRIMARY KEY (taskID, projectID),
   FOREIGN KEY (projectID) REFERENCES PROJECT(projectID),
-  FOREIGN KEY (userID) REFERENCES "USER"(userID)
+  FOREIGN KEY (actorID) REFERENCES ACTOR(actorID)
 );
 
 CREATE TABLE EXPENSE
 (
   expenseID INT NOT NULL,
   description VARCHAR NOT NULL,
-  "cost" INT NOT NULL,
-  userID INT NOT NULL,
+  expense_cost INT NOT NULL,
+  actorID INT NOT NULL,
   projectID INT NOT NULL,
   PRIMARY KEY (expenseID),
-  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  FOREIGN KEY (actorID) REFERENCES ACTOR(actorID),
   FOREIGN KEY (projectID) REFERENCES PROJECT(projectID)
 );
 
 CREATE TABLE JOINS
 (
-  userID INT NOT NULL,
+  actorID INT NOT NULL,
   institutionID INT NOT NULL,
-  PRIMARY KEY (userID, institutionID),
-  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  PRIMARY KEY (actorID, institutionID),
+  FOREIGN KEY (actorID) REFERENCES ACTOR(actorID),
   FOREIGN KEY (institutionID) REFERENCES INSTITUTION(institutionID)
 );
