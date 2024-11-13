@@ -1,0 +1,76 @@
+drop schema public cascade;
+create schema public;
+
+CREATE TABLE "USER"
+(
+  userID INT NOT NULL,
+  email VARCHAR NOT NULL,
+  "role" VARCHAR NOT NULL,
+  "name" VARCHAR NOT NULL,
+  surname VARCHAR NOT NULL,
+  PRIMARY KEY (userID)
+);
+
+CREATE TABLE INSTITUTION
+(
+  institutionID INT NOT NULL,
+  "name" VARCHAR NOT NULL,
+  "link" VARCHAR NOT NULL,
+  userID INT NOT NULL,
+  PRIMARY KEY (institutionID),
+  FOREIGN KEY (userID) REFERENCES "USER"(userID)
+);
+
+CREATE TABLE PROJECT_PROPOSAL
+(
+  proposalID INT NOT NULL,
+  attachment VARCHAR NOT NULL,
+  title VARCHAR NOT NULL,
+  userID INT NOT NULL,
+  institutionID INT NOT NULL,
+  PRIMARY KEY (proposalID),
+  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  FOREIGN KEY (institutionID) REFERENCES INSTITUTION(institutionID)
+);
+
+CREATE TABLE PROJECT
+(
+  projectID INT NOT NULL,
+  "name" VARCHAR NOT NULL,
+  startTime TIMESTAMP NOT NULL,
+  proposalID INT NOT NULL,
+  PRIMARY KEY (projectID),
+  FOREIGN KEY (proposalID) REFERENCES PROJECT_PROPOSAL(proposalID)
+);
+
+CREATE TABLE TASK
+(
+  taskID INT NOT NULL,
+  description VARCHAR NOT NULL,
+  projectID INT NOT NULL,
+  userID INT NOT NULL,
+  PRIMARY KEY (taskID, projectID),
+  FOREIGN KEY (projectID) REFERENCES PROJECT(projectID),
+  FOREIGN KEY (userID) REFERENCES "USER"(userID)
+);
+
+CREATE TABLE EXPENSE
+(
+  expenseID INT NOT NULL,
+  description VARCHAR NOT NULL,
+  "cost" INT NOT NULL,
+  userID INT NOT NULL,
+  projectID INT NOT NULL,
+  PRIMARY KEY (expenseID),
+  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  FOREIGN KEY (projectID) REFERENCES PROJECT(projectID)
+);
+
+CREATE TABLE JOINS
+(
+  userID INT NOT NULL,
+  institutionID INT NOT NULL,
+  PRIMARY KEY (userID, institutionID),
+  FOREIGN KEY (userID) REFERENCES "USER"(userID),
+  FOREIGN KEY (institutionID) REFERENCES INSTITUTION(institutionID)
+);
