@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: airelm
+
+server:
+  port: ${PORT:8780}
