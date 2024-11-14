@@ -1,35 +1,26 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package hr.fer.proinz.airelm.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class HomeController {
-    public HomeController() {
+
+    @GetMapping("/") // Pocetna ruta
+    public String greet(){
+        return "Welcome to the page";
     }
 
-    @GetMapping({"/"})
-    public String home() {
-        return "hi";
-    }
+    @GetMapping("/login2") // Ruta /login2
+    public String login(@AuthenticationPrincipal OAuth2User principal){
+        // Dobivamo podatke korisnika koje je GitHub poslao
+        Map<String, Object> attributes = principal.getAttributes();
 
-    @GetMapping({"/secured"})
-    public String secured() {
-        return "hi, secured";
-    }
-
-    @GetMapping({"/researcher"})
-    public String researcher() {
-        return "hi, researcher";
-    }
-
-    @GetMapping({"/leader"})
-    public String leader() {
-        return "hi, leader";
+        // Ispisivanje korisničkih podataka kao string
+        return "GitHub User Info: " + attributes.toString();
     }
 }
