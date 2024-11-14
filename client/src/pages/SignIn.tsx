@@ -17,6 +17,9 @@ function SignIn(){
    <div>
    <input type="text" name="userSurname" placeholder="Enter your surname"></input>
    </div>
+   <div>
+   <input type="text" name="email" placeholder="Enter your email"></input>
+   </div>
    </form> 
    </div>
    <Link to="/institution"><button>Institution leader</button></Link>
