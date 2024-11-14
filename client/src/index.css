@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: lightblue;
 }
 
 h1 {
@@ -43,8 +44,8 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
+  margin:20px;
 }
 button:hover {
   border-color: #646cff;
@@ -66,3 +67,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+#registrationDiv{
+  text-align: center;
+  padding: 20px;
+  background-color: lightblue;
+}
+
+#registrationDiv input[type="text"] {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 8px;
+  width: 100%;
+}
+
