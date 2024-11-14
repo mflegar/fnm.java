@@ -3,7 +3,7 @@ spring:
     name: airelm
   datasource:
     url: jdbc:postgresql://localhost:5432/progitest
-    username: localhost
+    username: postgres
     password: postgrestest
   jpa:
     hibernate:
