@@ -1,17 +1,22 @@
-// src/App.tsx
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Home from './pages/Home';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';     //Dohvati glavnu stranicu. Naslov i SIGN IN.
 import SignIn from './pages/SignIn';
+import Researcher from './pages/Reseacrher';
+import Institution from './pages/Institution';
 
-const App: React.FC = () => {
+
+
+//Ovdje definiram odlazak do Home page-a i do sign in-a.
+
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<SignIn />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/researcher"  element={<Researcher />} />
+      <Route path="/institution" element={<Institution/>}/>
+
+    </Routes>
   );
 };
 

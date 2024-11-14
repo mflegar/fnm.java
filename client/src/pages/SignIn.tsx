@@ -1,40 +1,31 @@
 // src/pages/SignIn.tsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../index.css';
 
-const SignIn: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+//Ovdje imamo formu za unos imena, prezimena i odabir uloge koju korisnik želi odabrati.
 
-  const handleSignIn = () => {
-    // Ovdje možete dodati logiku za autentifikaciju
-    console.log('Korisničko ime:', username);
-    console.log('Lozinka:', password);
-  };
+function SignIn(){
+  return(
+    <>
+   <h1>Choose your role!</h1>
+   <div id="registrationDiv">
+   <form>
+   <div> 
+   <input type="text" name="userName" placeholder="Enter your name"></input>
+   </div>
+   <div>
+   <input type="text" name="userSurname" placeholder="Enter your surname"></input>
+   </div>
+   </form> 
+   </div>
+   <Link to="/institution"><button>Institution leader</button></Link>
+   <Link to="/researcher"><button>Researcher</button></Link>
+   </>
+   
 
-  return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <h2>Sign In</h2>
-      <form onSubmit={(e) => { e.preventDefault(); handleSignIn(); }}>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Username: </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label>Password: </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" style={{ padding: '10px 20px', fontSize: '16px' }}>Prijavi se</button>
-      </form>
-    </div>
   );
-};
+
+}
 
 export default SignIn;

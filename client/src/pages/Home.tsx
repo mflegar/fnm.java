@@ -1,13 +1,15 @@
-// src/pages/Home.tsx
-import React from 'react';
 import { Link } from 'react-router-dom';
+import '../index.css';
+//Ovo je glavna stranica. Tu nam je cilj samo prikazati naslov i gumb SIGN IN.
+//To sve ide u jedan div samo.
+//Gumb sign in nas vodi do rute za prijavu. Tu korisnik dalje bira hoće li biti researcher ili institution leader.
 
-const Home: React.FC = () => {
+function Home(){
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    <div>
       <h1>AI Research Lab Management</h1>
       <Link to="/signin">
-        <button style={{ padding: '10px 20px', fontSize: '16px' }}>SIGN IN</button>
+        <button>SIGN IN</button> 
       </Link>
     </div>
   );
