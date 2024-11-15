@@ -12,6 +12,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23lix0IjEi7CKwyNQg
+            client-secret: 70f7f8c78d46a8d5cafd3ea5ce3715b1604293d2
 server:
   port: ${PORT:8780}
 

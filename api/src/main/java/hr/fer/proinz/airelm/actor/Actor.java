@@ -1,4 +1,4 @@
-package hr.fer.proinz.airelm.user;
+package hr.fer.proinz.airelm.actor;
 
 
 import jakarta.persistence.Entity;
