@@ -1,6 +1,13 @@
 spring:
   application:
     name: airelm
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${env.CLIENT-ID}
+            client-secret: ${env.CLIENT-SERVER}
 
 server:
   port: ${PORT:8780}
