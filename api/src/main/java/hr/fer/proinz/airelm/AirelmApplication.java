@@ -1,7 +1,12 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package hr.fer.proinz.airelm;
 
-import hr.fer.proinz.airelm.user.Actor;
-import hr.fer.proinz.airelm.user.ActorRepository;
+import hr.fer.proinz.airelm.actor.Actor;
+import hr.fer.proinz.airelm.actor.ActorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -11,6 +16,10 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AirelmApplication {
+    private static final Logger log = LoggerFactory.getLogger(AirelmApplication.class);
+
+    public AirelmApplication() {
+    }
 
     private static final Logger log = LoggerFactory.getLogger(AirelmApplication.class);
     public static void main(String[] args) {
@@ -44,5 +53,4 @@ public class AirelmApplication {
             log.info("");
         };
     }
-
 }
