@@ -122,15 +122,15 @@ docker compose up
 
 ## Team Members
 
-| Name             | GitHub account                                           |
-|------------------|----------------------------------------------------------|
-| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             |
-| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   |
-| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) |
-| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         |
-| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) |
-| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         |
-| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               |
+| Name             | GitHub account                                           | Role |
+|------------------|----------------------------------------------------------|------|
+| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB)<br>![Design](https://img.shields.io/badge/Design-DA461B?logo=figma&logoColor=white) |
+| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB)<br>![DevOps](https://img.shields.io/badge/DevOps-2088FF?logo=github-actions&logoColor=white) |
+| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
+| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
+| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB) |
+| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
+| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
 
 ## Contributing
 
