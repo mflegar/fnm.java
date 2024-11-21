@@ -1,95 +1,76 @@
 # Software Engineering
 
-> Ime projekta u naslovu ima cilj opisati namjenu projekta te pomoći u podizanju početnog interesa za projekt prezentirajući osnovnu svrhu projekta. Isključivo ovisi o Vama!
+> The project title should aim to describe the purpose of the project and help spark initial interest by presenting the project's primary objective. This choice is entirely up to you!
 >
-> Naravno, nijedan predložak nije idealan za sve projekte jer su potrebe i ciljevi različiti. Ne bojte se naglasiti Vaš cilj u ovoj početnoj stranici projekta, podržat ćemo ga bez obzira usredotočili se Vi više na tenologiju ili marketing.
+> Naturally, no template is ideal for all projects since needs and goals vary. Don’t hesitate to emphasize your objective on this project’s homepage, whether it’s more technology-focused or marketing-oriented; we’ll support it regardless.
 >
-> Zašto ovaj dokument? Samo manji dio timova je do sada propoznao potrebu (a i meni je lakše pratiti Vaš rad).
+> Why this document? Only a small portion of teams have recognized the need for it (and it makes it easier for me to follow your progress).
 
 ## Project Description/Overview
 
 This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course at the Faculty of Electrical Engineering and Computing at the University of Zagreb.
 
-> Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
+> Briefly describe the goal of your project. Your motivation? (Note: the answer isn’t “Because it was the assignment, and we had no other ideas.”) What problem are you solving?
 >
-> Obzirom da je ovo zadani projekt navedite i što želite/jeste novo naučili.
+> Since this is an assigned project, state what you want to learn or have learned.
 >
-> Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
+> A well-crafted description allows you to showcase your work to other developers and potential employers. Not only does a strong project description often differentiate good projects from less impressive ones, but it also represents a good practice you should master.
 
-> ### AI Research Lab Management
->
-> Aplikacija "**AI Research Lab Management**" (**_AIReLM_**) olakšat će
-> akademskim i privatnim institucijama s većim brojem istraživača, koji rade
-> na raznim projektima, razvoj i testiranje novih tehnologija koje
-> implementiraju algoritme umjetne inteligencije.
->
-> Proces upravljanja istraživanjem obuhvaća otvaranje prijedloga projekta,
-> odobravanje prijedloga od strane institucije, dodjeljivanje zadataka
-> članovima tima, praćenje napretka i testiranje rezultata.
->
-> Aplikacija će imati nekoliko uloga korisnika, kao što su: istraživač,
-> voditelj projekta, voditelj institucije, inženjer osiguranja kvalitete i
-> administrator informatičkog sustava. Svaki od njih ima specifične ovlasti
-> i mogućnosti unutar aplikacije.
->
-> Aplikacija će omogućiti izračunavanje i predviđanje vremena trajanja
-> projekta i pregled statusa projekta. Ako je projekt financiran bit će
-> moguće pratiti troškove te ih izvesti kao PDF dokument. Aplikacija bi
-> trebala također omogućiti osnovne funkcionalnosti testiranja razvijenih
-> modela i proizvoda te implementirati osnove automatskog testiranja.
->
-> Obavijesti o statusu i promjeni statusa projekta, kao i o novim projektima,
-> se putem elektroničke pošte ili push notifikacija šalju odgovarajućim
-> osobama.
->
-> Aplikacija bi trebala biti povezana s vanjskim bazama istraživačkih radova
-> poput arXiv-a ili PubMed-a, putem kojih će prikazati relevantne radove te,
-> ako je to moguće, izračunati i prikazati važnost projekta u odnosu na
-> postojeće radove u tom području.
->
-> Za proces registracije i prijave će se koristiti neki od vanjskih servisa
-> za autentifikaciju (OAuth2).
->
-> Aplikacija će imati responzivan dizajn i biti prilagođena upotrebi na
-> različitim vrstama uređaja.
+### AI Research Lab Management
+
+The "**AI Research Lab Management**" (**_AIReLM_**) application is designed to assist academic and private institutions with larger numbers of researchers working on various projects. It aims to streamline the development and testing of new technologies implementing artificial intelligence algorithms.
+
+The research management process encompasses project proposal submission, proposal approval by the institution, task assignment to team members, progress tracking, and results testing.
+
+The application will support multiple user roles, including researcher, project leader, institution manager, quality assurance engineer, and IT system administrator, each with specific permissions and capabilities within the application.
+
+Features include project duration estimation, project status tracking, cost tracking for funded projects (with export options to PDF), and basic functionalities for testing developed models and products, including automated testing basics.
+
+Status updates and project status changes, as well as notifications about new projects, will be sent to relevant individuals via email or push notifications.
+
+The application should integrate with external research databases, such as arXiv or PubMed, to display relevant papers and, if feasible, calculate and display the project’s significance relative to existing research in the field.
+
+The registration and login process will leverage an external authentication service (OAuth2).
+
+The application will have a responsive design, optimized for use across different device types.
 
 ## Functional Requirements Overview
 
-1. **User Registration**<br>
-Users can register an account.
+1. **User Registration**  
+   Users can register an account.
 
-2. **Institution Creation**<br>
-The system facilitates the establishment of an institution.
+2. **Institution Creation**  
+   The system facilitates the establishment of an institution.
 
-3. **Access Request**<br>
-You can submit an access request to a specific institution.
+3. **Access Request**  
+   Users can submit an access request to a specific institution.
 
-4. **Researcher Project Idea Submission**<br>
-Each researcher in the institution can submit their project proposal directly to the institution.
+4. **Researcher Project Idea Submission**  
+   Each researcher in the institution can submit their project proposal directly to the institution.
 
-5. **Team Invitation and Management**<br>
-Team leaders can assemble their teams.
+5. **Team Invitation and Management**  
+   Team leaders can assemble their teams.
 
-For a complete list and more comprehensive description of the functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#functional-requirements).
+For a full list and detailed description of the functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#functional-requirements).
 
 ## Non-Functional Requirements Overview
 
-1. **Security**<br>
-The application should ensure the confidentiality, integrity, and availability of user data.
+1. **Security**  
+   The application should ensure confidentiality, integrity, and availability of user data.
 
-2. **Usability**<br>
-The application should be easy to use for all intended users.
+2. **Usability**  
+   The application should be easy to use for all intended users.
 
-3. **Scalability**<br>
-The application should be able to handle a large number of users and projects without compromising performance.
+3. **Scalability**  
+   The application should handle a large number of users and projects without performance degradation.
 
-4. **Performance**<br>
-The application should respond quickly to user interactions and load times should be minimized.
+4. **Performance**  
+   The application should quickly respond to user interactions, with minimal load times.
 
-5. **Reliability**<br>
-The application should be reliable, users should be able to use it without expecting crashes and errors and in case they do happen, data should not be lost.
+5. **Reliability**  
+   The application should be stable and reliable, minimizing crashes or errors, with data preservation in case of disruptions.
 
-For a more comprehensive description of the non-functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#other-requirements).
+For a more comprehensive description of the non-functional requirements, refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#other-requirements).
 
 ## Technologies
 
@@ -114,7 +95,7 @@ For a more comprehensive description of the non-functional requirements, please 
 
 ## Getting Started (Installation)
 
-To get started, open your terminal, and run the following command:
+To get started, open your terminal and run the following command:
 
 ```bash
 docker compose up
@@ -138,39 +119,41 @@ Read our [contributing guide](.github/CONTRIBUTING.md) to learn about our develo
 
 ## Code of Conduct &ensp;[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
-As students, you are likely familiar with the minimum standards of acceptable behavior as defined in the [FER Student Code of Conduct](https://www.fer.unizg.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016[3][1].pdf), as well as additional guidelines for teamwork on the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course. We expect you to respect the [IEEE Code of Ethics](https://www.ieee.org/about/corporate/governance/p7-8.html), which plays an important educational role in establishing the highest standards of integrity, responsible behavior, and ethical conduct in professional activities. By doing so, the community of software engineers defines common principles that define moral character, making important business decisions, and establishing clear moral expectations for all members of the community.
+As students, you’re familiar with the minimum standards of acceptable behavior outlined in the [FER Student Code of Conduct](https://www.fer.unizg.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016[3][1].pdf), as well as guidelines for teamwork in the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course. We also expect adherence to the [IEEE Code of Ethics](https://www.ieee.org/about/corporate/governance/p7-8.html), which establishes standards of integrity, responsible behavior, and ethical conduct in professional activities.
 
-The Code of Conduct is a set of enforceable rules that serve to clearly communicate expectations and requirements for community/team work. It explicitly defines the obligations, rights, unacceptable behavior, and corresponding consequences (in contrast to an ethical code). A widely accepted Code of Conduct for working in an open-source community has been provided within this repository.
+The Code of Conduct is an enforceable set of rules that clearly communicates expectations and requirements for teamwork. It explicitly outlines obligations, rights, unacceptable behaviors, and corresponding consequences, creating moral expectations for all team members.
 
-> ### Poboljšajte funkcioniranje tima
->
-> * definirajte načina na koji će rad biti podijeljen među članovima grupe
-> * dogovorite kako će grupa međusobno komunicirati.
-> * ne gubite vrijeme na dogovore na koji će grupa rješavati sporove primjenite standarde!
-> * implicitno podrazmijevamo da će svi članovi grupe slijediti kodeks ponašanja.
->
-> ### Prijava problema
->
-> Najgore što se može dogoditi je da netko šuti kad postoje problemi. Postoji nekoliko stvari koje možete učiniti kako biste najbolje riješili sukobe i probleme:
->
-> * Obratite mi se izravno [e-pošta](mailto:vlado.sruk@fer.hr) i  učinit ćemo sve što je u našoj moći da u punom povjerenju saznamo koje korake trebamo poduzeti kako bismo riješili problem.
-> * Razgovarajte s vašim asistentom jer ima najbolji uvid u dinamiku tima. Zajedno ćete saznati kako riješiti sukob i kako izbjeći daljnje utjecanje u vašem radu.
-> * Ako se osjećate ugodno neposredno razgovarajte o problemu. Manje incidente trebalo bi rješavati izravno. Odvojite vrijeme i privatno razgovarajte s pogođenim članom tima te vjerujte u iskrenost.
+### Improve Team Functionality
+
+- Define work distribution among group members.
+- Agree on communication methods within the group.
+- Avoid spending time discussing how to resolve disputes—apply standards!
+- Implicitly assume all team members will follow the code of conduct.
+
+### Reporting Issues
+
+The worst scenario is silence when problems exist. To best resolve conflicts and issues:
+
+- Contact me directly via [email](mailto:vlado.sruk@fer.hr), and we’ll do everything to determine next steps in confidence.
+- Speak with your assistant, who is best positioned to understand team dynamics and can help resolve conflicts and avoid future disruptions.
+- If you feel comfortable, discuss the issue directly. Minor incidents should be resolved directly. Take time to privately speak with the affected team member and trust in openness.
 
 ## License &ensp;[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-shield]][cc-by-nc-sa-4.0]
 
-This repository contains Open Educational Resources and is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International][cc-by-nc-sa-4.0] license that allows you to download, share, and modify the work as long as you:
+This repository contains Open Educational Resources and is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International][cc-by-nc-sa-4.0] license. You may download, share, and modify the work as long as you:
 
-* Attribute the author
-* Do not use it for commercial purposes
-* Share it under the same terms
+- Attribute the author
+- Do not use it for commercial purposes
+- Share it under the same terms
+
+
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-image]][cc-by-nc-sa-4.0]
 
 ### Note
 
-* All third-party packages are distributed under their own licenses
-* All other resources (images, models, animations, etc.) are distributed under their own licenses
+- All third-party packages are distributed under their own licenses
+- All other resources (images, models, animations, etc.) are distributed under their own licenses
 
 [cc-by-nc-sa-4.0]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en
 [cc-by-nc-sa-4.0-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
@@ -178,4 +161,4 @@ This repository contains Open Educational Resources and is licensed under the [C
 
 ### Repository Licensing Reference
 
-* The repository's wiki is subject to the same licensing terms as the repository itself
+- The repository's wiki is subject to the same licensing terms as the repository itself
