@@ -7,7 +7,8 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
-  background-color: lightgrey;
+  background-color: lightgray;
+  color:black;
 }
 
 h1 {
@@ -22,13 +23,13 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  transition: border-color 0.25s;
   margin:20px;
 }
 
 #listUsers{
-  width:300px;
+  width:450px;
   background-color: white;
+  border:1px black solid;
 }
 
 p{

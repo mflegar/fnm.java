@@ -20,8 +20,8 @@ function Login(){ //Dohvaća korisnike iz baze.
 
   return(
     <>
+     <h2>List of users:</h2>
     <div id="listUsers">
-      <p>List of users:</p>
       <ul>
         {users.map((list,index)=> (
           <li></li>
