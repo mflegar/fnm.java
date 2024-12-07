@@ -8,7 +8,7 @@ function Home(){
       <p><i>Welcome to our application that follows researchers led by a team leader to build algorithms in the field of artificial intelligence.The research management process includes initiating project proposals, approving
       proposals by the institution, assigning tasks to team members, monitoring progress, and testing results.</i></p>
       <Link to="/dashboard">
-        <button>LOG IN</button> 
+        <button>LOGIN</button> 
       </Link>
     </div>
   );

@@ -29,7 +29,7 @@ function Login(){ //Dohvaća korisnike iz baze.
         ))}
       </ul>
     </div>
-      <button>LOG OUT</button> 
+      <button>LOGOUT</button> 
     </>
    
 
