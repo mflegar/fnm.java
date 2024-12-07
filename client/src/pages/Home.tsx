@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import '../index.css';
-//Ovo je glavna stranica. Tu nam je cilj samo prikazati naslov i gumb SIGN IN.
-//To sve ide u jedan div samo.
-//Gumb sign in nas vodi do rute za prijavu. Tu korisnik dalje bira hoće li biti researcher ili institution leader.
 
 function Home(){
   return (
     <div>
       <h1>AI Research Lab Management</h1>
-      <Link to="/signin">
-        <button>SIGN IN</button> 
+      <p>Welcome to our application that follows researchers led by a team leader to build algorithms in the field of artificial intelligence.The research management process includes initiating project proposals, approving
+      proposals by the institution, assigning tasks to team members, monitoring progress, and testing results.</p>
+      <Link to="/dashboard">
+        <button>LOG IN</button> 
       </Link>
     </div>
   );
