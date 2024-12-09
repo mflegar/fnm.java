@@ -1,18 +1,14 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import UserForm from './UserForm';
-import './App.css';  // Importiraj CSS za App
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
-const App = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<h2>Home Page</h2>} />  {/* Pocetna stranica */}
-                <Route path="/form" element={<UserForm />} />  {/* Forma na /form */}
-                <Route path="/researcher" element={<h2>Researcher!</h2>} />  {/* Stranica za Researcher */}
-                <Route path="/institution-manager" element={<h2>Institution!</h2>}/> {/* Stranica za Institution Manager */}
-            </Routes>
-        </Router>
-    );
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/dashboard" element={<Login />} />
+    </Routes>
+  );
 };
 
 export default App;
