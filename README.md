@@ -1,57 +1,12 @@
-# Software Engineering
-
-> Ime projekta u naslovu ima cilj opisati namjenu projekta te pomoći u podizanju početnog interesa za projekt prezentirajući osnovnu svrhu projekta. Isključivo ovisi o Vama!
->
-> Naravno, nijedan predložak nije idealan za sve projekte jer su potrebe i ciljevi različiti. Ne bojte se naglasiti Vaš cilj u ovoj početnoj stranici projekta, podržat ćemo ga bez obzira usredotočili se Vi više na tenologiju ili marketing.
->
-> Zašto ovaj dokument? Samo manji dio timova je do sada propoznao potrebu (a i meni je lakše pratiti Vaš rad).
-
-## Project Description/Overview
-
+# AI Research Lab Management - AIReLM
 This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course at the Faculty of Electrical Engineering and Computing at the University of Zagreb.
 
-> Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
->
-> Obzirom da je ovo zadani projekt navedite i što želite/jeste novo naučili.
->
-> Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
+# Motivation
+This project was created as a result of a joint idea of ​​our team members inspired by the given topic by the professor. The project itself is very similar to the Travel Order theme, which was the default, but we adapted it to our idea.
 
 > ### AI Research Lab Management
->
-> Aplikacija "**AI Research Lab Management**" (**_AIReLM_**) olakšat će
-> akademskim i privatnim institucijama s većim brojem istraživača, koji rade
-> na raznim projektima, razvoj i testiranje novih tehnologija koje
-> implementiraju algoritme umjetne inteligencije.
->
-> Proces upravljanja istraživanjem obuhvaća otvaranje prijedloga projekta,
-> odobravanje prijedloga od strane institucije, dodjeljivanje zadataka
-> članovima tima, praćenje napretka i testiranje rezultata.
->
-> Aplikacija će imati nekoliko uloga korisnika, kao što su: istraživač,
-> voditelj projekta, voditelj institucije, inženjer osiguranja kvalitete i
-> administrator informatičkog sustava. Svaki od njih ima specifične ovlasti
-> i mogućnosti unutar aplikacije.
->
-> Aplikacija će omogućiti izračunavanje i predviđanje vremena trajanja
-> projekta i pregled statusa projekta. Ako je projekt financiran bit će
-> moguće pratiti troškove te ih izvesti kao PDF dokument. Aplikacija bi
-> trebala također omogućiti osnovne funkcionalnosti testiranja razvijenih
-> modela i proizvoda te implementirati osnove automatskog testiranja.
->
-> Obavijesti o statusu i promjeni statusa projekta, kao i o novim projektima,
-> se putem elektroničke pošte ili push notifikacija šalju odgovarajućim
-> osobama.
->
-> Aplikacija bi trebala biti povezana s vanjskim bazama istraživačkih radova
-> poput arXiv-a ili PubMed-a, putem kojih će prikazati relevantne radove te,
-> ako je to moguće, izračunati i prikazati važnost projekta u odnosu na
-> postojeće radove u tom području.
->
-> Za proces registracije i prijave će se koristiti neki od vanjskih servisa
-> za autentifikaciju (OAuth2).
->
-> Aplikacija će imati responzivan dizajn i biti prilagođena upotrebi na
-> različitim vrstama uređaja.
+>The application „AI Research Lab Managment“ will facillitate academic and private institutions with a large number of researches working on variouss projects to develop and test new technologies that implement >artificial intelligence algorithms. The reseacrh managment process includes initiating project proposals, approving proposals by the institution, assigning tasks to team members, monitoring progess and testing >results. The application will have several user roles, including: researchers, project leader, institution leader, quality assurance engineer and system administrator. Each role will have specific permission >and capatibilities within the application. The application will enable calculating and predicting project duration and viewing project status. For funded projects, it will be possible to track expenses and >export them as PDF document. The application should also support basic functionalities for testing developed models and products, as well as implementing basic automated testing. Notifications about the project >status changes, as well as about new projects, will be sent via email or push notifications to the relevant individuals. The application should be in integreted with external research paper databases, such as >arXiv or PubMed, to display relevant research papers and, if possible, calculate and display the project's importance in relation to existing researh in the field. For the registration and login process, > > > >external authentication services (OAuth2) will be used. The application will have a responsive design and be adapted for use on various types of devices
+
 
 ## Functional Requirements Overview
 
@@ -141,21 +96,6 @@ Read our [contributing guide](.github/CONTRIBUTING.md) to learn about our develo
 As students, you are likely familiar with the minimum standards of acceptable behavior as defined in the [FER Student Code of Conduct](https://www.fer.unizg.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016[3][1].pdf), as well as additional guidelines for teamwork on the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course. We expect you to respect the [IEEE Code of Ethics](https://www.ieee.org/about/corporate/governance/p7-8.html), which plays an important educational role in establishing the highest standards of integrity, responsible behavior, and ethical conduct in professional activities. By doing so, the community of software engineers defines common principles that define moral character, making important business decisions, and establishing clear moral expectations for all members of the community.
 
 The Code of Conduct is a set of enforceable rules that serve to clearly communicate expectations and requirements for community/team work. It explicitly defines the obligations, rights, unacceptable behavior, and corresponding consequences (in contrast to an ethical code). A widely accepted Code of Conduct for working in an open-source community has been provided within this repository.
-
-> ### Poboljšajte funkcioniranje tima
->
-> * definirajte načina na koji će rad biti podijeljen među članovima grupe
-> * dogovorite kako će grupa međusobno komunicirati.
-> * ne gubite vrijeme na dogovore na koji će grupa rješavati sporove primjenite standarde!
-> * implicitno podrazmijevamo da će svi članovi grupe slijediti kodeks ponašanja.
->
-> ### Prijava problema
->
-> Najgore što se može dogoditi je da netko šuti kad postoje problemi. Postoji nekoliko stvari koje možete učiniti kako biste najbolje riješili sukobe i probleme:
->
-> * Obratite mi se izravno [e-pošta](mailto:vlado.sruk@fer.hr) i  učinit ćemo sve što je u našoj moći da u punom povjerenju saznamo koje korake trebamo poduzeti kako bismo riješili problem.
-> * Razgovarajte s vašim asistentom jer ima najbolji uvid u dinamiku tima. Zajedno ćete saznati kako riješiti sukob i kako izbjeći daljnje utjecanje u vašem radu.
-> * Ako se osjećate ugodno neposredno razgovarajte o problemu. Manje incidente trebalo bi rješavati izravno. Odvojite vrijeme i privatno razgovarajte s pogođenim članom tima te vjerujte u iskrenost.
 
 ## License &ensp;[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-shield]][cc-by-nc-sa-4.0]
 
