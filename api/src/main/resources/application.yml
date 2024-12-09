@@ -22,15 +22,6 @@ spring:
     username: postgres
     password: postgrestest
 
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: Ov23liiGhr0oNEtx5CtQ
-            client-secret: 3a1a8ef0306befcc98e1d35981601b6eb7957ce4
-
-
 server:
   port: ${PORT:8780}
 

@@ -13,44 +13,30 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
+import java.util.Map;
 
 @SpringBootApplication
+@RestController
 public class AirelmApplication {
     private static final Logger log = LoggerFactory.getLogger(AirelmApplication.class);
 
     public AirelmApplication() {
     }
 
-    private static final Logger log = LoggerFactory.getLogger(AirelmApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(AirelmApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner demo(ActorRepository repository) {
-        return (args) -> {
-            // save a few customers
-            repository.save(new Actor(1, "jedan", "lel", "lel", "lel"));
-            repository.save(new Actor(1, "dvokjoa", "lel", "lel", "lel"));
-
-            // fetch all customers
-            log.info("Customers found with findAll():");
-            log.info("-------------------------------");
-
-            // fetch an individual customer by ID
-            Actor customer = repository.findByActorID(1);
-            log.info("Customer found with findById(1L):");
-            log.info("--------------------------------");
-            log.info(customer.toString());
-            log.info("");
-
-            // fetch customers by last name
-            log.info("Customer found with findByLastName('Bauer'):");
-            log.info("--------------------------------------------");
-            repository.findByActorSurname("lel").forEach(bauer -> {
-                log.info(bauer.toString());
-            });
-            log.info("");
-        };
+    @PostMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return Collections.singletonMap("name", principal.getAttribute("name"));
     }
 }

@@ -20,7 +20,7 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated(); // za ostale stranice TREBA
                 })
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/login2", true) // preusmjerava na "/login2" nakon prijave
+                        .defaultSuccessUrl("/home", true) // preusmjerava na "/login2" nakon prijave
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout") // Definiraj URL za logout akciju
@@ -31,5 +31,4 @@ public class SecurityConfig {
                 )
                 .build();
     }
-
 }
