@@ -13,8 +13,8 @@ spring:
       client:
         registration:
           github:
-            client-id: Iv23liR3NjtNPJaaiL71
-            client-secret: 971e60f911c35cc368a3622a669d8848c01b3f29
+            client-id: ${env.CLIENT_ID}
+            client-secret: ${env.CLIENT_SECRET}
             scope: user, user:email
 
 server:
