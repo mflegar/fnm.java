@@ -2,27 +2,30 @@ package hr.fer.proinz.airelm.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5780") // Ovo ne radi nazalost
 public class HomeController {
 
-    @GetMapping("/") // Pocetna ruta
-    public String greet(){
-        return "Welcome to the page";
+    @PostMapping("/")
+    public String greet2(){ return "Welcome lmaooo"; }
+
+    // User info from github
+    @GetMapping("/user-info")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal){
+        System.out.println(principal);
+        return principal.getAttributes();
     }
 
-    @GetMapping("/login2") // Ruta /login2
-    public String login(@AuthenticationPrincipal OAuth2User principal){
-        // Dobivamo podatke korisnika koje je GitHub poslao
-        Map<String, Object> attributes = principal.getAttributes();
-
-        // Ispisivanje korisničkih podataka kao string
-        return "GitHub User Info: " + attributes.toString();
+    @PostMapping("/lol")
+    public Map<String, String> greet3(@RequestBody Map<String, String> userData) {
+        System.out.println("Received user data: " + userData);
+        return Map.of("message", "Welcome lmaoo", "status", "Success");
     }
+
 }

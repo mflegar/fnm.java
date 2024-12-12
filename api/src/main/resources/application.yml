@@ -1,13 +1,21 @@
 spring:
   application:
     name: airelm
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ems_db
+    username: postgres
+    password: testiramo123
+  jpa:
+    hibernate:
+      ddl-auto: update
   security:
     oauth2:
       client:
         registration:
           github:
-            client-id: ${env.CLIENT-ID}
-            client-secret: ${env.CLIENT-SERVER}
+            client-id: ${env.CLIENT_ID}
+            client-secret: ${env.CLIENT_SECRET}
+            scope: user, user:email
 
        jpa:
         hibernate:
