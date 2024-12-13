@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Uvoz za preusmjeravanje
 import './UserForm.css';
 
@@ -8,6 +8,7 @@ const UserForm = () => {
     const [email, setEmail] = useState<string>('');
     const [role, setRole] = useState<string>('Researcher');
     const [isEmailReadOnly, setIsEmailReadOnly] = useState<boolean>(false);
+    const [id, setId] = useState<number | null>(null);
     const navigate = useNavigate(); // Preusmjeravanje
 
     /*useEffect(() => {
@@ -41,6 +42,9 @@ const UserForm = () => {
                         setEmail(userInfo.email);
                         setIsEmailReadOnly(true);  // Ako email postoji, polje je readOnly
                     }
+                    if (userInfo.id) {
+                        setId(userInfo.id);  // Set the ID from the user info
+                    }
                 }
             } catch (error) {
                 console.error("Not signed in to github, error: ", error);
@@ -52,7 +56,7 @@ const UserForm = () => {
     // Funkcija za slanje forme
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitted:', { name, surname, email, role });
+        console.log('Submitted:', { name, surname, email, role, id });
 
         // Podaci koje saljemo na backend
         const userData = {
@@ -60,6 +64,7 @@ const UserForm = () => {
             surname,
             email,
             role,
+            id
         };
 
         try {

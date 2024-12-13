@@ -5,8 +5,8 @@
 
 package hr.fer.proinz.airelm;
 
-import hr.fer.proinz.airelm.actor.Actor;
-import hr.fer.proinz.airelm.actor.ActorRepository;
+import hr.fer.proinz.airelm.entity.Actor;
+import hr.fer.proinz.airelm.repository.ActorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
