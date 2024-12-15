@@ -1,0 +1,17 @@
+.custom-navbar {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    /* Matches "dark" theme */
+    z-index: 1050;
+    /* Ensures navbar is on top of other content */
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+}

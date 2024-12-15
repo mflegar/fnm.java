@@ -3,7 +3,9 @@ package hr.fer.proinz.airelm.controller;
 import hr.fer.proinz.airelm.dto.ActorDTO;
 import hr.fer.proinz.airelm.entity.Actor;
 import hr.fer.proinz.airelm.service.ActorService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.stylesheets.LinkStyle;
 
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,5 +56,13 @@ public class HomeController {
     public List<ActorDTO> getAllUsers() {
         return actorService.getActors();
     }
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpSession session) {
+        session.invalidate(); // Završava sesiju
+        return ResponseEntity.ok().build();
+    }
+    
+
+
 
 }
