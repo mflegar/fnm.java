@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,17 +25,22 @@ public class Actor {
 
     @Id // Primary Key
     @Column(name = "actor_id")
+    @JsonProperty("id")
     private Long actorID;
 
+    @JsonProperty("email")
     @Column(name = "actor_email", nullable = false, unique = true)
     private String actorEmail;
 
+    @JsonProperty("role")
     @Column(name = "actor_role", nullable = false)
     private String actorRole;
 
+    @JsonProperty("name")
     @Column(name = "actor_name", nullable = false)
     private String actorName;
 
+    @JsonProperty("surname")
     @Column(name = "actor_surname", nullable = false)
     private String actorSurname;
 

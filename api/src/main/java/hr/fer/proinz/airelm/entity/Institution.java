@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +25,11 @@ public class Institution {
     @Column(name = "institution_id")
     private Integer institutionID;
 
+    @JsonProperty("name")
     @Column(name = "institution_name", nullable = false)
     private String institutionName;
 
+    @JsonProperty("link")
     @Column(name = "institution_link", nullable = false)
     private String institutionLink;
 

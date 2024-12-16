@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,9 +23,11 @@ public class Project {
     @Column(name = "project_id")
     private Integer projectID;
 
+    @JsonProperty("name")
     @Column(name = "project_name", nullable = false)
     private String projectName;
 
+    @JsonProperty("start")
     @Column(name = "start_time", nullable = false)
     private java.sql.Timestamp startTime;
 

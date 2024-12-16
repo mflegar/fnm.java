@@ -3,32 +3,13 @@ import { useNavigate } from 'react-router-dom'; // Uvoz za preusmjeravanje
 import './UserForm.css';
 
 const UserForm = () => {
+    const [id, setId] = useState('');
     const [name, setName] = useState<string>('');
     const [surname, setSurname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [role, setRole] = useState<string>('Researcher');
     const [isEmailReadOnly, setIsEmailReadOnly] = useState<boolean>(false);
     const navigate = useNavigate(); // Preusmjeravanje
-
-    /*useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await fetch("/api/user-info", { credentials: "include" });
-                if (response.ok) {
-                    const userInfo = await response.json();
-                    console.log('Response from github: ', userInfo);
-                    if (userInfo.email) {
-                        setEmail(userInfo.email);
-                        setIsEmailReadOnly(true);  // Ako email postoji, polje je readOnly
-                    }
-                }
-            } catch (error) {
-                console.error("Not signed in to github, error: ", error);
-                navigate('/?from=form'); // Ako korisnik nije prijavljen, prebaci ga na login
-            }
-        };
-        fetchUserInfo();
-    }, [navigate]);*/
 
     useEffect(() => {
         const fetchUserInfo = async () => {
@@ -37,6 +18,7 @@ const UserForm = () => {
                 if (response.ok) {
                     const userInfo = await response.json();
                     console.log('Response from github: ', userInfo);
+                    setId(userInfo.id);
                     if (userInfo.email) {
                         setEmail(userInfo.email);
                         setIsEmailReadOnly(true);  // Ako email postoji, polje je readOnly
@@ -56,6 +38,7 @@ const UserForm = () => {
 
         // Podaci koje saljemo na backend
         const userData = {
+            id,
             name,
             surname,
             email,
@@ -64,7 +47,7 @@ const UserForm = () => {
 
         try {
             // Slanje POST zahtjeva s podacima
-            const response = await fetch('/api/lol', {
+            const response = await fetch('/api/users/add', {
                 method: 'POST',
                 credentials: "include",
                 headers: {
@@ -76,7 +59,7 @@ const UserForm = () => {
             // Provjera odgovora s backend-a
             if (response.ok) {
                 console.log('User data successfully sent to backend');
-                const data = await response.json();
+                const data = await response.text();
                 console.log('Response from backend:', data);
                 // Preusmjeravanje na odgovarajuću stranicu prema ulozi
                 if (role === 'Researcher') {
