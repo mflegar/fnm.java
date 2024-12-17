@@ -11,8 +11,8 @@ const App = () => {
                 {/* Starting page */}
                 <Route path="/" element={<Home />} />  {/* Početna stranica */}
 
-                {/* Protected routes (need to be signed in to github) */}
-                <Route path="/form" element={<ProtectedRoute><UserForm /></ProtectedRoute>} />
+                {/*Protected routes (need to be signed in to github)*/}
+                <Route path="/form" element={/*<ProtectedRoute>*/<UserForm />/*</ProtectedRoute>*/} />
                 <Route path="/researcher" element={<ProtectedRoute><h2>Researcher!</h2></ProtectedRoute>} />
                 <Route path="/institution-manager" element={<ProtectedRoute><h2>Institution!</h2></ProtectedRoute>} />
             </Routes>
