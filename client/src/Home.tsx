@@ -45,9 +45,9 @@ const Home = () => {
 
     return (
         <div className="home-container" style={{backgroundImage:`url()`}}>
-            <h1>AI Reseacrch Lab Managment</h1>
+            <h1>AI Research Lab Managment</h1>
             <button onClick={handleGitHubLogin} className="login-button">
-               LOGIN
+               LOGIN WITH GITHUB
             </button>
         </div>
     );

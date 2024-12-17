@@ -131,14 +131,13 @@ const UserForm = () => {
                 </div>
 
                 {/* Role dropdown */}
-                <div id="role">
-                    {/*
+                <div>
+                    <label>Role</label>
+                    <br></br>
                     <select value={role} onChange={(e) => setRole(e.target.value)} required>
                         <option value="Researcher">Researcher</option>
                         <option value="Institution Manager">Institution Manager</option>
-                    </select>*/}
-                    <button id="researcher">Researcher</button>
-                    <button id="manager">Institution manager</button>
+                    </select>
                 </div>
 
                 {/* Submit button */}
