@@ -7,7 +7,7 @@ spring:
     password: testiramo123
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   security:
     oauth2:
       client:

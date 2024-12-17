@@ -17,8 +17,9 @@ const UserForm = () => {
                 const response = await fetch("/api/user-info", { credentials: "include" });
                 if (response.ok) {
                     const userInfo = await response.json();
-                    console.log('Response from github: ', userInfo);
+                    //console.log('Response from github: ', userInfo);
                     setId(userInfo.id);
+                    sessionStorage.setItem('userID', userInfo.id);
                     if (userInfo.email) {
                         setEmail(userInfo.email);
                         setIsEmailReadOnly(true);  // Ako email postoji, polje je readOnly
@@ -34,7 +35,7 @@ const UserForm = () => {
     // Funkcija za slanje forme
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitted:', { name, surname, email, role });
+        console.log('Submitted:', { name, surname, email, role, id });
 
         // Podaci koje saljemo na backend
         const userData = {
@@ -61,17 +62,23 @@ const UserForm = () => {
                 console.log('User data successfully sent to backend');
                 const data = await response.text();
                 console.log('Response from backend:', data);
+
+                // Used for ProtectedRoute to work successfully
+                sessionStorage.setItem('isActorInDatabase', 'true');
+
                 // Preusmjeravanje na odgovarajuću stranicu prema ulozi
                 if (role === 'Researcher') {
                     navigate('/researcher'); // Preusmjeri na Researcher stranicu
                 } else if (role === 'Institution Manager') {
-                    navigate('/institution-manager'); // Preusmjeri na Institution Manager stranicu
+                    navigate('/institution-form'); // Preusmjeri na Institution Manager stranicu
                 }
             } else {
-                console.error('Error sending data to backend');
+                console.error('Failed to send user data to backend');
+                sessionStorage.setItem('isActorInDatabase', 'false');
             }
         } catch (error) {
             console.error('Error sending request:', error);
+            sessionStorage.setItem('isActorInDatabase', 'false');
         }
     };
 
