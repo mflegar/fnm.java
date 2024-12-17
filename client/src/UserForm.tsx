@@ -94,7 +94,7 @@ const UserForm = () => {
 
     return (
         <div>
-            <h2>Fill out your information</h2>
+            <h2>Please, fill this information to continue!</h2>
             <form onSubmit={handleSubmit}>
                 {/* Name input field */}
                 <div>
@@ -131,16 +131,20 @@ const UserForm = () => {
                 </div>
 
                 {/* Role dropdown */}
-                <div>
-                    <label>Role</label>
+                <div id="role">
+                    {/*
                     <select value={role} onChange={(e) => setRole(e.target.value)} required>
                         <option value="Researcher">Researcher</option>
                         <option value="Institution Manager">Institution Manager</option>
-                    </select>
+                    </select>*/}
+                    <button id="researcher">Researcher</button>
+                    <button id="manager">Institution manager</button>
                 </div>
 
                 {/* Submit button */}
-                <button type="submit">Submit</button>
+                <div>
+                <button type="submit" id="send">Submit</button>
+                </div>
             </form>
         </div>
     );

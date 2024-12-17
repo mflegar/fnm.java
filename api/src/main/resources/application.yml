@@ -2,9 +2,9 @@ spring:
   application:
     name: airelm
   datasource:
-    url: jdbc:postgresql://localhost:5432/ems_db
+    url: jdbc:postgresql://localhost:5432/PROGI
     username: postgres
-    password: testiramo123
+    password: testiranje123
   jpa:
     hibernate:
       ddl-auto: update

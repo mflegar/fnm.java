@@ -7,37 +7,13 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
-  background-color: lightgray;
-  color:black;
-}
-
-h1 {
-  font-size: 3.2em;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  margin:20px;
-}
-
-#listUsers{
-  width:450px;
-  background-color: white;
-  border:1px black solid;
-}
-
-p{
-  max-width: 700px;
+  background-color: #787676;
 }
 
 
-@media (prefers-color-scheme: light) {
+
+
+@media (prefers-color-scheme:light) {
   :root {
     color: #213547;
     background-color: #ffffff;
