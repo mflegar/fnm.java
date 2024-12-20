@@ -96,35 +96,4 @@ docker compose up
 | Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
 | Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
 
-## Contributing
-
-Read our [contributing guide](.github/CONTRIBUTING.md) to learn about our development process.
-
-## Code of Conduct &ensp;[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-
-As students, you are likely familiar with the minimum standards of acceptable behavior as defined in the [FER Student Code of Conduct](https://www.fer.unizg.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016[3][1].pdf), as well as additional guidelines for teamwork on the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course. We expect you to respect the [IEEE Code of Ethics](https://www.ieee.org/about/corporate/governance/p7-8.html), which plays an important educational role in establishing the highest standards of integrity, responsible behavior, and ethical conduct in professional activities. By doing so, the community of software engineers defines common principles that define moral character, making important business decisions, and establishing clear moral expectations for all members of the community.
-
-The Code of Conduct is a set of enforceable rules that serve to clearly communicate expectations and requirements for community/team work. It explicitly defines the obligations, rights, unacceptable behavior, and corresponding consequences (in contrast to an ethical code). A widely accepted Code of Conduct for working in an open-source community has been provided within this repository.
-
-## License &ensp;[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-shield]][cc-by-nc-sa-4.0]
-
-This repository contains Open Educational Resources and is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International][cc-by-nc-sa-4.0] license that allows you to download, share, and modify the work as long as you:
-
-* Attribute the author
-* Do not use it for commercial purposes
-* Share it under the same terms
-
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-image]][cc-by-nc-sa-4.0]
-
-### Note
-
-* All third-party packages are distributed under their own licenses
-* All other resources (images, models, animations, etc.) are distributed under their own licenses
-
-[cc-by-nc-sa-4.0]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en
-[cc-by-nc-sa-4.0-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[cc-by-nc-sa-4.0-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey
-
-### Repository Licensing Reference
-
-* The repository's wiki is subject to the same licensing terms as the repository itself
+## License
