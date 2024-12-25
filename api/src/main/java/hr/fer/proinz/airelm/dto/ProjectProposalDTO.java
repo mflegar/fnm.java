@@ -13,6 +13,6 @@ public class ProjectProposalDTO {
     private Integer proposalID;
     private String title;
     private String description;
-    private Long actorID;
+    private Integer actorID;
     private Integer institutionID;
 }

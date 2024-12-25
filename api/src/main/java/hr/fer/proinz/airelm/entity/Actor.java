@@ -24,9 +24,9 @@ public class Actor {
     // nullable = false <==> NOT NULL
 
     @Id // Primary Key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actor_id")
-    @JsonProperty("id")
-    private Long actorID;
+    private Integer actorID;
 
     @JsonProperty("email")
     @Column(name = "actor_email", nullable = false, unique = true)
@@ -36,13 +36,9 @@ public class Actor {
     @Column(name = "actor_role", nullable = false)
     private String actorRole;
 
-    @JsonProperty("name")
-    @Column(name = "actor_name", nullable = false)
-    private String actorName;
-
-    @JsonProperty("surname")
-    @Column(name = "actor_surname", nullable = false)
-    private String actorSurname;
+    @JsonProperty("username")
+    @Column(name = "actor_username", nullable = false)
+    private String actorUsername;
 
     // Institution relation , 1 Actor can be in Many institutions
     @JsonIgnore
@@ -68,5 +64,9 @@ public class Actor {
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
     private List<Expense> expenses;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
 
 }

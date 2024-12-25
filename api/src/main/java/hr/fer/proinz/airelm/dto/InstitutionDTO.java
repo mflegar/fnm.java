@@ -18,5 +18,5 @@ public class InstitutionDTO {
     @JsonProperty("link")
     private String institutionLink;
     @JsonProperty("id")
-    private Long ownerID; // ID ownera (Actor)
+    private Integer ownerID; // ID ownera (Actor)
 }

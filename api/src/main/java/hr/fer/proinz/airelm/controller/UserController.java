@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getActor(@PathVariable Long id) {
+    public ResponseEntity<?> getActor(@PathVariable Integer id) {
         ActorDTO actorDTO = actorService.getActor(id);
 
         if (actorDTO != null) {
@@ -37,6 +37,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     Map.of("error", "Actor not found", "id", id)
             );
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteActor(@PathVariable Integer id){
+        try {
+            actorService.deleteActor(id);
+            return new ResponseEntity<>("Actor successfully deleted!", HttpStatus.ACCEPTED);
+        } catch(Exception e){
+            return new ResponseEntity<>("Error deleting actor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -29,6 +29,20 @@ public class InstitutionService {
         return institutionRepository.save(institution);
     }
 
+    public List<InstitutionDTO> getInstitutionsByOwner(Integer ownerID) {
+        if (ownerID == null || ownerID <= 0) {
+            throw new IllegalArgumentException("Invalid Actor ID.");
+        }
+
+        return institutionRepository.findByOwner_ActorID(ownerID).stream()
+                .map(inst -> new InstitutionDTO(
+                        inst.getInstitutionID(),
+                        inst.getInstitutionName(),
+                        inst.getInstitutionLink(),
+                        inst.getOwner().getActorID()))
+                .collect(Collectors.toList());
+    }
+
     public InstitutionDTO getInstitution(Integer id) {
         Institution inst = institutionRepository.findById(id).orElse(null);
         if (inst == null) return null;

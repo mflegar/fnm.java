@@ -7,7 +7,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     // Provjera autentifikacije korisnika
-    useEffect(() => {
+    /*useEffect(() => {
         const checkAuthentication = async () => {
             try {
                 const response = await fetch("/api/user-info", { credentials: "include" });
@@ -22,14 +22,14 @@ const Home = () => {
         };
 
         checkAuthentication();
-    }, []);
+    }, []);*/
 
     // Preusmjerivanje korisnika nakon autentifikacije
     useEffect(() => {
         if (isAuthenticated) {
-            const fromPage = sessionStorage.getItem('from') || '/form';
+            //const fromPage = sessionStorage.getItem('from') || '/form';
             sessionStorage.removeItem('from');
-            navigate(fromPage, { replace: true });
+            //navigate(fromPage, { replace: true });
         }
     }, [isAuthenticated, navigate]);
 

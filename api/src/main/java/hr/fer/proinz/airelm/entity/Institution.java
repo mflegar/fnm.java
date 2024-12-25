@@ -50,4 +50,8 @@ public class Institution {
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectProposal> projectProposals;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
 }

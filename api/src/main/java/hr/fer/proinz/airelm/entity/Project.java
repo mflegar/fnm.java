@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -29,7 +30,7 @@ public class Project {
 
     @JsonProperty("start")
     @Column(name = "start_time", nullable = false)
-    private java.sql.Timestamp startTime;
+    private LocalDateTime startTime;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "proposal_id", nullable = false)

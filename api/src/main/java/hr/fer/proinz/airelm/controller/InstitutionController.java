@@ -42,6 +42,12 @@ public class InstitutionController {
         }
     }
 
+    @GetMapping("/owner/{ownerID}")
+    public ResponseEntity<List<InstitutionDTO>> getInstitutionsByOwner(@PathVariable Integer ownerID) {
+        List<InstitutionDTO> institutions = institutionService.getInstitutionsByOwner(ownerID);
+        return ResponseEntity.ok(institutions);
+    }
+
     // Get all institutions
     @GetMapping("/")
     public ResponseEntity<List<InstitutionDTO>> getAllInstitutions() {
