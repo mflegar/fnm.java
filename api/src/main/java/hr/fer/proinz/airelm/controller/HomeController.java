@@ -12,8 +12,7 @@ import java.util.Map;
 @RestController
 public class HomeController {
 
-    @PostMapping("/")
-    public String greet2(){ return "Welcome lmaooo"; }
+    @Autowired private TokenService tokenService;
 
     // User info from github
     @GetMapping("/user-info")
@@ -21,14 +20,6 @@ public class HomeController {
         System.out.println(principal);
         return principal.getAttributes();
     }
-
-    @PostMapping("/lol")
-    public Map<String, String> greet3(@RequestBody Map<String, String> userData) {
-        System.out.println("Received user data: " + userData);
-        return Map.of("message", "Welcome lmaoo", "status", "Success");
-    }
-
-    @Autowired private TokenService tokenService;
 
     @GetMapping("/generate-token/{userId}")
     public ResponseEntity<String> generateToken(@PathVariable Integer userId){

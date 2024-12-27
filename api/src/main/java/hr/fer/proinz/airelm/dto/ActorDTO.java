@@ -12,6 +12,5 @@ import lombok.Setter;
 public class ActorDTO {
     private Integer actorID;
     private String actorEmail;
-    private String actorRole;
     private String actorUsername;
 }

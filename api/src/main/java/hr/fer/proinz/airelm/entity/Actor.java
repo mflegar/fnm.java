@@ -32,10 +32,6 @@ public class Actor {
     @Column(name = "actor_email", nullable = false, unique = true)
     private String actorEmail;
 
-    @JsonProperty("role")
-    @Column(name = "actor_role", nullable = false)
-    private String actorRole;
-
     @JsonProperty("username")
     @Column(name = "actor_username", nullable = false)
     private String actorUsername;
@@ -53,6 +49,14 @@ public class Actor {
     )
     private Set<Institution> institutions = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "actor_roles",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectProposal> projectProposals;
@@ -68,5 +72,6 @@ public class Actor {
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
+
 
 }

@@ -71,11 +71,11 @@ public class TokenService {
             long currentTimestamp = Instant.now().getEpochSecond();
 
             // Check UserID if he exists in the database
-            Optional<Actor> actor = actorRepository.findById(userId);
+            /*Optional<Actor> actor = actorRepository.findById(userId);
             if (actor.isEmpty()) {
                 System.out.println("User with ID " + userId + " not found");
                 return false;
-            }
+            }*/
 
             //System.out.println("Issued At: " + issuedAt);
             //System.out.println("Expires At: " + expiresAt);

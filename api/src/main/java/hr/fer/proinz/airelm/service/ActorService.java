@@ -23,7 +23,6 @@ public class ActorService {
                 .map(actor -> new ActorDTO(
                         actor.getActorID(),
                         actor.getActorEmail(),
-                        actor.getActorRole(),
                         actor.getActorUsername()))
                 .collect(Collectors.toList());
     }
@@ -39,7 +38,6 @@ public class ActorService {
         return new ActorDTO(
                 actor.getActorID(),
                 actor.getActorEmail(),
-                actor.getActorRole(),
                 actor.getActorUsername()
         );
     }

@@ -7,7 +7,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     // Provjera autentifikacije korisnika
-    /*useEffect(() => {
+    useEffect(() => {
         const checkAuthentication = async () => {
             try {
                 const response = await fetch("/api/user-info", { credentials: "include" });
@@ -22,7 +22,7 @@ const Home = () => {
         };
 
         checkAuthentication();
-    }, []);*/
+    }, []);
 
     // Preusmjerivanje korisnika nakon autentifikacije
     useEffect(() => {
