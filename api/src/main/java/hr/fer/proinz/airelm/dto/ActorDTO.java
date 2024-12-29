@@ -10,9 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActorDTO {
-    private Long actorID;
+    private Integer actorID;
     private String actorEmail;
-    private String actorName;
-    private String actorSurname;
-    private String actorRole;
+    private String actorUsername;
 }

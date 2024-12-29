@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +15,6 @@ public class ProjectDTO {
 
     private Integer projectID;
     private String projectName;
-    private java.sql.Timestamp startTime;
+    private LocalDateTime startTime;
     private Integer proposalID;
 }

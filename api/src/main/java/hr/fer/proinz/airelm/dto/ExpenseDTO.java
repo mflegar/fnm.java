@@ -13,6 +13,6 @@ public class ExpenseDTO {
     private Integer expenseID;
     private String description;
     private Integer expense_cost;
-    private Long actorID;
+    private Integer actorID;
     private Integer projectID;
 }

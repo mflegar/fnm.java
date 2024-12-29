@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +22,11 @@ public class ProjectProposal {
     @Column(name = "proposal_id")
     private int proposalID;
 
+    @JsonProperty("attachment")
     @Column(name = "attachment", nullable = false)
     private String attachment;
 
+    @JsonProperty("title")
     @Column(name = "title", nullable = false)
     private String title;
 

@@ -27,9 +27,9 @@ const Home = () => {
     // Preusmjerivanje korisnika nakon autentifikacije
     useEffect(() => {
         if (isAuthenticated) {
-            const fromPage = sessionStorage.getItem('from') || '/form';
+            //const fromPage = sessionStorage.getItem('from') || '/form';
             sessionStorage.removeItem('from');
-            navigate(fromPage, { replace: true });
+            //navigate(fromPage, { replace: true });
         }
     }, [isAuthenticated, navigate]);
 

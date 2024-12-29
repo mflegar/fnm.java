@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +22,10 @@ public class Expense {
     private Integer expenseID;
 
     @Column(name = "description", nullable = false)
+    @JsonProperty("description")
     private String description;
 
+    @JsonProperty("expense")
     @Column(name = "expense_cost", nullable = false)
     private Integer expense_cost;
 

@@ -23,9 +23,7 @@ public class ActorService {
                 .map(actor -> new ActorDTO(
                         actor.getActorID(),
                         actor.getActorEmail(),
-                        actor.getActorName(),
-                        actor.getActorSurname(),
-                        actor.getActorRole()))
+                        actor.getActorUsername()))
                 .collect(Collectors.toList());
     }
 
@@ -33,20 +31,18 @@ public class ActorService {
         return actorRepository.save(actor);
     }
 
-    public ActorDTO getActor(Long id){
+    public ActorDTO getActor(Integer id){
         Actor actor = actorRepository.findByActorID(id);
         if(actor == null) return null;
 
         return new ActorDTO(
                 actor.getActorID(),
                 actor.getActorEmail(),
-                actor.getActorName(),
-                actor.getActorSurname(),
-                actor.getActorRole()
+                actor.getActorUsername()
         );
     }
 
-    public boolean deleteActor(Long id) {
+    public boolean deleteActor(Integer id) {
         if (actorRepository.existsById(id)) {
             actorRepository.deleteById(id);
             return true;  // Brisanje je uspješno
