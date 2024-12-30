@@ -49,14 +49,6 @@ public class Actor {
     )
     private Set<Institution> institutions = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "actor_roles",
-            joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
-
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectProposal> projectProposals;
@@ -72,6 +64,10 @@ public class Actor {
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ActorRoleInstitution> actorRoleInstitutions = new HashSet<>();
 
 
 }
