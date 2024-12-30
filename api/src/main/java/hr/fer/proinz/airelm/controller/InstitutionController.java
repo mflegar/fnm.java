@@ -48,6 +48,12 @@ public class InstitutionController {
         return ResponseEntity.ok(institutions);
     }
 
+    @GetMapping("/actor/{actorID}")
+    public ResponseEntity<List<InstitutionDTO>> getInstitutionsByActor(@PathVariable Integer actorID){
+        List<InstitutionDTO> institutions = institutionService.getInstitutionsByActor(actorID);
+        return ResponseEntity.ok(institutions);
+    }
+
     // Get all institutions
     @GetMapping("/")
     public ResponseEntity<List<InstitutionDTO>> getAllInstitutions() {
