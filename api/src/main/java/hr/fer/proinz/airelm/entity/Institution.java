@@ -50,7 +50,7 @@ public class Institution {
 
     @JsonIgnore
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectProposal> projectProposals;
+    private List<Project> projects;
 
     @JsonIgnore
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)

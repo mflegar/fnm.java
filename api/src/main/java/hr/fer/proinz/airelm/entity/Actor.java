@@ -51,7 +51,7 @@ public class Actor {
 
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectProposal> projectProposals;
+    private List<Project> projects;
 
     @JsonIgnore
     @OneToOne(mappedBy = "actor")

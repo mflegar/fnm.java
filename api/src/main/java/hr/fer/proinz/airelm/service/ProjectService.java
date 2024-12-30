@@ -20,7 +20,9 @@ public class ProjectService {
                         project.getProjectID(),
                         project.getProjectName(),
                         project.getStartTime(),
-                        project.getProposal().getProposalID()
+                        project.getAttachment(),
+                        project.getInstitution().getInstitutionID(),
+                        project.getActor().getActorID()
                 ))
                 .collect(Collectors.toList());
     }
@@ -37,7 +39,9 @@ public class ProjectService {
                 project.getProjectID(),
                 project.getProjectName(),
                 project.getStartTime(),
-                project.getProposal().getProposalID()
+                project.getAttachment(),
+                project.getInstitution().getInstitutionID(),
+                project.getActor().getActorID()
         );
     }
 

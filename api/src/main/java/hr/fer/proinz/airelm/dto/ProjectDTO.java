@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectDTO {
-
     private Integer projectID;
+
+    @JsonProperty("name")
     private String projectName;
+    @JsonProperty("start")
     private LocalDateTime startTime;
-    private Integer proposalID;
+    @JsonProperty("attachment")
+    private String attachment;
+
+    @JsonProperty("institution")
+    private Integer institutionID;
+
+    @JsonProperty("actor")
+    private Integer actorID;
+
 }
