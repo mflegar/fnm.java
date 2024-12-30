@@ -31,6 +31,23 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID){
+        if (institutionID == null || institutionID <= 0){
+            throw new IllegalArgumentException("Invalid institution ID.");
+        }
+
+        return expenseRepository.findAll().stream()
+                .filter(exp -> exp.getProject().getInstitution().getInstitutionID().equals(institutionID))
+                .map(exp -> new ExpenseDTO(
+                        exp.getExpenseID(),
+                        exp.getDescription(),
+                        exp.getExpense_cost(),
+                        exp.getActor().getActorID(),
+                        exp.getProject().getProjectID()))
+                .collect(Collectors.toList());
+
+    }
+
     public List<ExpenseDTO> getExpensesByActor(Integer actorID) {
         if (actorID == null || actorID <= 0) {
             throw new IllegalArgumentException("Invalid actor ID.");
