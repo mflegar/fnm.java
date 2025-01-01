@@ -9,21 +9,24 @@ import ArxivSearch from './Arxiv';
 import InstitutionForm from "./InstitutionForm.tsx";
 import Researcher from './Researcher.tsx';
 import InstitutionManager from './InstitutionManager.tsx';
+import { UserProvider } from './useUser'; // Importing the UserProvider
 
 const App = () => {
     return (
-        <Router>
-            <Routes>
-                {/* Starting page */}
-                <Route path="/" element={<Home />} />  {/* Početna stranica */}
+        <Router> {/* Wrap the Router around the entire app */}
+            <UserProvider> {/* Wrap the UserProvider inside the Router */}
+                <Routes>
+                    {/* Starting page */}
+                    <Route path="/" element={<Home />} />
 
-                {/* Protected routes (need to be signed in to github) */}
-                <Route path="/form" element={<ProtectedRoute><UserForm /></ProtectedRoute>} />
-                <Route path="/researcher" element={<ProtectedRoute><h2><Researcher /></h2></ProtectedRoute>} />
-                <Route path="/institution-form" element={<ProtectedRoute><h2><InstitutionForm /></h2></ProtectedRoute>} />
-                <Route path="/institution-manager" element={<ProtectedRoute><h2><InstitutionManager /></h2></ProtectedRoute>} />
-                <Route path="/search" element={<ProtectedRoute><ArxivSearch /></ProtectedRoute>} />
-            </Routes>
+                    {/* Protected routes (need to be signed in to GitHub) */}
+                    <Route path="/form" element={<ProtectedRoute><UserForm /></ProtectedRoute>} />
+                    <Route path="/researcher" element={<ProtectedRoute><h2><Researcher /></h2></ProtectedRoute>} />
+                    <Route path="/institution-form" element={<ProtectedRoute><h2><InstitutionForm /></h2></ProtectedRoute>} />
+                    <Route path="/institution-manager" element={<ProtectedRoute><h2><InstitutionManager /></h2></ProtectedRoute>} />
+                    <Route path="/search" element={<ProtectedRoute><ArxivSearch /></ProtectedRoute>} />
+                </Routes>
+            </UserProvider>
         </Router>
     );
 };

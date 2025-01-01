@@ -22,7 +22,8 @@ public class CustomTokenFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         // Ignore these 2 routes for now
-        if (requestURI.startsWith("/generate-token") || requestURI.startsWith("/login/oauth2")) {
+        if (requestURI.startsWith("/generate-token") || requestURI.startsWith("/login/oauth2")
+        || requestURI.startsWith("/user-info")) {
             filterChain.doFilter(request, response); // Continue with the request
             return;
         }
