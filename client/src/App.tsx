@@ -9,6 +9,7 @@ import ArxivSearch from './Arxiv';
 import InstitutionForm from "./InstitutionForm.tsx";
 import Researcher from './Researcher.tsx';
 import InstitutionManager from './InstitutionManager.tsx';
+import ProjectForm from './ProjectForm.tsx';
 import { UserProvider } from './useUser'; // Importing the UserProvider
 
 const App = () => {
@@ -22,8 +23,9 @@ const App = () => {
                     {/* Protected routes (need to be signed in to GitHub) */}
                     <Route path="/form" element={<ProtectedRoute><UserForm /></ProtectedRoute>} />
                     <Route path="/researcher" element={<ProtectedRoute><h2><Researcher /></h2></ProtectedRoute>} />
-                    <Route path="/institution-form" element={<ProtectedRoute><h2><InstitutionForm /></h2></ProtectedRoute>} />
+                    <Route path="/institution/new" element={<ProtectedRoute><h2><InstitutionForm /></h2></ProtectedRoute>} />
                     <Route path="/institution-manager" element={<ProtectedRoute><h2><InstitutionManager /></h2></ProtectedRoute>} />
+                    <Route path="/pp/new" element={<ProtectedRoute><h2><ProjectForm /></h2></ProtectedRoute>} />
                     <Route path="/search" element={<ProtectedRoute><ArxivSearch /></ProtectedRoute>} />
                 </Routes>
             </UserProvider>

@@ -1,72 +1,149 @@
-/* InstitutionForm.css */
-
-/* Container */
-form {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    font-family: Arial, sans-serif;
-}
-
-/* Form elements */
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
-    font-size: 16px;
-}
-
-/* Input fields */
-input[type="text"],
-input[type="url"],
-button[type="submit"] {
+.center {
+    position: relative;
+    padding: 60px 50px;
+    background: #fff;
+    border-radius: 20px;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    max-width: 700px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0 auto;
+    min-height: 400px;
+}
+
+.center h1 {
+    font-size: 2em; /* Veliki naslov */
+    margin-bottom: 20px; /* Razmak ispod naslova */
+    font-family: sans-serif;
+    color: #333;
+}
+
+.center form {
+    box-shadow: none;
+    background: none;
+}
+
+.center .inputbox {
+    position: relative;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
+.center .inputbox input {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #ddd;
+    outline: none;
+    background: #f9f9f9;
+    border-radius: 10px;
+    font-size: 0.9em;
+    transition: border-color 0.3s ease;
+    margin: 0;
     box-sizing: border-box;
 }
 
-/* Input focus */
-input[type="text"]:focus,
-input[type="url"]:focus {
-    border-color: #66afe9;
-    outline: none;
-    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+.center .inputbox input:focus {
+    border-color: dodgerblue;
 }
 
-/* Button */
-button[type="submit"] {
-    background-color: #007bff;
+.center .inputbox span {
+    position: absolute;
+    top: 10px;
+    left: 18px;
+    font-size: 0.7em;
+    font-family: sans-serif;
+    color: #666;
+    transition: 0.3s;
+}
+
+.center .inputbox input:focus ~ span,
+.center .inputbox input:valid ~ span {
+    transform: translateX(-20px) translateY(-45px);
+    font-size: 0.8em;
+    color: dodgerblue;
+}
+
+.center button {
+    width: 100%;
+    padding: 15px;
+    background: dodgerblue;
     color: #fff;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-top: 20px;
+    box-sizing: border-box;
 }
 
-/* Button hover effect */
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.center button:hover {
+    background: linear-gradient(45deg, greenyellow, dodgerblue);
+    transform: scale(1.05);
 }
 
-/* Error message */
-.error {
-    color: #d9534f;
-    font-weight: bold;
-    margin-top: 10px;
+.center button:active {
+    transform: scale(0.98);
 }
 
-/* Text input focus outline fix */
-input[type="text"],
-input[type="url"],
-button[type="submit"] {
-    outline: none;
+.center .inputbox input,
+.center button {
+    font-family: cursive;
+}
+
+/* Responzivni dizajn za tablete i manje ekrane */
+@media (max-width: 768px) {
+    .center {
+        padding: 50px 20px;
+        max-width: 100%;
+        min-height: 500px;
+    }
+
+    .center h1 {
+        font-size: 1.8em; /* Manji naslov na tabletima */
+        margin-bottom: 15px; /* Manji razmak ispod naslova */
+    }
+
+    .center .inputbox {
+        margin-bottom: 60px;
+    }
+
+    .center .inputbox input {
+        font-size: 0.8em;
+        padding: 14px;
+    }
+
+    .center button {
+        font-size: 1em;
+        padding: 16px;
+    }
+}
+
+/* Za mobilne uredaje (manje od 480px) */
+@media (max-width: 480px) {
+    .center {
+        padding: 40px 15px;
+        max-width: 100%;
+        min-height: 550px;
+    }
+
+    .center h1 {
+        font-size: 1.5em; /* Manji naslov na mobilnim uredajima */
+        margin-bottom: 10px; /* Manji razmak ispod naslova */
+    }
+
+    .center .inputbox {
+        margin-bottom: 50px;
+    }
+
+    .center .inputbox input {
+        font-size: 0.8em;
+        padding: 12px;
+    }
+
+    .center button {
+        font-size: 1em;
+        padding: 14px;
+    }
 }

@@ -1,44 +1,45 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './InstitutionForm.css';
+import './ProjectForm.css';
 
-const InstitutionForm = () => {
+const ProjectForm = () => {
     const [name, setName] = useState('');
-    const [link, setLink] = useState('');
+    const [attachment, setAttachment] = useState('');
 
-    //const id = Number(sessionStorage.getItem('userID'));
-    const id = 1;
+    const institution = 1;
+    const actor = 1;
+    // These 2 will change once database gets updated
 
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitted:', { name, link , id});
+        console.log('Submitted:', { name, attachment , institution, actor });
 
-        const institutionData = {
+        const projectData = {
             name,
-            link,
-            id,
+            attachment,
+            institution,
+            actor
         };
 
-        console.log('Institution data being sent:', institutionData);
+        console.log('Project data being sent:', projectData);
 
         const token = localStorage.getItem("token");
 
         try {
-            const response = await fetch('/api/institution/add', {
+            const response = await fetch('/api/project/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(institutionData) // Institution data
+                body: JSON.stringify(projectData)
             });
 
             if (response.ok) {
-                console.log('Institution data successfully sent to backend');
+                console.log('Project data successfully sent to backend');
                 const data = await response.text();
                 console.log('Response from backend:', data);
                 navigate('/institution-manager');
@@ -48,7 +49,6 @@ const InstitutionForm = () => {
         } catch (error) {
             console.error('Error sending request:', error);
         }
-
     };
 
     return (
@@ -56,17 +56,22 @@ const InstitutionForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="inputbox">
                     <input type="text" required value={name} onChange={e => setName(e.target.value)} />
-                    <span>Institution Name</span>
+                    <span>Project Name</span>
                 </div>
                 <div className="inputbox">
-                    <input type="text" required value={link} onChange={e => setLink(e.target.value)} />
-                    <span>Website link</span>
+                    <textarea 
+                        required 
+                        value={attachment} 
+                        onChange={e => setAttachment(e.target.value)} 
+                        rows={6} // You can adjust the height here
+                        placeholder="Provide project details or attach relevant information"
+                    />
+                    <span>Description</span>
                 </div>
-                <button type="submit">Create Institution</button>
+                <button type="submit">Submit project</button>
             </form>
         </div>
     );
-    
 };
 
-export default InstitutionForm;
+export default ProjectForm;
