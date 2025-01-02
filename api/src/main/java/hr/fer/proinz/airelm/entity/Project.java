@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,13 +34,33 @@ public class Project {
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "proposal_id", nullable = false)
-    private ProjectProposal proposal;
+    @JsonProperty("attachment")
+    @Column(name = "attachment", nullable = false)
+    private String attachment;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state", nullable = false)
+    private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "actor_id", nullable = false)
+    private Actor actor;
+
+    @ManyToOne
+    @JoinColumn(name = "institution_id", nullable = false)
+    private Institution institution;
+
+    @ManyToMany
+    @JoinTable(
+            name = "joinsProject",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private Set<Project> actors = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> task;
+    private List<Task> tasks;
 
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)

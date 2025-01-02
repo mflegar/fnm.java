@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface InstitutionRepository extends JpaRepository<Institution, Integer> {
     List<Institution> findByOwner_ActorID(Integer ownerID);
+    List<Institution> findByActors_ActorID(Integer actorID);
 }

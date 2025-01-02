@@ -43,7 +43,7 @@ public class Actor {
 
     @ManyToMany
     @JoinTable(
-            name = "joins",
+            name = "joinsInstitution",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "institution_id")
     )
@@ -51,15 +51,15 @@ public class Actor {
 
     @ManyToMany
     @JoinTable(
-            name = "actor_roles",
+            name = "joinsProject",
             joinColumns = @JoinColumn(name = "actor_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+            inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Project> projects = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectProposal> projectProposals;
+    private List<Project> ownedProjects;
 
     @JsonIgnore
     @OneToOne(mappedBy = "actor")
@@ -72,6 +72,10 @@ public class Actor {
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ActorRoleInstitution> actorRoleInstitutions = new HashSet<>();
 
 
 }
