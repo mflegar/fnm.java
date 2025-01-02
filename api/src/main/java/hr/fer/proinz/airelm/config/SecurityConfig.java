@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.config;
 
+import hr.fer.proinz.airelm.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Autowired private CustomTokenFilter customTokenFilter;
+    @Autowired private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -45,6 +47,8 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .defaultSuccessUrl("http://localhost:5780", true)
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)) // Custom service integration
                 )
                 .addFilterBefore(customTokenFilter, OAuth2LoginAuthenticationFilter.class); // Validate token before oauth2
 
