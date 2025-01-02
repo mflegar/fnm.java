@@ -2,6 +2,7 @@ package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.ActorDTO;
 import hr.fer.proinz.airelm.entity.Actor;
+import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,17 @@ import java.util.Map;
 public class UserController {
 
     @Autowired private ActorService actorService;
+    @Autowired private ActorRepository actorRepository;
 
     @PostMapping("/add")
     public ResponseEntity<String> addActor(@RequestBody Actor actor) {
         try {
+
+            Actor existingActor = actorRepository.findByActorEmail(actor.getActorEmail());
+            if (existingActor != null) {
+                return new ResponseEntity<>("Actor already exists in the database.", HttpStatus.ACCEPTED);
+            }
+
             actorService.saveActor(actor);
             return new ResponseEntity<>("Actor successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
