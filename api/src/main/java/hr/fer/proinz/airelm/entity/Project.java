@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -47,6 +49,14 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "institution_id", nullable = false)
     private Institution institution;
+
+    @ManyToMany
+    @JoinTable(
+            name = "joinsProject",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private Set<Project> actors = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)

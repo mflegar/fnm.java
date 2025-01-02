@@ -42,7 +42,7 @@ public class Institution {
     // Many-to-Many relationship between Actor and Institution
     @ManyToMany
     @JoinTable(
-            name = "joins",
+            name = "joinsInstitution",
             joinColumns = @JoinColumn(name = "institution_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
