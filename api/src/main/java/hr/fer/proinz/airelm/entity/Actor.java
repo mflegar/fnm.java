@@ -29,7 +29,7 @@ public class Actor {
     private Integer actorID;
 
     @JsonProperty("email")
-    @Column(name = "actor_email", nullable = true, unique = true)
+    @Column(name = "actor_email", nullable = false, unique = true)
     private String actorEmail;
 
     @JsonProperty("username")
