@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
     Actor findByActorID(Integer actorID);
-    Actor findByActorEmail(String email);
+    Optional<Actor> findByActorEmail(String email);
 }

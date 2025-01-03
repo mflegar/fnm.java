@@ -22,7 +22,7 @@ public class UserController {
     public ResponseEntity<String> addActor(@RequestBody Actor actor) {
         try {
 
-            Actor existingActor = actorRepository.findByActorEmail(actor.getActorEmail());
+            Actor existingActor = actorRepository.findByActorEmail(actor.getActorEmail()).orElse(null);
             if (existingActor != null) {
                 return new ResponseEntity<>("Actor already exists in the database.", HttpStatus.ACCEPTED);
             }
