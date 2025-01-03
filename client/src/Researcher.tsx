@@ -14,12 +14,25 @@ const Researcher = () => {
   const [isInInstitution, setIsInInstitution] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stompClient, setStompClient] = useState<any>(null);
-  const userId = sessionStorage.getItem("userID");
+  
+  const userString = localStorage.getItem("user");
+  if (userString){
+    const user = JSON.parse(userString);
+    const userId = user.id;
+  }
+
+  // Dohvat tokena iz localStorage
+  const token = localStorage.getItem("token");
 
   // Dohvat institucija sa servera
   const fetchInstitutions = async () => {
     try {
-      const response = await fetch("/api/institution/");
+      const response = await fetch("/api/institution/", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`, // Dodavanje Authorization header-a
+        },
+      });
       const data: InstitutionDTO[] = await response.json();
 
       console.log("Fetched institutions: ", data);
@@ -35,15 +48,19 @@ const Researcher = () => {
 
   // Spajanje na WebSocket server putem SockJS i STOMP
   const connectWebSocket = () => {
-    const socket = new SockJS("http://localhost:8780/ws");
+    const socket = new SockJS(`http://localhost:8780/ws?token=${token}`);
     const client = Stomp.over(socket);
 
-    client.connect({}, () => {
-      console.log("Connected to WebSocket server");
-      setStompClient(client);
-    }, (error: any) => {
-      console.error("WebSocket connection error:", error);
-    });
+    client.connect(
+      {}, // Dodavanje Authorization zaglavlja
+      () => {
+        console.log("Connected to WebSocket server");
+        setStompClient(client);
+      },
+      (error: any) => {
+        console.error("WebSocket connection error:", error);
+      }
+    );
   };
 
   useEffect(() => {
@@ -67,14 +84,14 @@ const Researcher = () => {
       const joinRequest = {
         userID: userId, // ID korisnika iz sesije
       };
-  
+
       // Slanje zahtjeva na specifičan endpoint za instituciju
       stompClient.send(
         `/app/join/${institutionID}`, // Dinamički endpoint za instituciju
-        {},
+        { Authorization: `Bearer ${token}` }, // Dodavanje Authorization header-a za WebSocket zahtjev
         JSON.stringify(joinRequest)
       );
-  
+
       console.log(`Zahtjev za pridruživanje instituciji ${institutionID} je poslan.`);
       closeModal(); // Zatvaranje modala nakon slanja zahtjeva
     }
