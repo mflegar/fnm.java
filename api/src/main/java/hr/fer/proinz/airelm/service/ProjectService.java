@@ -28,7 +28,8 @@ public class ProjectService {
                         project.getStartTime(),
                         project.getAttachment(),
                         project.getInstitution().getInstitutionID(),
-                        project.getActor().getActorID()
+                        project.getActor().getActorID(),
+                        project.getState()
                 ))
                 .collect(Collectors.toList());
     }
@@ -47,23 +48,38 @@ public class ProjectService {
                 project.getStartTime(),
                 project.getAttachment(),
                 project.getInstitution().getInstitutionID(),
-                project.getActor().getActorID()
+                project.getActor().getActorID(),
+                project.getState()
         );
     }
-    public List<ProjectDTO> getProjectsByActor(Integer actorID){
-        return projectRepository.findByActor(
-                actorRepository.findByActorID(actorID)).stream().map(
+    public List<ProjectDTO> getProjectsByOwner(Integer actorID){
+        return projectRepository.findByActor_ActorID(
+                actorID).stream().map(
                 project -> new ProjectDTO(
                         project.getProjectID(),
                         project.getProjectName(),
                         project.getStartTime(),
                         project.getAttachment(),
                         project.getInstitution().getInstitutionID(),
-                        project.getActor().getActorID()
-        )).collect(Collectors.toList());
+                        project.getActor().getActorID(),
+                        project.getState()
+                )).collect(Collectors.toList());
+    }
+    public List<ProjectDTO> getProjectsByActor(Integer actorID){
+        return projectRepository.findByActors_ActorID(
+                actorID).stream().map(
+                project -> new ProjectDTO(
+                        project.getProjectID(),
+                        project.getProjectName(),
+                        project.getStartTime(),
+                        project.getAttachment(),
+                        project.getInstitution().getInstitutionID(),
+                        project.getActor().getActorID(),
+                        project.getState()
+                )).collect(Collectors.toList());
     }
     public List<ProjectDTO> getProjectsByInstitution(Integer institutionID){
-        return projectRepository.findByInstitution(institutionRepository.findById(institutionID).get()
+        return projectRepository.findByInstitution_InstitutionID(institutionID
                 ).stream().map(
                 project -> new ProjectDTO(
                         project.getProjectID(),
@@ -71,7 +87,8 @@ public class ProjectService {
                         project.getStartTime(),
                         project.getAttachment(),
                         project.getInstitution().getInstitutionID(),
-                        project.getActor().getActorID()
+                        project.getActor().getActorID(),
+                        project.getState()
                 )).collect(Collectors.toList());
     }
 
