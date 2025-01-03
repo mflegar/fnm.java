@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class ExpenseService {
 
-    @Autowired private ExpenseRepository expenseRepository;
+    @Autowired
+    private ExpenseRepository expenseRepository;
 
 
     public List<ExpenseDTO> getExpenses() {
@@ -30,8 +31,8 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
-    public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID){
-        if (institutionID == null || institutionID <= 0){
+    public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID) {
+        if (institutionID == null || institutionID <= 0) {
             throw new IllegalArgumentException("Invalid institution ID.");
         }
 
@@ -62,7 +63,7 @@ public class ExpenseService {
                 .collect(Collectors.toList());
     }
 
-    public List<ExpenseDTO> getExpensesByProject(Integer projectID){
+    public List<ExpenseDTO> getExpensesByProject(Integer projectID) {
         if (projectID == null || projectID <= 0) {
             throw new IllegalArgumentException("Invalid project ID.");
         }
@@ -89,7 +90,7 @@ public class ExpenseService {
                 exp.getProject().getProjectID());
     }
 
-    public void deleteExpense(Integer id){
+    public void deleteExpense(Integer id) {
         expenseRepository.deleteById(id);
     }
 

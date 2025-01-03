@@ -12,9 +12,10 @@ import java.util.stream.Collectors;
 @Service
 public class ActorService {
 
-    @Autowired ActorRepository actorRepository;
+    @Autowired
+    ActorRepository actorRepository;
 
-    public ActorService(){
+    public ActorService() {
 
     }
 
@@ -27,13 +28,13 @@ public class ActorService {
                 .collect(Collectors.toList());
     }
 
-    public Actor saveActor(Actor actor){
+    public Actor saveActor(Actor actor) {
         return actorRepository.save(actor);
     }
 
-    public ActorDTO getActor(Integer id){
+    public ActorDTO getActor(Integer id) {
         Actor actor = actorRepository.findByActorID(id);
-        if(actor == null) return null;
+        if (actor == null) return null;
 
         return new ActorDTO(
                 actor.getActorID(),

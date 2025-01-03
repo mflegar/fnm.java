@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import hr.fer.proinz.airelm.entity.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,8 @@ public class ProjectDTO {
 
     @JsonProperty("actor")
     private Integer actorID;
+
+    @JsonProperty("state")
+    private State state;
 
 }

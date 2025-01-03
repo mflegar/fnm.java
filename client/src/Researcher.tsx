@@ -14,12 +14,31 @@ const Researcher = () => {
   const [isInInstitution, setIsInInstitution] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stompClient, setStompClient] = useState<any>(null);
-  const userId = sessionStorage.getItem("userID");
+  const [userId, setUserId] = useState<string | null>(null); // userId kao state
+
+  // Dohvat tokena iz localStorage
+  const token = localStorage.getItem("token");
+
+  // Dohvat korisničkog ID-a iz localStorage
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const user = JSON.parse(userString);
+      setUserId(user.id); // Postavljanje userId iz localStorage
+    }
+  }, []);
 
   // Dohvat institucija sa servera
   const fetchInstitutions = async () => {
     try {
-      const response = await fetch("/api/institution/");
+      if (!token || !userId) return; // Ako nije dostupan token ili userId, prekinuti
+
+      const response = await fetch("/api/institution/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Dodavanje Authorization header-a
+        },
+      });
       const data: InstitutionDTO[] = await response.json();
 
       console.log("Fetched institutions: ", data);
@@ -35,11 +54,13 @@ const Researcher = () => {
 
   // Spajanje na WebSocket server putem SockJS i STOMP
   const connectWebSocket = () => {
-    const socket = new SockJS("http://localhost:8780/ws");
+    if (!token) return;
+
+    const socket = new SockJS(`http://localhost:8780/ws?token=${token}`);
     const client = Stomp.over(socket);
 
     client.connect(
-      {},
+      {}, // Dodavanje Authorization zaglavlja
       () => {
         console.log("Connected to WebSocket server");
         setStompClient(client);
@@ -51,8 +72,10 @@ const Researcher = () => {
   };
 
   useEffect(() => {
-    fetchInstitutions();
-    connectWebSocket();
+    if (userId) {
+      fetchInstitutions();
+      connectWebSocket();
+    }
 
     return () => {
       if (stompClient) {
@@ -61,13 +84,13 @@ const Researcher = () => {
         });
       }
     };
-  }, []);
+  }, [userId]); // Ovo će se pokrenuti kada userId bude dostupan
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleJoinClick = (institutionID: string) => {
-    if (stompClient) {
+    if (stompClient && userId) {
       const joinRequest = {
         userID: userId, // ID korisnika iz sesije
       };
@@ -75,7 +98,7 @@ const Researcher = () => {
       // Slanje zahtjeva na specifičan endpoint za instituciju
       stompClient.send(
         `/app/join/${institutionID}`, // Dinamički endpoint za instituciju
-        {},
+        { Authorization: `Bearer ${token}` }, // Dodavanje Authorization header-a za WebSocket zahtjev
         JSON.stringify(joinRequest)
       );
 

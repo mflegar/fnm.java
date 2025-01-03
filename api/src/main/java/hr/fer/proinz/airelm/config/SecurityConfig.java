@@ -19,8 +19,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired private CustomTokenFilter customTokenFilter;
-    @Autowired private CustomOAuth2UserService customOAuth2UserService;
+    @Autowired
+    private CustomTokenFilter customTokenFilter;
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -28,19 +30,19 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET,"/oauth2/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/oauth2/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/login/oauth2/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "login/oauth2/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET,"/**").authenticated()
-                        .requestMatchers(HttpMethod.POST,"/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/**").authenticated()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET,"/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )

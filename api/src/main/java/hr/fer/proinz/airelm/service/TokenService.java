@@ -14,9 +14,10 @@ public class TokenService {
 
     private static final String SECRET_KEY = "AireLMapp";
 
-    @Autowired private ActorRepository actorRepository;
+    @Autowired
+    private ActorRepository actorRepository;
 
-    public String generateToken(Integer userID){
+    public String generateToken(Integer userID) {
 
         long issuedAt = Instant.now().getEpochSecond(); // Current timestamp
         long expiresAt = issuedAt + 3600; // Token valid for 1 hour
