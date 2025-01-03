@@ -1,6 +1,6 @@
 import "./init.tsx";
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router";
 import UserForm from "./UserForm";
 import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute";
@@ -14,7 +14,7 @@ import { UserProvider } from "./useUser"; // Importing the UserProvider
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       {" "}
       {/* Wrap the Router around the entire app */}
       <UserProvider>
@@ -83,7 +83,7 @@ const App = () => {
           />
         </Routes>
       </UserProvider>
-    </Router>
+    </BrowserRouter>
   );
 };
 

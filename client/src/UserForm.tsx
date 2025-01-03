@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Uvoz za preusmjeravanje
+import { useNavigate } from "react-router";
 import "./UserForm.css";
 
 const UserForm = () => {
