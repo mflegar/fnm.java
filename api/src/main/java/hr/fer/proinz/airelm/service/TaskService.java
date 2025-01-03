@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class TaskService {
 
-    @Autowired private TaskRepository taskRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
     public List<TaskDTO> getTasks() {
         return taskRepository.findAll().stream()

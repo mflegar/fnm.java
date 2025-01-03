@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class InstitutionService {
 
-    @Autowired InstitutionRepository institutionRepository;
+    @Autowired
+    InstitutionRepository institutionRepository;
 
     public List<InstitutionDTO> getInstitutions() {
         return institutionRepository.findAll().stream()
@@ -43,8 +44,8 @@ public class InstitutionService {
                 .collect(Collectors.toList());
     }
 
-    public List<InstitutionDTO> getInstitutionsByActor(Integer actorID){
-        if(actorID == null || actorID <= 0){
+    public List<InstitutionDTO> getInstitutionsByActor(Integer actorID) {
+        if (actorID == null || actorID <= 0) {
             throw new IllegalArgumentException("Invalid actor ID.");
         }
 

@@ -1,12 +1,12 @@
 package hr.fer.proinz.airelm.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import hr.fer.proinz.airelm.entity.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import hr.fer.proinz.airelm.entity.State;
 import java.time.LocalDateTime;
 
 @Getter

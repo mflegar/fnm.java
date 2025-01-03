@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class NotificationService {
 
-    @Autowired private NotificationRepository notificationRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     public List<NotificationDTO> getNotifications() {
         return notificationRepository.findAll().stream()
@@ -42,7 +43,7 @@ public class NotificationService {
                 .collect(Collectors.toList());
     }
 
-    public List<NotificationDTO> getNotificationsByInstitution(Integer institutionID){
+    public List<NotificationDTO> getNotificationsByInstitution(Integer institutionID) {
         if (institutionID == null || institutionID <= 0) {
             throw new IllegalArgumentException("Invalid institution ID.");
         }

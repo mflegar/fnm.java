@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
     List<Expense> findByActor_ActorID(Integer actorID);
+
     List<Expense> findByProject_ProjectID(Integer projectID);
 }

@@ -16,9 +16,11 @@ import java.util.List;
 @RequestMapping("/institution")
 public class InstitutionController {
 
-    @Autowired private InstitutionService institutionService;
+    @Autowired
+    private InstitutionService institutionService;
 
-    @Autowired private ActorRepository actorRepository;
+    @Autowired
+    private ActorRepository actorRepository;
 
     @PostMapping("/add")
     public ResponseEntity<String> addInstitution(@RequestBody InstitutionDTO institutionDTO) {
@@ -49,7 +51,7 @@ public class InstitutionController {
     }
 
     @GetMapping("/actor/{actorID}")
-    public ResponseEntity<List<InstitutionDTO>> getInstitutionsByActor(@PathVariable Integer actorID){
+    public ResponseEntity<List<InstitutionDTO>> getInstitutionsByActor(@PathVariable Integer actorID) {
         List<InstitutionDTO> institutions = institutionService.getInstitutionsByActor(actorID);
         return ResponseEntity.ok(institutions);
     }

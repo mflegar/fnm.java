@@ -16,8 +16,10 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired private ActorService actorService;
-    @Autowired private ActorRepository actorRepository;
+    @Autowired
+    private ActorService actorService;
+    @Autowired
+    private ActorRepository actorRepository;
 
     @PostMapping("/add")
     public ResponseEntity<String> addActor(@RequestBody Actor actor) {
@@ -50,11 +52,11 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteActor(@PathVariable Integer id){
+    public ResponseEntity<String> deleteActor(@PathVariable Integer id) {
         try {
             actorService.deleteActor(id);
             return new ResponseEntity<>("Actor successfully deleted!", HttpStatus.ACCEPTED);
-        } catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>("Error deleting actor: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
