@@ -56,7 +56,7 @@ public class Project {
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
-    private Set<Project> actors = new HashSet<>();
+    private Set<Actor> actors = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
