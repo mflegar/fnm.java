@@ -1,0 +1,157 @@
+.center {
+  position: relative;
+  padding: 60px 50px; /* Veći padding za više prostora u formi */
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0 auto;
+  min-height: 400px; /* Postavlja minimalnu visinu za desktop uređaje */
+}
+
+.center form {
+  box-shadow: none;
+  background: none;
+}
+
+.center .inputbox {
+  position: relative;
+  width: 100%;
+  margin-bottom: 60px; /* Povećan razmak između input polja */
+}
+
+.center .inputbox textarea {
+  margin-top: 100px; /* Pomicanje teksta prema dolje */
+  padding: 18px 20px; /* Povećan padding za veće polje */
+  font-size: 0.9em;
+  border: 2px solid #ddd;
+  outline: none;
+  background: #f9f9f9;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.center .inputbox input,
+.center .inputbox textarea {
+  width: 100%;
+  padding: 18px 20px;
+  border: 2px solid #ddd;
+  outline: none;
+  background: #f9f9f9;
+  border-radius: 10px;
+  font-size: 0.9em;
+  transition: border-color 0.3s ease;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.center .inputbox input:focus,
+.center .inputbox textarea:focus {
+  border-color: dodgerblue;
+}
+
+.center .inputbox span {
+  position: absolute;
+  top: 10px; /* Standardna pozicija */
+  left: 18px;
+  font-size: 0.7em; /* Manji font za tekst */
+  font-family: sans-serif;
+  color: #666;
+  transition: 0.3s;
+}
+
+.center .inputbox input:focus ~ span,
+.center .inputbox textarea:focus ~ span,
+.center .inputbox input:valid ~ span,
+.center .inputbox textarea:valid ~ span {
+  transform: translateX(-20px) translateY(-45px); /* Pomaknut tekst više i lijevo kad je u fokusu */
+  font-size: 0.8em; /* Blago povećanje fonta kad je input u fokusu */
+  color: dodgerblue;
+}
+
+.center button {
+  width: 100%;
+  padding: 15px;
+  background: dodgerblue;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.center button:hover {
+  background: linear-gradient(45deg, greenyellow, dodgerblue);
+  transform: scale(1.05);
+}
+
+.center button:active {
+  transform: scale(0.98);
+}
+
+.center .inputbox input,
+.center .inputbox textarea,
+.center button {
+  font-family: cursive;
+}
+
+/* Responzivni dizajn za tablete i manje ekrane */
+@media (max-width: 768px) {
+  .center {
+    padding: 50px 20px; /* Manji padding za tablete */
+    max-width: 100%;
+    min-height: 500px; /* Viša visina na tabletima */
+  }
+
+  .center h1 {
+    font-size: 1.8em;
+  }
+
+  .center .inputbox {
+    margin-bottom: 60px; /* Povećan razmak između input polja */
+  }
+
+  .center .inputbox textarea {
+    padding: 14px; /* Manji padding za tekst na tabletima */
+    font-size: 0.85em;
+  }
+
+  .center .inputbox span {
+    font-size: 0.7em; /* Malo povećan font */
+    top: 5px; /* Pomaknuto više */
+  }
+}
+
+@media (max-width: 480px) {
+  .center {
+    padding: 40px 15px;
+    max-width: 100%;
+    min-height: 550px; /* Viša visina na mobilnim uređajima */
+  }
+
+  .center h1 {
+    font-size: 1.5em;
+  }
+
+  .center .inputbox {
+    margin-bottom: 50px; /* Povećan razmak između input polja */
+  }
+
+  .center .inputbox textarea {
+    padding: 12px; /* Smanjen padding na mobitelima */
+    font-size: 0.8em;
+  }
+
+  .center .inputbox span {
+    font-size: 0.7em; /* Dodatno prilagođavanje veličine teksta */
+    top: 2px; /* Još više podignut span */
+  }
+}

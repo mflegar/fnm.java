@@ -1,6 +1,8 @@
 package hr.fer.proinz.airelm.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +26,13 @@ public class Institution {
     @Column(name = "institution_id")
     private Integer institutionID;
 
+    @JsonProperty("name")
     @Column(name = "institution_name", nullable = false)
     private String institutionName;
 
+    @JsonProperty("link")
     @Column(name = "institution_link", nullable = false)
+    @Pattern(regexp = "https?://.+", message = "Invalid URL format")
     private String institutionLink;
 
     @ManyToOne
@@ -37,7 +42,7 @@ public class Institution {
     // Many-to-Many relationship between Actor and Institution
     @ManyToMany
     @JoinTable(
-            name = "joins",
+            name = "joinsInstitution",
             joinColumns = @JoinColumn(name = "institution_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
@@ -45,6 +50,14 @@ public class Institution {
 
     @JsonIgnore
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectProposal> projectProposals;
+    private List<Project> projects;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ActorRoleInstitution> actorRoleInstitutions = new HashSet<>();
 
 }

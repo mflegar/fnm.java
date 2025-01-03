@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,20 +24,17 @@ public class Actor {
     // nullable = false <==> NOT NULL
 
     @Id // Primary Key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actor_id")
-    private Long actorID;
+    private Integer actorID;
 
+    @JsonProperty("email")
     @Column(name = "actor_email", nullable = false, unique = true)
     private String actorEmail;
 
-    @Column(name = "actor_role", nullable = false)
-    private String actorRole;
-
-    @Column(name = "actor_name", nullable = false)
-    private String actorName;
-
-    @Column(name = "actor_surname", nullable = false)
-    private String actorSurname;
+    @JsonProperty("username")
+    @Column(name = "actor_username", nullable = false)
+    private String actorUsername;
 
     // Institution relation , 1 Actor can be in Many institutions
     @JsonIgnore
@@ -45,15 +43,23 @@ public class Actor {
 
     @ManyToMany
     @JoinTable(
-            name = "joins",
+            name = "joinsInstitution",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "institution_id")
     )
     private Set<Institution> institutions = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(
+            name = "joinsProject",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private Set<Project> projects = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectProposal> projectProposals;
+    private List<Project> ownedProjects;
 
     @JsonIgnore
     @OneToOne(mappedBy = "actor")
@@ -62,5 +68,14 @@ public class Actor {
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
     private List<Expense> expenses;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ActorRoleInstitution> actorRoleInstitutions = new HashSet<>();
+
 
 }

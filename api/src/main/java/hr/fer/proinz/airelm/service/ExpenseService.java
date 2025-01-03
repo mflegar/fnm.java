@@ -30,6 +30,53 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID){
+        if (institutionID == null || institutionID <= 0){
+            throw new IllegalArgumentException("Invalid institution ID.");
+        }
+
+        return expenseRepository.findAll().stream()
+                .filter(exp -> exp.getProject().getInstitution().getInstitutionID().equals(institutionID))
+                .map(exp -> new ExpenseDTO(
+                        exp.getExpenseID(),
+                        exp.getDescription(),
+                        exp.getExpense_cost(),
+                        exp.getActor().getActorID(),
+                        exp.getProject().getProjectID()))
+                .collect(Collectors.toList());
+
+    }
+
+    public List<ExpenseDTO> getExpensesByActor(Integer actorID) {
+        if (actorID == null || actorID <= 0) {
+            throw new IllegalArgumentException("Invalid actor ID.");
+        }
+
+        return expenseRepository.findByActor_ActorID(actorID).stream()
+                .map(exp -> new ExpenseDTO(
+                        exp.getExpenseID(),
+                        exp.getDescription(),
+                        exp.getExpense_cost(),
+                        exp.getActor().getActorID(),
+                        exp.getProject().getProjectID()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ExpenseDTO> getExpensesByProject(Integer projectID){
+        if (projectID == null || projectID <= 0) {
+            throw new IllegalArgumentException("Invalid project ID.");
+        }
+
+        return expenseRepository.findByProject_ProjectID(projectID).stream()
+                .map(exp -> new ExpenseDTO(
+                        exp.getExpenseID(),
+                        exp.getDescription(),
+                        exp.getExpense_cost(),
+                        exp.getActor().getActorID(),
+                        exp.getProject().getProjectID()))
+                .collect(Collectors.toList());
+    }
+
     public ExpenseDTO getExpense(Integer id) {
         Expense exp = expenseRepository.findById(id).orElse(null);
         if (exp == null) return null;

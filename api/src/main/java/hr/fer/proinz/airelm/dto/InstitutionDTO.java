@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InstitutionDTO {
     private Integer institutionID;
+
+    @JsonProperty("name")
     private String institutionName;
+    @JsonProperty("link")
     private String institutionLink;
-    private Long ownerID; // ID ownera (Actor)
+    @JsonProperty("id")
+    private Integer ownerID; // ID ownera (Actor)
 }

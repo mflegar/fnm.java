@@ -1,94 +1,94 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 h2 {
-    font-size: 1.8rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 /* Container for the form */
 form {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
 }
 
 form div {
-    margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 label {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #333;
-    display: block;
-    margin-bottom: 0.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 0.4rem;
 }
 
 input[type="text"],
 input[type="email"],
 select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 select:focus {
-    border-color: #007bff;
+  border-color: #007bff;
 }
 
 button {
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 /* Error or success messages */
 .success {
-    color: green;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 1rem;
+  color: green;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .error {
-    color: red;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 1rem;
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
 }

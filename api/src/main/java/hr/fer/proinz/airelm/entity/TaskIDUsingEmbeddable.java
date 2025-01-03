@@ -2,6 +2,8 @@ package hr.fer.proinz.airelm.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ import java.io.Serializable;
 @Embeddable
 public class TaskIDUsingEmbeddable implements Serializable {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     private Integer taskID;
 
