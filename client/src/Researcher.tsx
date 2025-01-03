@@ -14,19 +14,25 @@ const Researcher = () => {
   const [isInInstitution, setIsInInstitution] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [stompClient, setStompClient] = useState<any>(null);
-  
-  const userString = localStorage.getItem("user");
-  if (userString){
-    const user = JSON.parse(userString);
-    const userId = user.id;
-  }
+  const [userId, setUserId] = useState<string | null>(null); // userId kao state
 
   // Dohvat tokena iz localStorage
   const token = localStorage.getItem("token");
 
+  // Dohvat korisničkog ID-a iz localStorage
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+    if (userString) {
+      const user = JSON.parse(userString);
+      setUserId(user.id); // Postavljanje userId iz localStorage
+    }
+  }, []);
+
   // Dohvat institucija sa servera
   const fetchInstitutions = async () => {
     try {
+      if (!token || !userId) return; // Ako nije dostupan token ili userId, prekinuti
+
       const response = await fetch("/api/institution/", {
         method: "GET",
         headers: {
@@ -48,6 +54,8 @@ const Researcher = () => {
 
   // Spajanje na WebSocket server putem SockJS i STOMP
   const connectWebSocket = () => {
+    if (!token) return;
+
     const socket = new SockJS(`http://localhost:8780/ws?token=${token}`);
     const client = Stomp.over(socket);
 
@@ -64,8 +72,10 @@ const Researcher = () => {
   };
 
   useEffect(() => {
-    fetchInstitutions();
-    connectWebSocket();
+    if (userId) {
+      fetchInstitutions();
+      connectWebSocket();
+    }
 
     return () => {
       if (stompClient) {
@@ -74,13 +84,13 @@ const Researcher = () => {
         });
       }
     };
-  }, []);
+  }, [userId]); // Ovo će se pokrenuti kada userId bude dostupan
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleJoinClick = (institutionID: string) => {
-    if (stompClient) {
+    if (stompClient && userId) {
       const joinRequest = {
         userID: userId, // ID korisnika iz sesije
       };
