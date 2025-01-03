@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -22,8 +23,8 @@ public class UserController {
     public ResponseEntity<String> addActor(@RequestBody Actor actor) {
         try {
 
-            Actor existingActor = actorRepository.findByActorEmail(actor.getActorEmail());
-            if (existingActor != null) {
+            Optional<Actor> existingActor = actorRepository.findByActorEmail(actor.getActorEmail());
+            if (existingActor.isPresent()) {
                 return new ResponseEntity<>("Actor already exists in the database.", HttpStatus.ACCEPTED);
             }
 
