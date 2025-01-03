@@ -24,8 +24,8 @@ repositories {
 }
 
 dependencies {
-    implementation("io.projectreactor:reactor-core:3.5.0")
-    implementation("org.jsoup:jsoup:1.15.4")
+    implementation("io.projectreactor:reactor-core:3.7.1")
+    implementation("org.jsoup:jsoup:1.18.3")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -37,7 +37,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
-    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("io.projectreactor:reactor-test:3.7.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
