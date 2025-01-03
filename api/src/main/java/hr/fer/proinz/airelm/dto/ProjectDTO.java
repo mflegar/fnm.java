@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import hr.fer.proinz.airelm.entity.State;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,5 +28,8 @@ public class ProjectDTO {
 
     @JsonProperty("actor")
     private Integer actorID;
+
+    @JsonProperty("state")
+    private State state;
 
 }
