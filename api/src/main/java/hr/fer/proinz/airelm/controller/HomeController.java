@@ -26,27 +26,25 @@ public class HomeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User is not authenticated"));
         }
 
-        // Get email and username from principal
-        String email = (String) principal.getAttributes().get("email");
         String username = (String) principal.getAttributes().get("login");
 
-        // Provjeri postoji li korisnik u bazi
-        Actor actor = actorRepository.findByActorEmail(email)
+        // Check if the user exists in the database
+        Actor actor = actorRepository.findByActorUsername(username)
                 .orElse(null);
 
         if (actor == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found in database"));
         }
 
-        // Generiraj token za korisnika
+        // Generate token for the user
         String token = tokenService.generateToken(actor.getActorID());
 
-        // Pripremi podatke za odgovor
+        // Send data to the frontend
         Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("id", actor.getActorID()); // ID korisnika iz baze
-        userInfo.put("email", actor.getActorEmail()); // Email korisnika
-        userInfo.put("username", actor.getActorUsername()); // Username korisnika
-        userInfo.put("token", token); // Generirani token
+        userInfo.put("id", actor.getActorID());
+        userInfo.put("email", actor.getActorEmail());
+        userInfo.put("username", actor.getActorUsername());
+        userInfo.put("token", token);
 
         return ResponseEntity.ok(userInfo); // Send id,username,email,token to frontend
     }

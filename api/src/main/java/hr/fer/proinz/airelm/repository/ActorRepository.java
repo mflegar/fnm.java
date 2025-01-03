@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ActorRepository extends JpaRepository<Actor, Integer> {
     Actor findByActorID(Integer actorID);
     Optional<Actor> findByActorEmail(String email);
+    Optional<Actor> findByActorUsername(String username);
 }

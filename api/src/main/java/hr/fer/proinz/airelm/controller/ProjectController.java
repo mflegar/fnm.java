@@ -56,6 +56,7 @@ public class ProjectController {
         }
     }
 
+    /*
     // Get Projects inside of a Institution
     @GetMapping("/institution/{institutionID}")
     public ResponseEntity<List<ProjectDTO>> getProjectsByInstitution(@PathVariable Integer institutionID){
@@ -76,6 +77,7 @@ public class ProjectController {
         List<ProjectDTO> projects = projectService.getProjectsByOwner(actorID);
         return ResponseEntity.ok(projects);
     }
+    */
 
     // Change project state
     @PutMapping("/change/{id}")
