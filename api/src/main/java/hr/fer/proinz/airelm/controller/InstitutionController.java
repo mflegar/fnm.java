@@ -1,8 +1,8 @@
 package hr.fer.proinz.airelm.controller;
 
+import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.entity.Actor;
 import hr.fer.proinz.airelm.entity.Institution;
-import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;

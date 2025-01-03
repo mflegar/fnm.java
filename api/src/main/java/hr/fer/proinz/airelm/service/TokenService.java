@@ -1,6 +1,5 @@
 package hr.fer.proinz.airelm.service;
 
-import hr.fer.proinz.airelm.entity.Actor;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.Base64;
-import java.util.Optional;
 
 @Service
 public class TokenService {

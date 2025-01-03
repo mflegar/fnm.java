@@ -1,7 +1,6 @@
 package hr.fer.proinz.airelm.service;
 
 import hr.fer.proinz.airelm.dto.ExpenseDTO;
-import hr.fer.proinz.airelm.dto.NotificationDTO;
 import hr.fer.proinz.airelm.entity.Expense;
 import hr.fer.proinz.airelm.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
