@@ -1,64 +1,64 @@
 .container {
-    text-align: center;
-    margin-top: 50px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 input[type="text"],
 select,
 input[type="number"] {
-    padding: 10px;
-    margin: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
 button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
-    display: block;
-    margin-top: 30px;
+  list-style-type: none;
+  padding: 0;
+  display: block;
+  margin-top: 30px;
 }
 
 li {
-    margin: 20px 0;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    display: block;
-    /* Ensure each item is stacked vertically */
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: block;
+  /* Ensure each item is stacked vertically */
 }
 
 li a {
-    font-size: 1.2em;
-    color: #333;
-    text-decoration: none;
+  font-size: 1.2em;
+  color: #333;
+  text-decoration: none;
 }
 
 li a:hover {
-    color: #4CAF50;
+  color: #4caf50;
 }
 
 p {
-    font-size: 1em;
-    color: #555;
+  font-size: 1em;
+  color: #555;
 }
 
 p:hover {
-    cursor: pointer;
-    color: #007BFF;
+  cursor: pointer;
+  color: #007bff;
 }

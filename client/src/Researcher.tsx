@@ -38,12 +38,16 @@ const Researcher = () => {
     const socket = new SockJS("http://localhost:8780/ws");
     const client = Stomp.over(socket);
 
-    client.connect({}, () => {
-      console.log("Connected to WebSocket server");
-      setStompClient(client);
-    }, (error: any) => {
-      console.error("WebSocket connection error:", error);
-    });
+    client.connect(
+      {},
+      () => {
+        console.log("Connected to WebSocket server");
+        setStompClient(client);
+      },
+      (error: any) => {
+        console.error("WebSocket connection error:", error);
+      }
+    );
   };
 
   useEffect(() => {
@@ -67,15 +71,17 @@ const Researcher = () => {
       const joinRequest = {
         userID: userId, // ID korisnika iz sesije
       };
-  
+
       // Slanje zahtjeva na specifičan endpoint za instituciju
       stompClient.send(
         `/app/join/${institutionID}`, // Dinamički endpoint za instituciju
         {},
         JSON.stringify(joinRequest)
       );
-  
-      console.log(`Zahtjev za pridruživanje instituciji ${institutionID} je poslan.`);
+
+      console.log(
+        `Zahtjev za pridruživanje instituciji ${institutionID} je poslan.`
+      );
       closeModal(); // Zatvaranje modala nakon slanja zahtjeva
     }
   };

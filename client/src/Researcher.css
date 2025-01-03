@@ -1,142 +1,141 @@
 /* Main container */
 .researcher-container {
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    color: #333;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  color: #333;
+}
+
+/* Heading */
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Button */
+.join-btn {
+  padding: 12px 25px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #004080);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Grid for institutions */
+.institution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* Institution Card */
+.institution-card {
+  background: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 250px;
+}
+
+.institution-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Join button inside institution card */
+.join-btn-small {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.join-btn-small:hover {
+  background-color: #0056b3;
+}
+
+/* Close button */
+.close-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Status message */
+.status-message {
+  font-size: 20px;
+  font-weight: bold;
+  color: #e67e22;
+  padding: 15px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  /* Heading */
-  h1 {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
+  to {
+    opacity: 1;
   }
-  
-  /* Button */
-  .join-btn {
-    padding: 12px 25px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #fff;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .join-btn:hover {
-    background: linear-gradient(135deg, #0056b3, #004080);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Modal Overlay */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  /* Modal content */
-  .modal-content {
-    background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
-    width: 90%;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  /* Grid for institutions */
-  .institution-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px 0;
-  }
-  
-  /* Institution Card */
-  .institution-card {
-    background: #f9f9f9;
-    border: 1px solid #e1e1e1;
-    border-radius: 12px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    height: 250px;
-  }
-  
-  .institution-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Join button inside institution card */
-  .join-btn-small {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .join-btn-small:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Close button */
-  .close-btn {
-    background-color: #e74c3c;
-    color: white;
-    padding: 12px 20px;
-    font-weight: bold;
-    font-size: 16px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .close-btn:hover {
-    background-color: #c0392b;
-  }
-  
-  /* Status message */
-  .status-message {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e67e22;
-    padding: 15px;
-  }
-  
-  /* Animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
+}

@@ -31,23 +31,27 @@ const InstitutionManager = () => {
     const socket = new SockJS("http://localhost:8780/ws");
     const client = Stomp.over(socket);
 
-    client.connect({}, () => {
-      console.log("Connected to WebSocket server");
+    client.connect(
+      {},
+      () => {
+        console.log("Connected to WebSocket server");
 
-      // Subscribe na `/topic/join/{ownerID}`
-      client.subscribe(`/topic/join/${ownerID}`, (message) => {
-        try {
-          const notification = JSON.parse(message.body);
-          console.log(`Notification received: ${notification.message}`);
-        } catch (error) {
-          console.error("Failed to parse message:", message.body);
-        }
-      });
+        // Subscribe na `/topic/join/{ownerID}`
+        client.subscribe(`/topic/join/${ownerID}`, (message) => {
+          try {
+            const notification = JSON.parse(message.body);
+            console.log(`Notification received: ${notification.message}`);
+          } catch (error) {
+            console.error("Failed to parse message:", message.body);
+          }
+        });
 
-      setStompClient(client);
-    }, (error: any) => {
-      console.error("WebSocket connection error:", error);
-    });
+        setStompClient(client);
+      },
+      (error: any) => {
+        console.error("WebSocket connection error:", error);
+      }
+    );
   };
 
   useEffect(() => {
