@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "login/oauth2/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
 
