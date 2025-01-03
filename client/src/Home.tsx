@@ -14,6 +14,20 @@ const Home = () => {
           credentials: "include",
         });
         if (response.ok) {
+          const userData = await response.json();
+          // Spremanje korisničkih podataka (bez tokena) u LocalStorage
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              id: userData.id,
+              email: userData.email,
+              username: userData.username,
+            })
+          );
+
+          // Spremanje tokena zasebno u LocalStorage
+          localStorage.setItem("token", userData.token);
+
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
