@@ -60,28 +60,26 @@ public class ProjectController {
         }
     }
 
-    /*
     // Get Projects inside of a Institution
     @GetMapping("/institution/{institutionID}")
-    public ResponseEntity<List<ProjectDTO>> getProjectsByInstitution(@PathVariable Integer institutionID){
+    public ResponseEntity<List<ProjectDTO>> getProjectsByInstitution(@PathVariable Integer institutionID) {
         List<ProjectDTO> projects = projectService.getProjectsByInstitution(institutionID);
         return ResponseEntity.ok(projects);
     }
 
     // Get Projects Actor is inside of
     @GetMapping("/actor/{actorID}")
-    public ResponseEntity<List<ProjectDTO>> getProjectsByActor(@PathVariable Integer actorID){
+    public ResponseEntity<List<ProjectDTO>> getProjectsByActor(@PathVariable Integer actorID) {
         List<ProjectDTO> projects = projectService.getProjectsByActor(actorID);
         return ResponseEntity.ok(projects);
     }
 
     // Get Projects that Actor created
     @GetMapping("/actor/created/{actorID}")
-    public ResponseEntity<List<ProjectDTO>> getProjectsByOwner(@PathVariable Integer actorID){
+    public ResponseEntity<List<ProjectDTO>> getProjectsByOwner(@PathVariable Integer actorID) {
         List<ProjectDTO> projects = projectService.getProjectsByOwner(actorID);
         return ResponseEntity.ok(projects);
     }
-    */
 
     // Change project state
     @PutMapping("/change/{id}")
