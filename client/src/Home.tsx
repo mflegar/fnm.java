@@ -60,6 +60,7 @@ const Home = () => {
   };
 
   return (
+    <>
     <div className="home-container">
       <h1>Welcome to My App</h1>
       <p>Log in with your GitHub account to get started!</p>
@@ -67,6 +68,7 @@ const Home = () => {
         Login with GitHub
       </button>
     </div>
+    </>
   );
 };
 

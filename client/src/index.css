@@ -3,27 +3,11 @@
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-height: 100vh;
-  background-color: lightgray;
+  /*background-color: lightgray;*/
   color: black;
+  background: linear-gradient(45deg,blue,lightgreen);
 }
 
-h1 {
-  font-size: 3.2em;
-}
-
-#listUsers {
-  width: 450px;
-  background-color: white;
-  border: 1px black solid;
-}
-
-p {
-  max-width: 700px;
-}
 
 @media (prefers-color-scheme: light) {
   :root {
