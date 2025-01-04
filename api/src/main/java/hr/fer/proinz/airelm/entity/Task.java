@@ -22,7 +22,7 @@ public class Task {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "actor_id", nullable = false)
     private Actor actor;
 

@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,10 @@ import lombok.Setter;
 public class ExpenseDTO {
     private Integer expenseID;
     private String description;
+    @JsonProperty("expense")
     private Integer expense_cost;
+    @JsonProperty("actor_id")
     private Integer actorID;
+    @JsonProperty("project_id")
     private Integer projectID;
 }

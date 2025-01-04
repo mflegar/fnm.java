@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,14 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
+    public void changeExpenseCost(Integer expenseID, Integer expenseCost){
+        Optional<Expense> expense = expenseRepository.findById(expenseID);
+        if (expense.isEmpty()){
+            throw new IllegalArgumentException("Invalid expense id.");
+        }
+        expense.get().setExpense_cost(expenseCost);
+        expenseRepository.save(expense.get());
+    }
     public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID) {
         if (institutionID == null || institutionID <= 0) {
             throw new IllegalArgumentException("Invalid institution ID.");
