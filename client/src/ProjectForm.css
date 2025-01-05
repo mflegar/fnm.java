@@ -1,6 +1,7 @@
 .center {
   position: relative;
-  padding: 60px 50px; /* Veći padding za više prostora u formi */
+  /*padding: 60px 50px; /* Veći padding za više prostora u formi */
+  padding: 40px 40px;
   background: #fff;
   border-radius: 20px;
   width: 100%;

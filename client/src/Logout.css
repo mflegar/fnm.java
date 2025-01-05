@@ -1,0 +1,42 @@
+p {
+  font-family: cursive;
+  color: white;
+  font-size: 1.5em;
+  margin-top: 25px;
+}
+
+#slika {
+  width: 450px;
+  height: auto;
+}
+
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.logout-container button {
+  width: 100%;
+  padding: 15px;
+  background: lightgreen;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.3em;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.logout-container button:hover {
+  background: linear-gradient(45deg, greenyellow, dodgerblue);
+  transform: scale(1.05);
+}
+
+.logout-container button:active {
+  transform: scale(0.98);
+}

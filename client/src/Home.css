@@ -1,9 +1,21 @@
+.header {
+  width: 100%;
+  height: 15vh;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#slika {
+  width: 100px;
+  height: auto;
+}
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
 }
 
 h2 {
