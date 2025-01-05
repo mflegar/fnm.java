@@ -5,10 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
     List<Expense> findByActor_ActorID(Integer actorID);
 
     List<Expense> findByProject_ProjectID(Integer projectID);
+
+    List<Expense> findByProject_Institution_InstitutionID(Integer institutionID);
 }

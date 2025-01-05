@@ -45,9 +45,8 @@ public class ExpenseService {
             throw new IllegalArgumentException("Invalid institution ID.");
         }
 
-        return expenseRepository.findAll().stream()
-                .filter(exp -> exp.getProject().getInstitution().getInstitutionID().equals(institutionID))
-                .map(exp -> new ExpenseDTO(
+        return expenseRepository.findByProject_Institution_InstitutionID(institutionID)
+                .stream().map(exp -> new ExpenseDTO(
                         exp.getExpenseID(),
                         exp.getDescription(),
                         exp.getExpense_cost(),

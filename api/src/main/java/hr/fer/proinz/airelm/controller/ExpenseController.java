@@ -59,6 +59,11 @@ public class ExpenseController {
         List<ExpenseDTO> expenses = expenseService.getExpensesByProject(projectID);
         return ResponseEntity.ok(expenses);
     }
+    @GetMapping("/institution/{institutionID}")
+    public ResponseEntity<List<ExpenseDTO>> getExpensesByInstitution(@PathVariable Integer institutionID) {
+        List<ExpenseDTO> expenses = expenseService.getExpensesByInstitution(institutionID);
+        return ResponseEntity.ok(expenses);
+    }
     @GetMapping("/")
     public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
         List<ExpenseDTO> expenses = expenseService.getExpenses();
