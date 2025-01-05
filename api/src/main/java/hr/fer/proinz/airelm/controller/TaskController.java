@@ -1,11 +1,9 @@
 package hr.fer.proinz.airelm.controller;
 
-import hr.fer.proinz.airelm.dto.ExpenseDTO;
 import hr.fer.proinz.airelm.dto.TaskDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
-import hr.fer.proinz.airelm.service.ExpenseService;
 import hr.fer.proinz.airelm.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

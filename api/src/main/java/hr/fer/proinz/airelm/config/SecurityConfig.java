@@ -44,7 +44,6 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/**").permitAll()
 
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
