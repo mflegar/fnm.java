@@ -7,6 +7,7 @@ import hr.fer.proinz.airelm.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,12 @@ public class TaskService {
                 task.getDescription(),
                 task.getActor().getActorID()
         );
+    }
+
+    public void changeTaskDescription(Integer taskID, Integer projectID, String description){
+        Task task = taskRepository.findAllById(Arrays.asList(new TaskIDUsingEmbeddable(taskID, projectID))).getFirst();
+        task.setDescription(description);
+        taskRepository.save(task);
     }
 
     public boolean deleteTask(Integer taskID, Integer projectID) {
