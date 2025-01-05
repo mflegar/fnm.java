@@ -73,7 +73,7 @@ public class ExpenseController {
         }
         return ResponseEntity.ok(expenseDTO);
     }
-    /*@PutMapping("/change/{id}")
+    @PutMapping("/change/{id}")
     public ResponseEntity<String> changeExpenseCost(@PathVariable Integer id, @RequestBody Integer cost) {
         try {
             expenseService.changeExpenseCost(id, cost);
@@ -81,5 +81,5 @@ public class ExpenseController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());
         }
-    }*/
+    }
 }
