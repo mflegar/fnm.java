@@ -26,7 +26,24 @@ public class TaskService {
                 ))
                 .collect(Collectors.toList());
     }
-
+    public List<TaskDTO> getTasksByProject(Integer projectID){
+        return taskRepository.findByProject_ProjectID(projectID).stream().map(
+                task -> new TaskDTO(
+                        task.getId().getTaskID(),
+                        task.getProject().getProjectID(),
+                        task.getDescription(),
+                        task.getActor().getActorID()
+        )).collect(Collectors.toList());
+    }
+    public List<TaskDTO> getTasksByActor(Integer actorID){
+        return taskRepository.findByActor_ActorID(actorID).stream().map(
+                task -> new TaskDTO(
+                        task.getId().getTaskID(),
+                        task.getProject().getProjectID(),
+                        task.getDescription(),
+                        task.getActor().getActorID()
+                )).collect(Collectors.toList());
+    }
     public TaskDTO getTask(Integer taskID, Integer projectID) {
         Task task = taskRepository.findById(new TaskIDUsingEmbeddable(taskID, projectID)).orElse(null);
         if (task == null) return null;

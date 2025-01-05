@@ -39,10 +39,12 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/**").authenticated()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/**").permitAll()
 
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
