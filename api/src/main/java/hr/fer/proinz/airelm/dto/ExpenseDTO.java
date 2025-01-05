@@ -15,8 +15,6 @@ public class ExpenseDTO {
     private String description;
     @JsonProperty("expense")
     private Integer expense_cost;
-    @JsonProperty("actor_id")
     private Integer actorID;
-    @JsonProperty("project_id")
     private Integer projectID;
 }

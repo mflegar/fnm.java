@@ -6,7 +6,6 @@ import hr.fer.proinz.airelm.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +58,7 @@ public class TaskService {
     public void changeTaskDescription(Integer taskID, String description){
         Task task = taskRepository.findById(taskID).orElse(null);
         if (task == null){
-
+            throw new IllegalArgumentException("Task with ID doesn't exist.");
         }
         task.setDescription(description);
         taskRepository.save(task);
