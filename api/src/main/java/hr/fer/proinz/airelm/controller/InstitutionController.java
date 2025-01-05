@@ -44,6 +44,10 @@ public class InstitutionController {
         }
     }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<InstitutionDTO> getInstitutionByName(@PathVariable String name) {
+        return ResponseEntity.ok(institutionService.getInstitutionByName(name));
+    }
     @GetMapping("/owner/{ownerID}")
     public ResponseEntity<List<InstitutionDTO>> getInstitutionsByOwner(@PathVariable Integer ownerID) {
         List<InstitutionDTO> institutions = institutionService.getInstitutionsByOwner(ownerID);
