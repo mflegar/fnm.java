@@ -111,4 +111,37 @@ public class InstitutionController {
         return ResponseEntity.ok("Actor successfully joined the institution.");
     }
 
+    @DeleteMapping("/leaveinstitution/{actorID}/{institutionID}")
+    public ResponseEntity<String> leaveInstitution(
+            @PathVariable Integer actorID,
+            @PathVariable Integer institutionID) {
+
+        // get actor from db
+        Optional<Actor> optionalActor = actorRepository.findById(actorID);
+        if (optionalActor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor not found.");
+        }
+
+        Actor actor = optionalActor.get();
+
+        // get institution from db
+        Optional<Institution> optionalInstitution = institutionRepository.findById(institutionID);
+        if (optionalInstitution.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+        }
+
+        Institution institution = optionalInstitution.get();
+
+        // if actor is not in institution
+        if (!actor.getInstitutions().contains(institution)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor is not a member of this institution.");
+        }
+
+        // actor is leaving institution
+        actor.getInstitutions().remove(institution);
+        actorRepository.save(actor);
+
+        return ResponseEntity.ok("Actor successfully left the institution.");
+    }
+
 }
