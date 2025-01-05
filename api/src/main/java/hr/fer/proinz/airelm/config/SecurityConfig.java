@@ -33,16 +33,18 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "login/oauth2/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/**").authenticated()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/**").permitAll()
 
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )

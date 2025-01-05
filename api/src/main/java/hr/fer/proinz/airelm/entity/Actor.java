@@ -62,8 +62,8 @@ public class Actor {
     private List<Project> ownedProjects;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "actor")
-    private Task task;
+    @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)
+    private List<Task> tasks;
 
     @JsonIgnore
     @OneToMany(mappedBy = "actor", cascade = CascadeType.ALL)

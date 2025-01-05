@@ -11,6 +11,7 @@ import Researcher from "./Researcher.tsx";
 import InstitutionManager from "./InstitutionManager.tsx";
 import ProjectForm from "./ProjectForm.tsx";
 import { UserProvider } from "./useUser"; // Importing the UserProvider
+import Logout from "./Logout.tsx";
 
 const App = () => {
   return (
@@ -78,6 +79,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ArxivSearch />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <ProtectedRoute>
+                <Logout />
               </ProtectedRoute>
             }
           />
