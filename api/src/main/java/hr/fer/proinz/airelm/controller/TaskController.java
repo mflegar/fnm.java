@@ -61,30 +61,29 @@ public class TaskController {
         List<TaskDTO> tasks = taskService.getTasks();
         return ResponseEntity.ok(tasks);
     }
-    @GetMapping("/{projectID}/{taskID}")
-    public ResponseEntity<?> getTask(@PathVariable Integer projectID, @PathVariable Integer taskID) {
-        TaskDTO task = taskService.getTask(taskID, projectID);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTask(@PathVariable Integer id) {
+        TaskDTO task = taskService.getTask(id);
 
         if (task == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
         }
         return ResponseEntity.ok(task);
     }
-    @PutMapping("/change/{projectID}/{taskID}")
-    public ResponseEntity<String> changeTaskDescription(@PathVariable Integer projectID, @PathVariable Integer taskID,
-                                                    @RequestBody String description) {
+    @PutMapping("/change/{id}")
+    public ResponseEntity<String> changeTaskDescription(@PathVariable Integer id, @RequestBody String description) {
         try {
-            taskService.changeTaskDescription(taskID, projectID, description);
+            taskService.changeTaskDescription(id, description);
             return ResponseEntity.ok("Task description successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating task description: " + e.getMessage());
         }
     }
 
-    @DeleteMapping("/delete/{projectID}/{taskID}")
-    public ResponseEntity<String> deleteTask(@PathVariable Integer projectID, @PathVariable Integer taskID) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteTask(@PathVariable Integer id) {
         try {
-            taskService.deleteTask(taskID, projectID);
+            taskService.deleteTask(id);
             return new ResponseEntity<>("Task successfully deleted!", HttpStatus.ACCEPTED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error deleting task: " + e.getMessage(), HttpStatus.BAD_REQUEST);
