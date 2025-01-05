@@ -16,10 +16,10 @@ public class NotificationDTO {
     private Integer notificationID; // Auto-increment
     private LocalDateTime createdAt; // Generiramo na backendu LocalDateTime.now()
 
-    @JsonProperty("actor")
+    @JsonProperty("actor_id")
     private Integer actorID; // ID aktora koji kreira notification
 
-    @JsonProperty("institution")
+    @JsonProperty("institution_id")
     private Integer institutionID; // ID institucije za koju je primjenjen notification
 
 }

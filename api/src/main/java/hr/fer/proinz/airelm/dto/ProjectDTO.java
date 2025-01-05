@@ -23,10 +23,10 @@ public class ProjectDTO {
     @JsonProperty("attachment")
     private String attachment;
 
-    @JsonProperty("institution")
+    @JsonProperty("institution_id")
     private Integer institutionID;
 
-    @JsonProperty("actor")
+    @JsonProperty("actor_id")
     private Integer actorID;
 
     @JsonProperty("state")
