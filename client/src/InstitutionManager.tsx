@@ -5,7 +5,9 @@ import Stomp from "stompjs";
 const InstitutionManager = () => {
   const [stompClient, setStompClient] = useState<any>(null);
   const [institutions, setInstitutions] = useState<any[]>([]);
-  const ownerID = sessionStorage.getItem("userID"); // Dohvaćanje ownerID iz sessionStorage
+  const ownerID = 1; // Dohvaćanje ownerID iz sessionStorage
+
+  const token = localStorage.getItem("token");
 
   // Provjera je li ownerID dostupan
   if (!ownerID) {
@@ -16,18 +18,24 @@ const InstitutionManager = () => {
   // Dohvati sve institucije vlasnika sa backend-a
   const fetchInstitutions = async () => {
     try {
-      const response = await fetch(`/api/institution/owner/${ownerID}`);
+      const response = await fetch(`/api/institution/owner/${ownerID}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,  // Dodaj token u zaglavlje
+        },
+      });
       const data = await response.json();
 
       if (data) {
         setInstitutions(data);
+        console.log(data)
       }
     } catch (error) {
       console.error("Failed to fetch institutions", error);
     }
   };
 
-  const connectWebSocket = () => {
+  /*const connectWebSocket = () => {
     const socket = new SockJS("http://localhost:8780/ws");
     const client = Stomp.over(socket);
 
@@ -52,20 +60,20 @@ const InstitutionManager = () => {
         console.error("WebSocket connection error:", error);
       }
     );
-  };
+  };*/
 
   useEffect(() => {
     fetchInstitutions().then(() => {
-      connectWebSocket();
+      //connectWebSocket();
     });
 
-    return () => {
+    /*return () => {
       if (stompClient) {
         stompClient.disconnect(() => {
           console.log("WebSocket client disconnected");
         });
       }
-    };
+    };*/
   }, []);
 
   return (
