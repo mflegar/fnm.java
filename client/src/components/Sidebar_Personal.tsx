@@ -33,7 +33,7 @@ export function NavProjects({
     icon: LucideIcon;
   }[];
   onInstitutionDashboardClick: () => void;
-  onNotificationsClick: () => void; // Tipiziraj novi prop
+  onNotificationsClick: () => void;
 }) {
   const { isMobile } = useSidebar();
 

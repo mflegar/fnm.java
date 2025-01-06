@@ -26,7 +26,7 @@ export function ProjectForm() {
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault(); // Sprječava slanje forme i ponovno učitavanje stranice
+    event.preventDefault(); // Blokira slanje forme i ponovno ucitavanje stranice
   
     const userData = localStorage.getItem("user");
     const name = localStorage.getItem("institutionName");
@@ -40,7 +40,6 @@ export function ProjectForm() {
         const token = localStorage.getItem("token");
   
         if (token) {
-          // 1. Dohvati institutionID putem GET zahtjeva prema API-u
           const institutionResponse = await fetch(`/api/institution/name/${name}`, {
             method: "GET",
             headers: {
@@ -53,7 +52,6 @@ export function ProjectForm() {
             console.log(institutionData)
             const institution_id = institutionData.institutionID; // Pretpostavljamo da API vraća objekt s id
   
-            // 2. Definiraj podatke o projektu s institutionID
             const projectData = {
               name,
               attachment,
@@ -63,7 +61,6 @@ export function ProjectForm() {
 
             console.log(projectData)
   
-            // 3. Pošaljite POST zahtjev za dodavanje projekta
             const response = await fetch("/api/projects/add", {
               method: "POST",
               headers: {
@@ -74,14 +71,13 @@ export function ProjectForm() {
             });
   
             if (response.ok) {
-              // Ako je odgovor uspješan
+              // Ako je odgovor dobar
               console.log("Project submitted successfully!");
               localStorage.removeItem("institutionName");
               const previousRoute = localStorage.getItem("previousRoute");
               localStorage.removeItem("previousRoute");
               navigate(previousRoute || "/dashboard"); // Ako nije postavljena prethodna ruta, vrati se na /dashboard
             } else {
-              // Ako nešto pođe po zlu
               console.log("Failed to submit project");
             }
           } else {
