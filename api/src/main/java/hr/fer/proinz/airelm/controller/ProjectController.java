@@ -92,6 +92,20 @@ public class ProjectController {
             }
 
             Project project = projectOpt.get();
+
+            if(project.getState() == newState){
+                return ResponseEntity.status(HttpStatus.OK).body("The project is already in the requested state.");
+
+
+            } else if (newState == State.pending) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Project can not be changed to pending.");
+            } else if (project.getState() != State.pending && newState == State.rejected) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Only pending project can be changed to rejected.");
+            } else if (project.getState() != State.active && newState == State.closed) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Only active project can be changed to closed.");
+            }
+
+
             project.setState(newState);  // Postavljanje novog stanja projekta
 
             Actor actor = project.getActor(); // actor that created the project
@@ -106,8 +120,8 @@ public class ProjectController {
             if(newState == State.closed){
 
                 for (Actor act : project.getActors()) {
-                    act.getProjects().remove(project);  // Uklanjamo projekt iz kolekcije aktera
-                    actorRepository.save(act);  // Spremamo promjene u akteru
+                    act.getProjects().remove(project);  // removing project from actor's set of projects
+                    actorRepository.save(act);  // saving
                 }
                 project.getActors().clear(); //removing all actors that were on the project
                 projectRepository.save(project);
