@@ -2,6 +2,7 @@ package hr.fer.proinz.airelm.service;
 
 import hr.fer.proinz.airelm.dto.ProjectDTO;
 import hr.fer.proinz.airelm.entity.Project;
+import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
@@ -69,7 +70,7 @@ public class ProjectService {
     }
 
     public List<ProjectDTO> getProjectsByActor(Integer actorID) {
-        return projectRepository.findByActors_ActorID(
+        return projectRepository.findByActor_ActorID(
                 actorID).stream().map(
                 project -> new ProjectDTO(
                         project.getProjectID(),
@@ -104,4 +105,13 @@ public class ProjectService {
         return false;
     }
 
+    public List<ProjectDTO> getProjectsByActorAndInstitution(Integer actorID, Integer institutionID) {
+        //projects by actor
+        List<ProjectDTO> projectsByActor = getProjectsByActor(actorID);
+
+        return projectsByActor.stream() //check the institutionID for each project
+                .filter(projectDTO -> projectDTO.getInstitutionID().equals(institutionID))
+                .filter(projectDTO -> projectDTO.getState().equals(State.active)) // Filter by state "active"
+                .toList();
+    }
 }

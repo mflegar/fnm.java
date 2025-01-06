@@ -10,8 +10,6 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
     List<Project> findByActor_ActorID(Integer actorID);
 
-    List<Project> findByActors_ActorID(Integer actorID);
-
     List<Project> findByInstitution_InstitutionID(Integer institutionID);
 
 }
