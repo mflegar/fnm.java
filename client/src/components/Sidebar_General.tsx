@@ -1,12 +1,9 @@
-"use client"
-
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
+import { ChevronRight, type LucideIcon } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,21 +13,31 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 export function NavMain({
   items,
+  onViewExpensesClick,
+  ownerName,
 }: {
   items: {
-    title: string
-    icon?: LucideIcon
-    isActive?: boolean
+    title: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
     items?: {
-      title: string
-      url?: string
-    }[] // For subitems
-  }[]  
+      title: string;
+      url?: string;
+    }[]; // For subitems
+  }[];
+  onViewExpensesClick: () => void; // Tip za callback
+  ownerName: string; // Dodajte prop za ime vlasnika
 }) {
+  const handleChildClick = (title: string) => {
+    if (title.toLowerCase() === "view expenses") {
+      onViewExpensesClick(); // Pozivanje callback funkcije
+    }
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>General</SidebarGroupLabel>
@@ -58,10 +65,7 @@ export function NavMain({
                 <CollapsibleTrigger asChild>
                   {item.title === "Institution Expenses" ? (
                     // Ako je "Institution Expenses", samo dugme bez dropdowna
-                    <SidebarMenuButton
-                      onClick={() => window.location.href = `/institution/${name}/expenses`} 
-                      tooltip={item.title}
-                    >
+                    <SidebarMenuButton tooltip={item.title}>
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
                     </SidebarMenuButton>
@@ -88,8 +92,15 @@ export function NavMain({
                                 <span>{subItem.title}</span>
                               </a>
                             ) : (
-                              <button className="w-full text-left p-2">
-                                <span>{subItem.title}</span>
+                              <button
+                                className="w-full text-left p-2"
+                                onClick={() => handleChildClick(subItem.title)}
+                              >
+                                {/* Check if the actor is the owner */}
+                                <span>
+                                  {subItem.title}
+                                  {subItem.title === ownerName && ` - Owner`}
+                                </span>
                               </button>
                             )}
                           </SidebarMenuSubButton>
