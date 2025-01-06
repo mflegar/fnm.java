@@ -29,7 +29,7 @@ export function NavMain({
       title: string
       url?: string
     }[] // For subitems
-  }[]
+  }[]  
 }) {
   return (
     <SidebarGroup>
@@ -56,11 +56,23 @@ export function NavMain({
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip={item.title}>
-                    {item.icon && <item.icon />}
-                    <span>{item.title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
+                  {item.title === "Institution Expenses" ? (
+                    // Ako je "Institution Expenses", samo dugme bez dropdowna
+                    <SidebarMenuButton
+                      onClick={() => window.location.href = `/institution/${name}/expenses`} 
+                      tooltip={item.title}
+                    >
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                    </SidebarMenuButton>
+                  ) : (
+                    // Ako nije "Institution Expenses", onda s dropdownom
+                    <SidebarMenuButton tooltip={item.title}>
+                      {item.icon && <item.icon />}
+                      <span>{item.title}</span>
+                      <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    </SidebarMenuButton>
+                  )}
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   {item.items && item.items.length > 0 ? (

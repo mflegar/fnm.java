@@ -111,9 +111,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigate = useNavigate();
   const { name } = useParams<{ name: string }>();
   const [institution, setInstitution] = useState<any>(null);
-  const [expenses, setExpenses] = useState<any[]>([]);
-  const [actors, setActors] = useState<any[]>([]);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [expenses, setExpenses] = useState<any[]>([
+    { id: 1, description: "Office rent", cost: 1500, date: "2025-01-01" },
+    { id: 2, description: "Software licenses", cost: 300, date: "2025-01-02" },
+    { id: 3, description: "Marketing budget", cost: 500, date: "2025-01-03" },
+    { id: 4, description: "Employee salaries", cost: 12000, date: "2025-01-04" },
+  ])
+  const [actors, setActors] = useState<any[]>([
+    { id: 1, username: "John Doe", role: "Manager" },
+    { id: 2, username: "Jane Smith", role: "Developer" },
+    { id: 3, username: "Alice Brown", role: "Designer" },
+    { id: 4, username: "Bob White", role: "Tester" },
+  ])
+  const [projects, setProjects] = useState<any[]>([
+    { projectID: 1, name: "Genesis", description: "A cutting-edge AI project" },
+    { projectID: 2, name: "Explorer", description: "A new space exploration initiative" },
+    { projectID: 3, name: "Quantum", description: "Research on quantum computing" },
+    { projectID: 4, name: "Aurora", description: "A renewable energy project" },
+  ])
   const [user, setUser] = useState<{ id: Number; email: string; username: string } | null>(null)
 
   const token = localStorage.getItem("token") // token
