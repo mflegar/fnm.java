@@ -191,8 +191,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Actors",
       icon: Users,
       items: actors.map((actor) => ({
-        title: actor.username, // Promijenite prema odgovarajućem polju
-        url: "#", // Promijenite prema odgovarajućem polju
+        title: actor.username,
       })),
     },
     {
@@ -208,10 +207,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       icon: BadgeDollarSign,
       items: expenses.map((expense) => ({
         title: `${expense.description} - $${expense.cost}`,
-        url: "#",
       })),
     },
   ];
+
+  /*
+  const navProjectItems = [
+    {
+      name: "Your notifications",
+      url: "#",
+      icon: BellRing,
+    },
+    ...(institution?.ownerID === user?.id
+      ? [
+          {
+            name: "Institution dashboard",
+            url: `/institution/${name}/dashboard`,
+            icon: LayoutDashboard,
+          },
+        ]
+      : []),
+  ];
+  */
 
   return (
     <Sidebar collapsible="icon" {...props}>

@@ -2,6 +2,8 @@
 
 import { LogOut } from "lucide-react"
 
+import { useNavigate } from "react-router"
+
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -31,6 +33,13 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+
+    // Navigate to logout
+    navigate("/logout")
+  }
 
   // Funkcija za generiranje inicijala
   const getInitials = (name: string) => {
@@ -88,7 +97,7 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>
                 <LogOut />
                 Log out
               </DropdownMenuItem>
