@@ -8,6 +8,7 @@ import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
+    @Autowired
+    private MailService mailService;
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
@@ -52,8 +54,10 @@ public class ProjectController {
 
             project.setInstitution(institution.get());
             project.setActor(actor.get());
-
             projectRepository.save(project);
+
+            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project recommendation", "URL");
+
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding Project: " + e.getMessage(), HttpStatus.BAD_REQUEST);
