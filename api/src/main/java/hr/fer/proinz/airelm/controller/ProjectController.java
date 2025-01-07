@@ -100,11 +100,27 @@ public class ProjectController {
             Project project = projectOpt.get();
             project.setState(newState);  // Postavljanje novog stanja projekta
 
-            projectRepository.save(project);  // Spremanje promjena u bazu
-            if (newState == State.active){
+            Actor actor = project.getActor(); // actor that created the project
+            if(newState == State.active) {
+                // saving in joins_project
+                actor.getProjects().add(project); // adding project to the actor
+                actorRepository.save(actor);
+                project.getActors().add(actor);  // adding actor to the project
+                projectRepository.save(project);
                 mailService.sendMail(project.getActor().getActorEmail(), "Project accepted!",
                         String.format("Project %s has been accepted by the institution!", project.getProjectName()));
             }
+
+            if(newState == State.closed){
+
+                for (Actor act : project.getActors()) {
+                    act.getProjects().remove(project);  // removing project from actor's set of projects
+                    actorRepository.save(act);  // saving
+                }
+                project.getActors().clear(); //removing all actors that were on the project
+                projectRepository.save(project);
+            }
+            else projectRepository.save(project);  // Spremanje promjena u bazu
             return ResponseEntity.ok("Project state successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());
