@@ -5,11 +5,6 @@
   justify-content: flex-start;
 }
 
-#slika {
-  width: 100px;
-  height: auto;
-}
-
 .home-container {
   display: flex;
   flex-direction: column;
@@ -18,14 +13,8 @@
   height: 80vh;
 }
 
-h2 {
-  font-family: Arial, sans-serif;
-  color: #333;
-  margin-bottom: 20px;
-}
-
 .login-button {
-  background-color: #333;
+  background-color: black;
   color: #fff;
   padding: 15px 30px;
   font-weight: bold;
@@ -34,8 +23,14 @@ h2 {
   display: inline-block;
   transition: background-color 0.3s ease;
   text-align: center;
+  margin-top: 20px;
 }
 
-.login-button:hover {
-  background-color: #555;
+
+#text{
+  width:60%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
 }
+
+
