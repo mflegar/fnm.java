@@ -45,13 +45,13 @@ export function NavUser({
   const getInitials = (name: string) => {
     const words = name.split(" ")
     if (words.length > 1) {
-      // Ako postoje dvije riječi, uzmi prva slova svake
+      // Ako postoje dvije rijeci, uzmi prva slova svake
       return (
         words[0].charAt(0).toUpperCase() +
         words[1].charAt(0).toUpperCase()
       )
     }
-    // Ako postoji samo jedna riječ, uzmi prva dva slova
+    // Ako postoji samo jedna rijec, uzmi prva dva slova
     return name.slice(0, 2).toUpperCase()
   }
 
