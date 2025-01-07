@@ -9,11 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -50,6 +51,23 @@ public class UserController {
             );
         }
     }
+    @GetMapping("/institution/{id}")
+    public ResponseEntity<List<ActorDTO>> getActorsByInstitution(@PathVariable Integer id) {
+        return ResponseEntity.ok(actorService.getActorsByInstitution(id));
+    }
+    @GetMapping("/project/{id}")
+    public ResponseEntity<?> getActorsByProject(@PathVariable Integer id) {
+        return ResponseEntity.ok(actorService.getActorsByProject(id));
+    }
+    @GetMapping("/{actorID}/isInstitutionOwner/{institutionID}")
+    public ResponseEntity<Boolean> isOwnerOfInstitution(@PathVariable Integer actorID, @PathVariable Integer institutionID){
+        return ResponseEntity.ok(actorService.isOwnerOfInstitution(actorID, institutionID));
+    }
+    @GetMapping("/{actorID}/isProjectOwner/{projectID}")
+    public ResponseEntity<Boolean> isOwnerOfProject(@PathVariable Integer actorID, @PathVariable Integer projectID){
+        return ResponseEntity.ok(actorService.isOwnerOfProject(actorID, projectID));
+    }
+
 
     @GetMapping("/getuserbyusername/{username}")
     public ResponseEntity<?> getActorByUsername(@PathVariable String username) {

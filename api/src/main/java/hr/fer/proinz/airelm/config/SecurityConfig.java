@@ -34,7 +34,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
-
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/**").authenticated()
@@ -51,6 +50,17 @@ public class SecurityConfig {
                         .defaultSuccessUrl("http://localhost:5780", true)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)) // Custom service integration
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // Definiramo URL za odjavu
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(200);
+                            response.getWriter().write("Logged out successfully");
+                            response.getWriter().flush();
+                        })
+                        .invalidateHttpSession(true) // Poništava HTTP sesiju
+                        .deleteCookies("JSESSIONID") // Briše kolačiće sesije
+                        .permitAll() // Omogućuje pristup svima
                 )
                 .addFilterBefore(customTokenFilter, OAuth2LoginAuthenticationFilter.class); // Validate token before oauth2
 
