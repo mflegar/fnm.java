@@ -50,12 +50,7 @@ public class Project {
     @JoinColumn(name = "institution_id", nullable = false)
     private Institution institution;
 
-    @ManyToMany
-    @JoinTable(
-            name = "joinsProject",
-            joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
+    @ManyToMany(mappedBy = "projects")
     private Set<Actor> actors = new HashSet<>();
 
     @JsonIgnore
