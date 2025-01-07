@@ -21,6 +21,7 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
+
     @Autowired
     private ActorRepository actorRepository;
 
@@ -48,8 +49,7 @@ public class InstitutionController {
 
 
             institutionService.saveInstitution(institution);
-
-            return new ResponseEntity<>("Institution successfully added!",HttpStatus.CREATED);
+            return new ResponseEntity<>("Institution successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding institution: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }

@@ -8,6 +8,7 @@ import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
+    @Autowired
+    private MailService mailService;
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
@@ -52,8 +54,12 @@ public class ProjectController {
 
             project.setInstitution(institution.get());
             project.setActor(actor.get());
-
             projectRepository.save(project);
+
+            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project suggestion",
+                    String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
+                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment()));
+
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding Project: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -115,6 +121,8 @@ public class ProjectController {
                 actorRepository.save(actor);
                 project.getActors().add(actor);  // adding actor to the project
                 projectRepository.save(project);
+                mailService.sendMail(project.getActor().getActorEmail(), "Project accepted!",
+                        String.format("Project %s has been accepted by the institution!", project.getProjectName()));
             }
 
             if(newState == State.closed){
@@ -127,9 +135,6 @@ public class ProjectController {
                 projectRepository.save(project);
             }
             else projectRepository.save(project);  // Spremanje promjena u bazu
-
-
-
             return ResponseEntity.ok("Project state successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());
