@@ -2,7 +2,6 @@ package hr.fer.proinz.airelm.service;
 
 import hr.fer.proinz.airelm.dto.TaskDTO;
 import hr.fer.proinz.airelm.entity.Task;
-import hr.fer.proinz.airelm.entity.TaskIDUsingEmbeddable;
 import hr.fer.proinz.airelm.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class TaskService {
     public List<TaskDTO> getTasks() {
         return taskRepository.findAll().stream()
                 .map(task -> new TaskDTO(
-                        task.getId().getTaskID(),
+                        task.getTaskID(),
                         task.getProject().getProjectID(),
                         task.getDescription(),
                         task.getActor().getActorID()
@@ -29,7 +28,7 @@ public class TaskService {
     public List<TaskDTO> getTasksByProject(Integer projectID){
         return taskRepository.findByProject_ProjectID(projectID).stream().map(
                 task -> new TaskDTO(
-                        task.getId().getTaskID(),
+                        task.getTaskID(),
                         task.getProject().getProjectID(),
                         task.getDescription(),
                         task.getActor().getActorID()
@@ -38,28 +37,36 @@ public class TaskService {
     public List<TaskDTO> getTasksByActor(Integer actorID){
         return taskRepository.findByActor_ActorID(actorID).stream().map(
                 task -> new TaskDTO(
-                        task.getId().getTaskID(),
+                        task.getTaskID(),
                         task.getProject().getProjectID(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
     }
-    public TaskDTO getTask(Integer taskID, Integer projectID) {
-        Task task = taskRepository.findById(new TaskIDUsingEmbeddable(taskID, projectID)).orElse(null);
+    public TaskDTO getTask(Integer taskID) {
+        Task task = taskRepository.findById(taskID).orElse(null);
         if (task == null) return null;
 
         return new TaskDTO(
-                task.getId().getTaskID(),
-                task.getId().getProjectID(),
+                task.getTaskID(),
+                task.getProject().getProjectID(),
                 task.getDescription(),
                 task.getActor().getActorID()
         );
     }
 
-    public boolean deleteTask(Integer taskID, Integer projectID) {
-        TaskIDUsingEmbeddable id = new TaskIDUsingEmbeddable(taskID, projectID);
-        if (taskRepository.existsById(id)) {
-            taskRepository.deleteById(id);
+    public void changeTaskDescription(Integer taskID, String description){
+        Task task = taskRepository.findById(taskID).orElse(null);
+        if (task == null){
+            throw new IllegalArgumentException("Task with ID doesn't exist.");
+        }
+        task.setDescription(description);
+        taskRepository.save(task);
+    }
+
+    public boolean deleteTask(Integer taskID) {
+        if (taskRepository.existsById(taskID)) {
+            taskRepository.deleteById(taskID);
             return true;
         }
         return false;

@@ -1,19 +1,16 @@
 package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.ExpenseDTO;
-import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
 import hr.fer.proinz.airelm.service.ExpenseService;
-import hr.fer.proinz.airelm.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/expense")
@@ -57,6 +54,11 @@ public class ExpenseController {
     @GetMapping("/project/{projectID}")
     public ResponseEntity<List<ExpenseDTO>> getExpensesByProject(@PathVariable Integer projectID) {
         List<ExpenseDTO> expenses = expenseService.getExpensesByProject(projectID);
+        return ResponseEntity.ok(expenses);
+    }
+    @GetMapping("/institution/{institutionID}")
+    public ResponseEntity<List<ExpenseDTO>> getExpensesByInstitution(@PathVariable Integer institutionID) {
+        List<ExpenseDTO> expenses = expenseService.getExpensesByInstitution(institutionID);
         return ResponseEntity.ok(expenses);
     }
     @GetMapping("/")

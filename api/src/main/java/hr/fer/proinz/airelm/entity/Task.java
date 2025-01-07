@@ -15,9 +15,13 @@ import lombok.Setter;
 @Table(name = "Task")
 public class Task {
 
-    @EmbeddedId
-    private TaskIDUsingEmbeddable id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Integer taskID;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
     @JsonProperty("description")
     @Column(name = "description", nullable = false)
     private String description;
@@ -25,9 +29,5 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "actor_id", nullable = false)
     private Actor actor;
-
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
-    private Project project;
 
 }

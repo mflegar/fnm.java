@@ -4,6 +4,7 @@ import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.entity.Actor;
 import hr.fer.proinz.airelm.entity.Institution;
 import hr.fer.proinz.airelm.repository.ActorRepository;
+import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/institution")
@@ -21,6 +23,9 @@ public class InstitutionController {
 
     @Autowired
     private ActorRepository actorRepository;
+
+    @Autowired
+    InstitutionRepository institutionRepository;
 
     @PostMapping("/add")
     public ResponseEntity<String> addInstitution(@RequestBody InstitutionDTO institutionDTO) {
@@ -44,6 +49,10 @@ public class InstitutionController {
         }
     }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<InstitutionDTO> getInstitutionByName(@PathVariable String name) {
+        return ResponseEntity.ok(institutionService.getInstitutionByName(name));
+    }
     @GetMapping("/owner/{ownerID}")
     public ResponseEntity<List<InstitutionDTO>> getInstitutionsByOwner(@PathVariable Integer ownerID) {
         List<InstitutionDTO> institutions = institutionService.getInstitutionsByOwner(ownerID);
@@ -72,6 +81,71 @@ public class InstitutionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
         }
         return ResponseEntity.ok(institutionDTO);
+    }
+
+
+    @PostMapping("/joininstitution/{actorID}")
+    public ResponseEntity<String> joinInstitution(@PathVariable Integer actorID, @RequestBody Integer institutionID) {
+
+        // get the actor from db
+        Optional<Actor> optionalActor = actorRepository.findById(actorID);
+        if (optionalActor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor not found.");
+        }
+
+        Actor actor = optionalActor.get();
+
+        // get the institution from db
+        Optional<Institution> optionalInstitution = institutionRepository.findById(institutionID);
+        if (optionalInstitution.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+        }
+
+        Institution institution = optionalInstitution.get();
+
+        // if actor is already in institution
+        if (actor.getInstitutions().contains(institution)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Actor is already a member of this institution.");
+        }
+
+        // add institution to the actor
+        actor.getInstitutions().add(institution);
+        actorRepository.save(actor);
+
+        return ResponseEntity.ok("Actor successfully joined the institution.");
+    }
+
+    @DeleteMapping("/leaveinstitution/{actorID}/{institutionID}")
+    public ResponseEntity<String> leaveInstitution(
+            @PathVariable Integer actorID,
+            @PathVariable Integer institutionID) {
+
+        // get actor from db
+        Optional<Actor> optionalActor = actorRepository.findById(actorID);
+        if (optionalActor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor not found.");
+        }
+
+        Actor actor = optionalActor.get();
+
+        // get institution from db
+        Optional<Institution> optionalInstitution = institutionRepository.findById(institutionID);
+        if (optionalInstitution.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+        }
+
+        Institution institution = optionalInstitution.get();
+
+        // if actor is not in institution
+        if (!actor.getInstitutions().contains(institution)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor is not a member of this institution.");
+        }
+
+        // actor is leaving institution
+        actor.getInstitutions().remove(institution);
+        actorRepository.save(actor);
+
+        return ResponseEntity.ok("Actor successfully left the institution.");
     }
 
 }

@@ -27,7 +27,7 @@ public class Institution {
     private Integer institutionID;
 
     @JsonProperty("name")
-    @Column(name = "institution_name", nullable = false)
+    @Column(name = "institution_name", nullable = false, unique = true)
     private String institutionName;
 
     @JsonProperty("link")
