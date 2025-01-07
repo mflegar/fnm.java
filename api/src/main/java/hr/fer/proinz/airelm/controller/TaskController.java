@@ -4,6 +4,7 @@ import hr.fer.proinz.airelm.dto.TaskDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,8 @@ public class TaskController {
     private ProjectRepository projectRepository;
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private MailService mailService;
     @PostMapping("/add")
     public ResponseEntity<String> addTask(@RequestBody TaskDTO taskDTO) {
         try {
@@ -39,6 +42,10 @@ public class TaskController {
             task.setProject(project);
 
             taskService.saveTask(task);
+
+            mailService.sendMail(actor.getActorEmail(), "Next task assigned to you!",
+                    String.format("Project: %s\nTask description: %s", task.getProject().getProjectName(), task.getDescription()));
+
             return new ResponseEntity<>("Task successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding task: " + e.getMessage(), HttpStatus.BAD_REQUEST);

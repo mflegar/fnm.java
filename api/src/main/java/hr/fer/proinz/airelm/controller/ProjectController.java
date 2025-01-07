@@ -56,7 +56,9 @@ public class ProjectController {
             project.setActor(actor.get());
             projectRepository.save(project);
 
-            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project recommendation", "URL");
+            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project suggestion",
+                    String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
+                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment()));
 
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -99,7 +101,10 @@ public class ProjectController {
             project.setState(newState);  // Postavljanje novog stanja projekta
 
             projectRepository.save(project);  // Spremanje promjena u bazu
-
+            if (newState == State.active){
+                mailService.sendMail(project.getActor().getActorEmail(), "Project accepted!",
+                        String.format("Project %s has been accepted by the institution!", project.getProjectName()));
+            }
             return ResponseEntity.ok("Project state successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());
