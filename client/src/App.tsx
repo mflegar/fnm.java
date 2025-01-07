@@ -12,7 +12,8 @@ import InstitutionManager from "./InstitutionManager.tsx";
 import ProjectForm from "./ProjectForm.tsx";
 import { UserProvider } from "./useUser"; // Importing the UserProvider
 import Page from "./app/dashboard/InstitutionPage.tsx";
-import Logout from "./app/dashboard/Logout.tsx";
+import Logout from "./Logout.tsx";
+
 
 
 const App = () => {

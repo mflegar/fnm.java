@@ -12,3 +12,15 @@
   font-family: 'Courier New', Courier, monospace;
   margin-bottom: 20px;
 }
+
+.login-button {
+    background-color: black;
+    color: #fff;
+    padding: 15px 30px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+  }
