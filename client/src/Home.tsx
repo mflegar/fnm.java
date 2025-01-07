@@ -62,8 +62,8 @@ const Home = () => {
   return (
     <>
       <div className="home-container">
-        <h1>Welcome to My App</h1>
-        <p>Log in with your GitHub account to get started!</p>
+        <img src="/images/Logo.png"></img>
+        <p id="text">AIReLM is an application that enables good organization and monitoring of the flow while working on a specific project. To get started, you have to login!</p>
         <button onClick={handleGitHubLogin} className="login-button">
           Login with GitHub
         </button>
