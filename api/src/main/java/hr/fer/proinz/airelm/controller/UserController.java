@@ -51,6 +51,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getuserbyusername/{username}")
+    public ResponseEntity<?> getActorByUsername(@PathVariable String username) {
+        try {
+            ActorDTO actorDTO = actorService.getActorByUsername(username);
+            return ResponseEntity.ok(actorDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    Map.of("error", "Actor not found", "username", username));  // create response entity with status 404 not found
+        }
+    }
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteActor(@PathVariable Integer id) {
         try {
