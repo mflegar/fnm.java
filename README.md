@@ -1,5 +1,6 @@
-# AI Research Lab Management - AIReLM
-This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course at the Faculty of Electrical Engineering and Computing at the University of Zagreb.
+<!-- markdownlint-disable-file MD033 MD041 -->
+> [!NOTE]
+> As per course requirements, the repository name must match our team's name. For reference, the actual project title and description are below.
 
 # Motivation
 This project was created as a result of a joint idea of ​​our team members inspired by the given topic by the professor. The project itself is very similar to the Travel Order theme, which was the default, but we adapted it to our idea.
