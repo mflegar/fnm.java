@@ -2,8 +2,7 @@
 > [!NOTE]
 > As per course requirements, the repository name must match our team's name. For reference, the actual project title and description are below.
 
-# Motivation
-This project was created as a result of a joint idea of ​​our team members inspired by the given topic by the professor. The project itself is very similar to the Travel Order theme, which was the default, but we adapted it to our idea.
+# AIReLM &ensp;![GitHub Tag](https://img.shields.io/github/v/tag/mflegar/fnm.java?sort=semver&filter=v*)&nbsp;![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/build.yml)
 
 This repository is based on a [project template](https://github.com/VladoSruk/Programsko-inzenjerstvo) provided by [Associate Professor Vlado Sruk, PhD](https://www.fer.unizg.hr/en/vlado.sruk). We have modified this template to suit our needs and would like to acknowledge the professor's effort in providing a solid foundation for our project assignment.
 
