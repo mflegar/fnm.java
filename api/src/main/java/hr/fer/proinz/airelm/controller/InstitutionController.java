@@ -21,6 +21,7 @@ public class InstitutionController {
     @Autowired
     private InstitutionService institutionService;
 
+
     @Autowired
     private ActorRepository actorRepository;
 
@@ -41,8 +42,13 @@ public class InstitutionController {
             institution.setInstitutionLink(institutionDTO.getInstitutionLink());
             institution.setOwner(owner);
 
-            institutionService.saveInstitution(institution);
+            // adding row to joins_institution
+            institution.getActors().add(owner); //adding owner to institution's set of actors
+            owner.getInstitutions().add(institution); // adding institution to owner's set of institutions
 
+
+
+            institutionService.saveInstitution(institution);
             return new ResponseEntity<>("Institution successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding institution: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -110,6 +116,8 @@ public class InstitutionController {
 
         // add institution to the actor
         actor.getInstitutions().add(institution);
+        // add actor to the institution
+        institution.getActors().add(actor);
         actorRepository.save(actor);
 
         return ResponseEntity.ok("Actor successfully joined the institution.");
@@ -143,6 +151,7 @@ public class InstitutionController {
 
         // actor is leaving institution
         actor.getInstitutions().remove(institution);
+        institution.getActors().remove(actor);
         actorRepository.save(actor);
 
         return ResponseEntity.ok("Actor successfully left the institution.");

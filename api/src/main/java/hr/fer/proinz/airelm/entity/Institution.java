@@ -27,7 +27,7 @@ public class Institution {
     private Integer institutionID;
 
     @JsonProperty("name")
-    @Column(name = "institution_name", nullable = false, unique = true)
+    @Column(name = "institution_name", nullable =    false, unique = true)
     private String institutionName;
 
     @JsonProperty("link")
@@ -40,12 +40,7 @@ public class Institution {
     private Actor owner;
 
     // Many-to-Many relationship between Actor and Institution
-    @ManyToMany
-    @JoinTable(
-            name = "joinsInstitution",
-            joinColumns = @JoinColumn(name = "institution_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
+    @ManyToMany(mappedBy = "institutions")
     private Set<Actor> actors = new HashSet<>();
 
     @JsonIgnore

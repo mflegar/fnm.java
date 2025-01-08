@@ -1,35 +1,31 @@
-server:
-  port: '${PORT:8780}'
 spring:
   application:
     name: airelm
-  config:
-    import: 'optional:file:.env.yml'
   datasource:
-    url: '${DATABASE_URL}'
-    username: '${DATABASE_USERNAME:postgres}'
-    password: '${DATABASE_PASSWORD}'
-    driverClassName: 'org.postgresql.Driver'
+    url: jdbc:postgresql://localhost:5432/ems_db
+    username: postgres
+    password: testiramo123
   jpa:
     hibernate:
       ddl-auto: update
-      dialect: 'org.hibernate.dialect.PostgreSQLDialect'
-    properties:
-      hibernate:
-        format_sql: true
-        generate_statistics: true
-    show-sql: true
   security:
     oauth2:
       client:
         registration:
           github:
-            client-id: '${GITHUB_CLIENT_ID}'
-            client-secret: '${GITHUB_CLIENT_SECRET}'
-#             redirect-uri: '{baseUrl}/oauth2/callback/{registrationId}'
-            scope:
-              - 'read:user'
-              - 'user:email'
-#  sql:
-#    init:
-#      mode: always
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope: user, email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_ADDRESS}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  port: ${PORT:8780}

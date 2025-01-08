@@ -8,6 +8,7 @@ import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
-
+    @Autowired
+    private MailService mailService;
     @Autowired
     private ProjectRepository projectRepository;
     @Autowired
@@ -52,15 +54,19 @@ public class ProjectController {
 
             project.setInstitution(institution.get());
             project.setActor(actor.get());
-
             projectRepository.save(project);
+
+            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project suggestion",
+                    String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
+                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment()));
+
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding Project: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    // Get Projects inside of a Institution
+    // Get Projects inside of Institution
     @GetMapping("/institution/{institutionID}")
     public ResponseEntity<List<ProjectDTO>> getProjectsByInstitution(@PathVariable Integer institutionID) {
         List<ProjectDTO> projects = projectService.getProjectsByInstitution(institutionID);
@@ -92,10 +98,43 @@ public class ProjectController {
             }
 
             Project project = projectOpt.get();
+
+            if(project.getState() == newState){
+                return ResponseEntity.status(HttpStatus.OK).body("The project is already in the requested state.");
+
+
+            } else if (newState == State.pending) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Project can not be changed to pending.");
+            } else if (project.getState() != State.pending && newState == State.rejected) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Only pending project can be changed to rejected.");
+            } else if (project.getState() != State.active && newState == State.closed) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Only active project can be changed to closed.");
+            }
+
+
             project.setState(newState);  // Postavljanje novog stanja projekta
 
-            projectRepository.save(project);  // Spremanje promjena u bazu
+            Actor actor = project.getActor(); // actor that created the project
+            if(newState == State.active) {
+                // saving in joins_project
+                actor.getProjects().add(project); // adding project to the actor
+                actorRepository.save(actor);
+                project.getActors().add(actor);  // adding actor to the project
+                projectRepository.save(project);
+                mailService.sendMail(project.getActor().getActorEmail(), "Project accepted!",
+                        String.format("Project %s has been accepted by the institution!", project.getProjectName()));
+            }
 
+            if(newState == State.closed){
+
+                for (Actor act : project.getActors()) {
+                    act.getProjects().remove(project);  // removing project from actor's set of projects
+                    actorRepository.save(act);  // saving
+                }
+                project.getActors().clear(); //removing all actors that were on the project
+                projectRepository.save(project);
+            }
+            else projectRepository.save(project);  // Spremanje promjena u bazu
             return ResponseEntity.ok("Project state successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());
@@ -119,5 +158,18 @@ public class ProjectController {
         }
         return ResponseEntity.ok(projectDTO);
     }
+
+    @GetMapping("/{actorID}/inside/{institutionID}")
+    public ResponseEntity<?> getProjectsByActorInsideInstitution(@PathVariable Integer actorID, @PathVariable Integer institutionID) {
+
+        List<ProjectDTO> projects = projectService.getProjectsByActorAndInstitution(actorID, institutionID);
+
+        if (projects.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found.");
+        }
+
+        return ResponseEntity.ok(projects);
+    }
+
 
 }

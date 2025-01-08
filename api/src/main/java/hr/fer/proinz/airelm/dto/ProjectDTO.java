@@ -22,14 +22,8 @@ public class ProjectDTO {
     private LocalDateTime startTime;
     @JsonProperty("attachment")
     private String attachment;
-
-    @JsonProperty("institution_id")
     private Integer institutionID;
-
-    @JsonProperty("actor_id")
     private Integer actorID;
-
-    @JsonProperty("state")
     private State state;
 
 }

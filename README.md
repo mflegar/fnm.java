@@ -1,12 +1,23 @@
-# AI Research Lab Management - AIReLM
-This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course at the Faculty of Electrical Engineering and Computing at the University of Zagreb.
+<!-- markdownlint-disable-file MD033 MD041 -->
+> [!NOTE]
+> As per course requirements, the repository name must match our team's name. For reference, the actual project title and description are below.
 
-# Motivation
-This project was created as a result of a joint idea of ​​our team members inspired by the given topic by the professor. The project itself is very similar to the Travel Order theme, which was the default, but we adapted it to our idea.
+# AIReLM &ensp;![GitHub Tag](https://img.shields.io/github/v/tag/mflegar/fnm.java?sort=semver&filter=v*)&nbsp;![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/build.yml)
 
-> ### AI Research Lab Management
->The application „AI Research Lab Managment“ will facillitate academic and private institutions with a large number of researches working on variouss projects to develop and test new technologies that implement >artificial intelligence algorithms. The reseacrh managment process includes initiating project proposals, approving proposals by the institution, assigning tasks to team members, monitoring progess and testing >results. The application will have several user roles, including: researchers, project leader, institution leader, quality assurance engineer and system administrator. Each role will have specific permission >and capatibilities within the application. The application will enable calculating and predicting project duration and viewing project status. For funded projects, it will be possible to track expenses and >export them as PDF document. The application should also support basic functionalities for testing developed models and products, as well as implementing basic automated testing. Notifications about the project >status changes, as well as about new projects, will be sent via email or push notifications to the relevant individuals. The application should be in integreted with external research paper databases, such as >arXiv or PubMed, to display relevant research papers and, if possible, calculate and display the project's importance in relation to existing researh in the field. For the registration and login process, > > > >external authentication services (OAuth2) will be used. The application will have a responsive design and be adapted for use on various types of devices
+This repository is based on a [project template](https://github.com/VladoSruk/Programsko-inzenjerstvo) provided by [Associate Professor Vlado Sruk, PhD](https://www.fer.unizg.hr/en/vlado.sruk). We have modified this template to suit our needs and would like to acknowledge the professor's effort in providing a solid foundation for our project assignment.
 
+## Project Description/Overview
+
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/UniZg_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/unizg.png" alt="UNIZG" align="right" height="48">
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/FER_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/fer.png" alt="FER" align="right" height="48">
+
+This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/en/course/sofeng) course at the [Faculty of Electrical Engineering and Computing](https://www.fer.unizg.hr/en) at the [University of Zagreb](https://www.unizg.hr/homepage/).
+
+The **AI Research Lab Management** (_AIReLM_) application simplifies management for academic and private institutions working on AI research, enabling project proposal submission, task assignment, progress tracking, result testing, and expense tracking.
+
+For a more comprehensive description of the project, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/1-Project-Description).
 
 ## Functional Requirements Overview
 
@@ -25,7 +36,7 @@ Each researcher in the institution can submit their project proposal directly to
 5. **Team Invitation and Management**<br>
 Team leaders can assemble their teams.
 
-For a complete list and more comprehensive description of the functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#functional-requirements).
+For a complete list and more comprehensive description of the functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Requirements-Analysis#functional-requirements).
 
 ## Non-Functional Requirements Overview
 
@@ -44,28 +55,40 @@ The application should respond quickly to user interactions and load times shoul
 5. **Reliability**<br>
 The application should be reliable, users should be able to use it without expecting crashes and errors and in case they do happen, data should not be lost.
 
-For a more comprehensive description of the non-functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Analysis-of-requirements#other-requirements).
+For a more comprehensive description of the non-functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Requirements-Analysis#other-requirements).
 
 ## Technologies
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)][react]
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)][vite]
 &ensp;
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)][spring-boot]
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)][postgres]
 &ensp;
-![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)][docker]
 
-![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)][github]
+[![GitHub Actions](https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe)][github-actions]
 
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)][figma]
 
-![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
+[![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)][vscode]
 &ensp;
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white)
+[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white)][intellij-idea]
 
-![Microsoft Teams](https://img.shields.io/badge/Microsoft_Teams-6264A7?style=for-the-badge&logo=microsoft-teams&logoColor=white)
+[![Microsoft Teams](https://img.shields.io/badge/Microsoft_Teams-6264A7?style=for-the-badge&logo=microsoft-teams&logoColor=white)][microsoft-teams]
+
+[react]: https://react.dev/
+[vite]: https://vite.dev/
+[spring-boot]: https://spring.io/projects/spring-boot
+[postgres]: https://www.postgresql.org/
+[docker]: https://www.docker.com/
+[github]: https://github.com/
+[github-actions]: https://github.com/features/actions
+[figma]: https://www.figma.com/
+[vscode]: https://code.visualstudio.com/
+[intellij-idea]: https://www.jetbrains.com/idea/
+[microsoft-teams]: https://www.microsoft.com/en-us/microsoft-teams/group-chat-software
 
 ## Getting Started (Installation)
 
@@ -79,13 +102,19 @@ docker compose up
 
 | Name             | GitHub account                                           | Role |
 |------------------|----------------------------------------------------------|------|
-| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB)<br>![Design](https://img.shields.io/badge/Design-DA461B?logo=figma&logoColor=white) |
-| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB)<br>![DevOps](https://img.shields.io/badge/DevOps-2088FF?logo=github-actions&logoColor=white) |
-| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
-| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
-| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Frontend](https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB) |
-| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
-| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               | ![Docs](https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white)<br>![Backend](https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white) |
+| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             | ![Docs][docs]<br>![Frontend][frontend]<br>![Design][design] |
+| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   | ![Docs][docs]<br>![Frontend][frontend]<br>![DevOps][devops] |
+| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) | ![Docs][docs]<br>![Backend][backend] |
+| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         | ![Docs][docs]<br>![Backend][backend] |
+| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) | ![Docs][docs]<br>![Frontend][frontend] |
+| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         | ![Docs][docs]<br>![Backend][backend] |
+| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               | ![Docs][docs]<br>![Backend][backend] |
+
+[backend]: https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white
+[design]: https://img.shields.io/badge/Design-DA461B?logo=figma&logoColor=white
+[devops]: https://img.shields.io/badge/DevOps-2088FF?logo=github-actions&logoColor=white
+[docs]: https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white
+[frontend]: https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB
 
 ## Contributing
 
@@ -119,3 +148,15 @@ This repository contains Open Educational Resources and is licensed under the [C
 ### Repository Licensing Reference
 
 * The repository's wiki is subject to the same licensing terms as the repository itself
+
+## Citation
+
+```bibtex
+@software{fnmjava2025relm,
+  author = {{fnm.java}},
+  title = {{AIReLM}},
+  url = {},
+  version = {0.1.0},
+  year = {2025}
+}
+```
