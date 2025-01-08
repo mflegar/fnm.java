@@ -119,3 +119,15 @@ This repository contains Open Educational Resources and is licensed under the [C
 ### Repository Licensing Reference
 
 * The repository's wiki is subject to the same licensing terms as the repository itself
+
+## Citation
+
+```bibtex
+@software{fnmjava2025relm,
+  author = {{fnm.java}},
+  title = {{AIReLM}},
+  url = {},
+  version = {0.1.0},
+  year = {2025}
+}
+```
