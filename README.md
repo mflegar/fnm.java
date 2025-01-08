@@ -7,6 +7,18 @@ This project was created as a result of a joint idea of ​​our team members i
 
 This repository is based on a [project template](https://github.com/VladoSruk/Programsko-inzenjerstvo) provided by [Associate Professor Vlado Sruk, PhD](https://www.fer.unizg.hr/en/vlado.sruk). We have modified this template to suit our needs and would like to acknowledge the professor's effort in providing a solid foundation for our project assignment.
 
+## Project Description/Overview
+
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/UniZg_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/unizg.png" alt="UNIZG" align="right" height="48">
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/FER_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/fer.png" alt="FER" align="right" height="48">
+
+This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/en/course/sofeng) course at the [Faculty of Electrical Engineering and Computing](https://www.fer.unizg.hr/en) at the [University of Zagreb](https://www.unizg.hr/homepage/).
+
+The **AI Research Lab Management** (_AIReLM_) application simplifies management for academic and private institutions working on AI research, enabling project proposal submission, task assignment, progress tracking, result testing, and expense tracking.
+
+For a more comprehensive description of the project, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/1-Project-Description).
 
 ## Functional Requirements Overview
 
