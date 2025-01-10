@@ -22,6 +22,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
+    @Column(name = "task_name", nullable = false)
+    private String taskName;
     @JsonProperty("description")
     @Column(name = "description", nullable = false)
     private String description;

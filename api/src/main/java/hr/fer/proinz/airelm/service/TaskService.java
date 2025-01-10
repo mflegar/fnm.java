@@ -20,6 +20,7 @@ public class TaskService {
                 .map(task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 ))
@@ -30,6 +31,7 @@ public class TaskService {
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
         )).collect(Collectors.toList());
@@ -39,6 +41,7 @@ public class TaskService {
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
@@ -48,6 +51,7 @@ public class TaskService {
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
@@ -59,6 +63,7 @@ public class TaskService {
         return new TaskDTO(
                 task.getTaskID(),
                 task.getProject().getProjectID(),
+                task.getTaskName(),
                 task.getDescription(),
                 task.getActor().getActorID()
         );

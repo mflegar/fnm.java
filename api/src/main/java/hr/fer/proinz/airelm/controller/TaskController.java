@@ -42,6 +42,7 @@ public class TaskController {
             }
             Task task = new Task();
             task.setActor(actor);
+            task.setTaskName(taskDTO.getTaskName());
             task.setDescription(taskDTO.getDescription());
             task.setProject(project);
 
