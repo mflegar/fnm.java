@@ -36,6 +36,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/actuator/health").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/**").authenticated()
@@ -43,9 +46,6 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
-
-                        .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "/actuator/health").permitAll()
 
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
