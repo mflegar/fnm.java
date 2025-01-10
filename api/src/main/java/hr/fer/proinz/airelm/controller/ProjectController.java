@@ -1,5 +1,6 @@
 package hr.fer.proinz.airelm.controller;
 
+import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.dto.ProjectDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.*;
@@ -214,6 +215,9 @@ public class ProjectController {
         }
     }
 
-
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ProjectDTO> getInstitutionByName(@PathVariable String name) {
+        return ResponseEntity.ok(projectService.getProjectByName(name));
+    }
 
 }

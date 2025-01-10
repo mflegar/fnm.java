@@ -1,6 +1,8 @@
 package hr.fer.proinz.airelm.service;
 
+import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.dto.ProjectDTO;
+import hr.fer.proinz.airelm.entity.Institution;
 import hr.fer.proinz.airelm.entity.Project;
 import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
@@ -114,5 +116,21 @@ public class ProjectService {
                 .filter(projectDTO -> projectDTO.getInstitutionID().equals(institutionID))
                 .filter(projectDTO -> projectDTO.getState().equals(State.active)) // Filter by state "active" - it is not needed but
                 .toList();
+    }
+
+    public ProjectDTO getProjectByName(String name) {
+        Project project = projectRepository.findByProjectName(name).orElse(null);
+        if (project == null){
+            return null;
+        }
+        return new ProjectDTO(
+                project.getProjectID(),
+                project.getProjectName(),
+                project.getStartTime(),
+                project.getAttachment(),
+                project.getActor().getActorID(),
+                project.getInstitution().getInstitutionID(),
+                project.getState()
+        );
     }
 }
