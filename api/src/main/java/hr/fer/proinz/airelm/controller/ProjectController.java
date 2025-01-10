@@ -5,10 +5,7 @@ import hr.fer.proinz.airelm.entity.Actor;
 import hr.fer.proinz.airelm.entity.Institution;
 import hr.fer.proinz.airelm.entity.Project;
 import hr.fer.proinz.airelm.entity.State;
-import hr.fer.proinz.airelm.repository.ActorRepository;
-import hr.fer.proinz.airelm.repository.InstitutionRepository;
-import hr.fer.proinz.airelm.repository.ProjectRepository;
-import hr.fer.proinz.airelm.service.ActorService;
+import hr.fer.proinz.airelm.repository.*;
 import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,34 +37,44 @@ public class ProjectController {
     @Autowired
     private InstitutionRepository institutionRepository;
     @Autowired
-    private ActorService actorService;
+    private TaskRepository taskRepository;
+    @Autowired
+    private ExpenseRepository expenseRepository;
     // Add project
     @PostMapping("/add")
     public ResponseEntity<String> addProject(@RequestBody ProjectDTO projectDTO) {
         try {
-            Optional<Actor> actor = actorRepository.findById(projectDTO.getActorID());
-            Optional<Institution> institution = institutionRepository.findById(projectDTO.getInstitutionID());
+            Optional<Actor> actorOptional = actorRepository.findById(projectDTO.getActorID());
+            Optional<Institution> institutionOptional = institutionRepository.findById(projectDTO.getInstitutionID());
 
-            if (actor.isEmpty() || institution.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid actor or institution ID.");
+            if (actorOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid actorID.");
+            Actor actor = actorOptional.get();
+            if (institutionOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid institution ID.");
+            Institution institution = institutionOptional.get();
+
+            if (!institution.getActors().contains(actor)) {   //check if actor is in this institution
+                return ResponseEntity.badRequest().body("Actor is not in this institution.");
             }
+            State state = State.pending;
+            if(institution.getOwner().equals(actor)) state = State.active;
 
             Project project = new Project();
 
             project.setProjectName(projectDTO.getProjectName());
             project.setStartTime(LocalDateTime.now());
             project.setAttachment(projectDTO.getAttachment());
-            project.setState(State.pending);
+            project.setState(state);
 
-            project.setInstitution(institution.get());
-            project.setActor(actor.get());
+            project.setInstitution(institution);
+            project.setActor(actor);
             projectRepository.save(project);
 
+            if (institution.getOwner().equals(actor)) return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED); // only temporarily
 
             String mailString = Files.readString(new ClassPathResource("mail/projectidea.html").getFile().toPath());
-            mailService.sendHTMLMail(institution.get().getOwner().getActorEmail(), "Project suggestion!",
-                    String.format(mailString, institution.get().getOwner().getActorUsername(),
-                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment(),
+            mailService.sendHTMLMail(institution.getOwner().getActorEmail(), "Project suggestion!",
+                    String.format(mailString, institution.getOwner().getActorUsername(),
+                            actor.getActorUsername(), project.getProjectName(), project.getAttachment(),
                             String.format("%sprojectRequest?projectID=%s",
                                     env.getProperty("spring.application.url"), project.getProjectID())));
 
