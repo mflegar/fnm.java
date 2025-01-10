@@ -17,7 +17,6 @@ interface Expense {
   expense: number
   actorID: number
   projectID: number
-  date: string
 }
 
 interface ExpensesTableProps {
@@ -46,55 +45,61 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
-      <div className="mb-4 text-right">
-        <span className="text-lg font-semibold">
-          Total Amount: ${totalAmount.toFixed(2)}
-        </span>
-      </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Description</TableHead>
-            <TableHead>Cost</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Actor ID</TableHead>
-            <TableHead>Project ID</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {getCurrentPageExpenses().map((expense) => (
-            <TableRow key={expense.expenseID}>
-              <TableCell>{expense.description}</TableCell>
-              <TableCell>${expense.expense.toFixed(2)}</TableCell>
-              <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
-              <TableCell>{expense.actorID}</TableCell>
-              <TableCell>{expense.projectID}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      {expenses.length === 0 ? (
+        <div className="text-center text-lg font-semibold text-gray-500">
+          No expenses available.
+        </div>
+      ) : (
+        <>
+          <div className="mb-4 text-right">
+            <span className="text-lg font-semibold">
+              Total Amount: ${totalAmount.toFixed(2)}
+            </span>
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Description</TableHead>
+                <TableHead>Cost</TableHead>
+                <TableHead>Actor ID</TableHead>
+                <TableHead>Project ID</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {getCurrentPageExpenses().map((expense) => (
+                <TableRow key={expense.expenseID}>
+                  <TableCell>{expense.description}</TableCell>
+                  <TableCell>${expense.expense.toFixed(2)}</TableCell>
+                  <TableCell>{expense.actorID}</TableCell>
+                  <TableCell>{expense.projectID}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
 
-      <div className="mt-4 flex justify-center gap-2">
-        <Button
-          variant="outline"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-6 py-2 border-2 border-gray-400 rounded-lg hover:bg-gray-200 disabled:bg-gray-300 transition-all"
-        >
-          Previous
-        </Button>
-        <span className="px-4 py-2 text-lg font-semibold">
-          {`Page ${currentPage} of ${totalPages}`}
-        </span>
-        <Button
-          variant="outline"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-6 py-2 border-2 border-gray-400 rounded-lg hover:bg-gray-200 disabled:bg-gray-300 transition-all"
-        >
-          Next
-        </Button>
-      </div>
+          <div className="mt-4 flex justify-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-6 py-2 border-2 border-gray-400 rounded-lg hover:bg-gray-200 disabled:bg-gray-300 transition-all"
+            >
+              Previous
+            </Button>
+            <span className="px-4 py-2 text-lg font-semibold">
+              {totalPages === 0 ? "Page 1 of 1" : `Page ${currentPage} of ${totalPages}`}
+            </span>
+            <Button
+              variant="outline"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-6 py-2 border-2 border-gray-400 rounded-lg hover:bg-gray-200 disabled:bg-gray-300 transition-all"
+            >
+              Next
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   )
 }

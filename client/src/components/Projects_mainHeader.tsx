@@ -23,12 +23,13 @@ export function Header({ institutionName }: HeaderProps) {
   }
 
   const handleJoinProject = () => {
+    localStorage.setItem("institutionName", institutionName)
     router('/pp/join')
   };
 
   return (
     <header className="flex justify-between items-center h-14 px-4 border-b bg-background w-full">
-      <h1 className="text-lg font-semibold">Institution</h1>
+      <h1 className="text-lg font-semibold">{institutionName}</h1>
       <div className="flex items-center space-x-2">
         <Button variant="outline" size="sm" onClick={handleJoinProject}>
           Join project

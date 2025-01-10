@@ -6,11 +6,10 @@ interface GeneratePDFProps {
   expenses: { 
     expenseID: number; 
     description: string; 
-    expense: number; 
+    expense: number;
     actorID: number; 
-    projectID: number; 
-    date: string;
-  }[];
+    projectID: number;
+  }[]; // Removed "date" field from the interface
   institutionName: string | null;
   name: string | null;
 }
@@ -30,14 +29,13 @@ export const GeneratePDF = ({ expenses, institutionName, name }: GeneratePDFProp
 
     // Generate table using autoTable
     (doc as any).autoTable({
-      head: [['ID', 'Description', 'Cost', 'Actor ID', 'Project ID', 'Date']],
+      head: [['ID', 'Description', 'Cost', 'Actor ID', 'Project ID']], // Removed 'Date' from table headers
       body: expenses.map((expense) => [
         expense.expenseID,
         expense.description,
         `$${expense.expense.toFixed(2)}`,
         expense.actorID,  // Added actorID to the table
         expense.projectID,  // Added projectID to the table
-        expense.date
       ]),
       startY: 30, // Start table below the title
       margin: { top: 20 },
