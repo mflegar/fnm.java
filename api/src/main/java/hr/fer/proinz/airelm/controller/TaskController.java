@@ -36,6 +36,9 @@ public class TaskController {
             if (project == null){
                 return ResponseEntity.badRequest().body("Project not found.");
             }
+            if (!project.getActors().contains(actor)) {   //check if actor is assigned to the project
+                return ResponseEntity.badRequest().body("Actor is not assigned to this project.");
+            }
             Task task = new Task();
             task.setActor(actor);
             task.setDescription(taskDTO.getDescription());

@@ -157,4 +157,22 @@ public class InstitutionController {
         return ResponseEntity.ok("Actor successfully left the institution.");
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteInstitution(@PathVariable Integer id) {
+        try {
+            Optional<Institution> institutionOpt = institutionRepository.findById(id);
+            if (institutionOpt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+
+            Institution institution = institutionOpt.get();
+
+            institutionRepository.delete(institution);
+
+            return ResponseEntity.ok("Institution successfully deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting institution: " + e.getMessage());
+        }
+    }
+
+
 }

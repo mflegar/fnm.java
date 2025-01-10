@@ -33,6 +33,9 @@ public class ExpenseController {
             if (project == null){
                 return ResponseEntity.badRequest().body("Project not found.");
             }
+            if (!project.getActors().contains(actor)) {   //check if actor is assigned to the project
+                return ResponseEntity.badRequest().body("Actor is not assigned to this project.");
+            }
             Expense expense = new Expense();
             expense.setExpense_cost(expenseDTO.getExpense_cost());
             expense.setActor(actor);
