@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: airelm
+  datasource:
+    url: '${POSTGRES_URL:}'
+    username: '${POSTGRES_USERNAME:postgres}'
+    password: '${POSTGRES_PASSWORD:}'
+    driverClassName: 'org.postgresql.Driver'
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: 'org.hibernate.dialect.PostgreSQLDialect'
+    properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: false
+    show-sql: true
+  sql:
+    init:
+      mode: never
+      continue-on-error: false
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: '${GITHUB_CLIENT_ID:}'
+            client-secret: '${GITHUB_CLIENT_SECRET:}'
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - 'read:user'
+              - 'user:email'
+  mail:
+    host: 'smtp.gmail.com'
+    port: 587
+    username: '${GMAIL_ADDRESS:}'
+    password: '${GMAIL_APP_PASSWORD:}'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  port: '${PORT:8780}'

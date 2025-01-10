@@ -1,79 +1,162 @@
-# Programsko inženjerstvo
+<!-- markdownlint-disable-file MD033 MD041 -->
+> [!NOTE]
+> As per course requirements, the repository name must match our team's name. For reference, the actual project title and description are below.
 
-> Ime projekta u naslovu ima cilj opisati namjenu projekta te pomoći u podizanju početnog interesa za projekt prezentirajući osnovnu svrhu projekta.
-> Isključivo ovisi o Vama!
-> 
-> Naravno, nijedan predložak nije idealan za sve projekte jer su potrebe i ciljevi različiti. Ne bojte se naglasiti Vaš cilj u ovoj početnoj stranici projekta, podržat ćemo ga bez obzira usredotočili se Vi više na tenologiju ili marketing.
-> 
-> Zašto ovaj dokument? Samo manji dio timova je do sada propoznao potrebu (a i meni je lakše pratiti Vaš rad).  
+# AIReLM &ensp;![Version Tag](https://img.shields.io/github/v/tag/mflegar/fnm.java?sort=semver&filter=v*)&nbsp;![Web Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/web.yml?label=web)&nbsp;![API Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/api.yml?label=api)
 
-# Opis projekta
-Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
+This repository is based on a [project template](https://github.com/VladoSruk/Programsko-inzenjerstvo) provided by [Associate Professor Vlado Sruk, PhD](https://www.fer.unizg.hr/en/vlado.sruk). We have modified this template to suit our needs and would like to acknowledge the professor's effort in providing a solid foundation for our project assignment.
 
-Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
-> Obzirom da je ovo zadani projekt navedite i što želite/jeste novo  naučili.
+## Project Description/Overview
 
-> Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/UniZg_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/unizg.png" alt="UNIZG" align="right" height="48">
+<!-- https://www.fer.unizg.hr/_pub/themes_static/fer2016/default/img/FER_logo.png -->
+<img src="https://www.github.com/mflegar/fnm.java/wiki/images/fer.png" alt="FER" align="right" height="48">
 
-# Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
+This collaborative effort was undertaken as part of a project assignment for the [Software Engineering](https://www.fer.unizg.hr/en/course/sofeng) course at the [Faculty of Electrical Engineering and Computing](https://www.fer.unizg.hr/en) at the [University of Zagreb](https://www.unizg.hr/homepage/).
 
+The **AI Research Lab Management** (_AIReLM_) application simplifies management for academic and private institutions working on AI research, enabling project proposal submission, task assignment, progress tracking, result testing, and expense tracking.
 
-# Tehnologije
+For a more comprehensive description of the project, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/1-Project-Description).
 
-#Instalcija
-# Članovi tima 
-> Popis članova tima/linkovi/ glavni doprinos
->
+## Functional Requirements Overview
 
-# Kontribucije
->Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md
+1. **User Registration**<br>
+Users can register an account.
 
+2. **Institution Creation**<br>
+The system facilitates the establishment of an institution.
 
+3. **Access Request**<br>
+You can submit an access request to a specific institution.
 
-# 📝 Kodeks ponašanja [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-Kao studenti sigurno ste upoznati s minimumom prihvatljivog ponašanja definiran u [KODEKS PONAŠANJA STUDENATA FAKULTETA ELEKTROTEHNIKE I RAČUNARSTVA SVEUČILIŠTA U ZAGREBU](https://www.fer.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016%5B1%5D.pdf), te dodatnim naputcima za timski rad na predmetu [Programsko inženjerstvo](https://wwww.fer.hr).
-Očekujemo da ćete poštovati [etički kodeks IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html) koji ima važnu obrazovnu funkciju sa svrhom postavljanja najviših standarda integriteta, odgovornog ponašanja i etičkog ponašanja u profesionalnim aktivnosti. Time profesionalna zajednica programskih inženjera definira opća načela koja definiranju  moralni karakter, donošenje važnih poslovnih odluka i uspostavljanje jasnih moralnih očekivanja za sve pripadnike zajenice.
+4. **Researcher Project Idea Submission**<br>
+Each researcher in the institution can submit their project proposal directly to the institution.
 
-Kodeks ponašanja skup je provedivih pravila koja služe za jasnu komunikaciju očekivanja i zahtjeva za rad zajednice/tima. Njime se jasno definiraju obaveze, prava, neprihvatljiva ponašanja te  odgovarajuće posljedice (za razliku od etičkog kodeksa). U ovom repozitoriju dan je jedan od široko prihvačenih kodeks ponašanja za rad u zajednici otvorenog koda.
->### Poboljšajte funkcioniranje tima:
->* definirajte načina na koji će rad biti podijeljen među članovima grupe
->* dogovorite kako će grupa međusobno komunicirati.
->* ne gubite vrijeme na dogovore na koji će grupa rješavati sporove primjenite standarde!
->* implicitno podrazmijevamo da će svi članovi grupe slijediti kodeks ponašanja.
- 
->###  Prijava problema
->Najgore što se može dogoditi je da netko šuti kad postoje problemi. Postoji nekoliko stvari koje možete učiniti kako biste najbolje riješili sukobe i probleme:
->* Obratite mi se izravno [e-pošta](mailto:vlado.sruk@fer.hr) i  učinit ćemo sve što je u našoj moći da u punom povjerenju saznamo koje korake trebamo poduzeti kako bismo riješili problem.
->* Razgovarajte s vašim asistentom jer ima najbolji uvid u dinamiku tima. Zajedno ćete saznati kako riješiti sukob i kako izbjeći daljnje utjecanje u vašem radu.
->* Ako se osjećate ugodno neposredno razgovarajte o problemu. Manje incidente trebalo bi rješavati izravno. Odvojite vrijeme i privatno razgovarajte s pogođenim članom tima te vjerujte u iskrenost.
+5. **Team Invitation and Management**<br>
+Team leaders can assemble their teams.
 
-# 📝 Licenca
-Važeča (1)
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+For a complete list and more comprehensive description of the functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Requirements-Analysis#functional-requirements).
 
-Ovaj repozitorij sadrži otvoreni obrazovni sadržaji (eng. Open Educational Resources)  i licenciran je prema pravilima Creative Commons licencije koja omogućava da preuzmete djelo, podijelite ga s drugima uz 
-uvjet da navođenja autora, ne upotrebljavate ga u komercijalne svrhe te dijelite pod istim uvjetima [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License HR][cc-by-nc-sa].
->
-> ### Napomena:
->
-> Svi paketi distribuiraju se pod vlastitim licencama.
-> Svi upotrijebleni materijali  (slike, modeli, animacije, ...) distribuiraju se pod vlastitim licencama.
+## Non-Functional Requirements Overview
 
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
+1. **Security**<br>
+The application should ensure the confidentiality, integrity, and availability of user data.
 
-[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc/4.0/deed.hr 
-[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
-[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+2. **Usability**<br>
+The application should be easy to use for all intended users.
 
-Orginal [![cc0-1.0][cc0-1.0-shield]][cc0-1.0]
->
->COPYING: All the content within this repository is dedicated to the public domain under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
->
-[![CC0-1.0][cc0-1.0-image]][cc0-1.0]
+3. **Scalability**<br>
+The application should be able to handle a large number of users and projects without compromising performance.
 
-[cc0-1.0]: https://creativecommons.org/licenses/by/1.0/deed.en
-[cc0-1.0-image]: https://licensebuttons.net/l/by/1.0/88x31.png
-[cc0-1.0-shield]: https://img.shields.io/badge/License-CC0--1.0-lightgrey.svg
+4. **Performance**<br>
+The application should respond quickly to user interactions and load times should be minimized.
 
-### Reference na licenciranje repozitorija
+5. **Reliability**<br>
+The application should be reliable, users should be able to use it without expecting crashes and errors and in case they do happen, data should not be lost.
+
+For a more comprehensive description of the non-functional requirements, please refer to the [wiki](https://github.com/mflegar/fnm.java/wiki/2-Requirements-Analysis#other-requirements).
+
+## Technologies
+
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)][react]
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)][vite]
+&ensp;
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)][spring-boot]
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)][postgres]
+&ensp;
+[![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)][docker]
+
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)][github]
+[![GitHub Actions](https://img.shields.io/badge/Github%20Actions-282a2e?style=for-the-badge&logo=githubactions&logoColor=367cfe)][github-actions]
+
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)][figma]
+
+[![VSCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)][vscode]
+&ensp;
+[![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=for-the-badge&logo=intellij-idea&logoColor=white)][intellij-idea]
+
+[![Microsoft Teams](https://img.shields.io/badge/Microsoft_Teams-6264A7?style=for-the-badge&logo=microsoft-teams&logoColor=white)][microsoft-teams]
+
+[react]: https://react.dev/
+[vite]: https://vite.dev/
+[spring-boot]: https://spring.io/projects/spring-boot
+[postgres]: https://www.postgresql.org/
+[docker]: https://www.docker.com/
+[github]: https://github.com/
+[github-actions]: https://github.com/features/actions
+[figma]: https://www.figma.com/
+[vscode]: https://code.visualstudio.com/
+[intellij-idea]: https://www.jetbrains.com/idea/
+[microsoft-teams]: https://www.microsoft.com/en-us/microsoft-teams/group-chat-software
+
+## Getting Started (Installation)
+
+To get started, open your terminal, and run the following command:
+
+```bash
+docker compose up
+```
+
+## Team Members
+
+| Name             | GitHub account                                           | Role |
+|------------------|----------------------------------------------------------|------|
+| Filip Alaber     | [@GrmiSijeva](https://github.com/GrmiSijeva)             | ![Docs][docs]<br>![Frontend][frontend]<br>![Design][design] |
+| Marko Flegar     | [@mflegar](https://github.com/mflegar)                   | ![Docs][docs]<br>![Frontend][frontend]<br>![DevOps][devops] |
+| Josip Koprivnjak | [@Josip-Koprivnjak](https://github.com/Josip-Koprivnjak) | ![Docs][docs]<br>![Backend][backend] |
+| Vedran Maksić    | [@VedranMaksic](https://github.com/VedranMaksic)         | ![Docs][docs]<br>![Backend][backend] |
+| Antonija Pandžić | [@Antonija-Pandzic](https://github.com/Antonija-Pandzic) | ![Docs][docs]<br>![Frontend][frontend] |
+| Antonio Tolić    | [@antoniotolic](https://github.com/antoniotolic)         | ![Docs][docs]<br>![Backend][backend] |
+| Niko Žužul       | [@NikoZuzul](https://github.com/NikoZuzul)               | ![Docs][docs]<br>![Backend][backend] |
+
+[backend]: https://img.shields.io/badge/Backend-6DB33F?logo=spring-boot&logoColor=white
+[design]: https://img.shields.io/badge/Design-DA461B?logo=figma&logoColor=white
+[devops]: https://img.shields.io/badge/DevOps-2088FF?logo=github-actions&logoColor=white
+[docs]: https://img.shields.io/badge/Docs-1B1F24?logo=github&logoColor=white
+[frontend]: https://img.shields.io/badge/Frontend-36393F?logo=react&logoColor=61DAFB
+
+## Contributing
+
+Read our [contributing guide](.github/CONTRIBUTING.md) to learn about our development process.
+
+## Code of Conduct &ensp;[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+
+As students, you are likely familiar with the minimum standards of acceptable behavior as defined in the [FER Student Code of Conduct](https://www.fer.unizg.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016[3][1].pdf), as well as additional guidelines for teamwork on the [Software Engineering](https://www.fer.unizg.hr/predmet/proinz) course. We expect you to respect the [IEEE Code of Ethics](https://www.ieee.org/about/corporate/governance/p7-8.html), which plays an important educational role in establishing the highest standards of integrity, responsible behavior, and ethical conduct in professional activities. By doing so, the community of software engineers defines common principles that define moral character, making important business decisions, and establishing clear moral expectations for all members of the community.
+
+The Code of Conduct is a set of enforceable rules that serve to clearly communicate expectations and requirements for community/team work. It explicitly defines the obligations, rights, unacceptable behavior, and corresponding consequences (in contrast to an ethical code). A widely accepted Code of Conduct for working in an open-source community has been provided within this repository.
+
+## License &ensp;[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-shield]][cc-by-nc-sa-4.0]
+
+This repository contains Open Educational Resources and is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International][cc-by-nc-sa-4.0] license that allows you to download, share, and modify the work as long as you:
+
+* Attribute the author
+* Do not use it for commercial purposes
+* Share it under the same terms
+
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-4.0-image]][cc-by-nc-sa-4.0]
+
+### Note
+
+* All third-party packages are distributed under their own licenses
+* All other resources (images, models, animations, etc.) are distributed under their own licenses
+
+[cc-by-nc-sa-4.0]: https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en
+[cc-by-nc-sa-4.0-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-4.0-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey
+
+### Repository Licensing Reference
+
+* The repository's wiki is subject to the same licensing terms as the repository itself
+
+## Citation
+
+```bibtex
+@software{fnmjava2025relm,
+  author = {{fnm.java}},
+  title = {{AIReLM}},
+  url = {},
+  version = {0.1.0},
+  year = {2025}
+}
+```
