@@ -1,15 +1,11 @@
 package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.ProjectDTO;
-import hr.fer.proinz.airelm.entity.Actor;
-import hr.fer.proinz.airelm.entity.Institution;
-import hr.fer.proinz.airelm.entity.Project;
-import hr.fer.proinz.airelm.entity.State;
-import hr.fer.proinz.airelm.repository.ActorRepository;
-import hr.fer.proinz.airelm.repository.InstitutionRepository;
-import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.entity.*;
+import hr.fer.proinz.airelm.repository.*;
 import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,32 +29,45 @@ public class ProjectController {
     private ActorRepository actorRepository;
     @Autowired
     private InstitutionRepository institutionRepository;
+    @Autowired
+    private TaskRepository taskRepository;
+    @Autowired
+    private ExpenseRepository expenseRepository;
 
     // Add project
     @PostMapping("/add")
     public ResponseEntity<String> addProject(@RequestBody ProjectDTO projectDTO) {
         try {
-            Optional<Actor> actor = actorRepository.findById(projectDTO.getActorID());
-            Optional<Institution> institution = institutionRepository.findById(projectDTO.getInstitutionID());
+            Optional<Actor> actorOptional = actorRepository.findById(projectDTO.getActorID());
+            Optional<Institution> institutionOptional = institutionRepository.findById(projectDTO.getInstitutionID());
 
-            if (actor.isEmpty() || institution.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid actor or institution ID.");
+            if (actorOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid actorID.");
+            Actor actor = actorOptional.get();
+            if (institutionOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid institution ID.");
+            Institution institution = institutionOptional.get();
+
+            if (!institution.getActors().contains(actor)) {   //check if actor is in this institution
+                return ResponseEntity.badRequest().body("Actor is not in this institution.");
             }
+            State state = State.pending;
+            if(institution.getOwner().equals(actor)) state = State.active;
 
             Project project = new Project();
 
             project.setProjectName(projectDTO.getProjectName());
             project.setStartTime(LocalDateTime.now());
             project.setAttachment(projectDTO.getAttachment());
-            project.setState(State.pending);
+            project.setState(state);
 
-            project.setInstitution(institution.get());
-            project.setActor(actor.get());
+            project.setInstitution(institution);
+            project.setActor(actor);
             projectRepository.save(project);
 
-            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project suggestion",
+            if (institution.getOwner().equals(actor)) return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED); // only temporarily
+
+            mailService.sendMail(institution.getOwner().getActorEmail(), "Project suggestion",
                     String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
-                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment()));
+                            actor.getActorUsername(), project.getProjectName(), project.getAttachment()));
 
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -132,6 +141,14 @@ public class ProjectController {
                     actorRepository.save(act);  // saving
                 }
                 project.getActors().clear(); //removing all actors that were on the project
+
+
+                for (Task task : project.getTasks()){
+                    taskRepository.delete(task);
+                }
+                project.getTasks().clear();
+
+
                 projectRepository.save(project);
             }
             else projectRepository.save(project);  // Spremanje promjena u bazu
@@ -159,6 +176,7 @@ public class ProjectController {
         return ResponseEntity.ok(projectDTO);
     }
 
+    //get all project of certain actor in certain institution
     @GetMapping("/{actorID}/inside/{institutionID}")
     public ResponseEntity<?> getProjectsByActorInsideInstitution(@PathVariable Integer actorID, @PathVariable Integer institutionID) {
 
@@ -170,6 +188,32 @@ public class ProjectController {
 
         return ResponseEntity.ok(projects);
     }
+
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProject(@PathVariable Integer id) {
+        try {
+            Optional<Project> projectOpt = projectRepository.findById(id);
+            if (projectOpt.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found.");
+            }
+
+            Project project = projectOpt.get();
+
+            for (Task task : project.getTasks()) {
+                taskRepository.deleteById(task.getTaskID());
+                project.getTasks().clear();
+            }
+
+            projectRepository.deleteById(id);
+
+            return ResponseEntity.ok("Project and associated tasks and expenses deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting project: " + e.getMessage());
+        }
+    }
+
 
 
 }
