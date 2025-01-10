@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
@@ -14,4 +15,5 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     List<Project> findByInstitution_InstitutionID(Integer institutionID);
 
+    Optional<Project> findByProjectName(String name);
 }
