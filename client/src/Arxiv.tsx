@@ -1,12 +1,19 @@
 import { useState } from "react";
 import "./arxiv.css";
 
+interface Result {
+  title: string;
+  link: string;
+  summary: string;
+  showFull?: boolean;
+}
+
 const ArxivSearch = () => {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("cs.AI");
-  const [maxResults, setMaxResults] = useState(5);
-  const [results, setResults] = useState([]);
-  const [error, setError] = useState("");
+  const [query, setQuery] = useState<string>("");
+  const [category, setCategory] = useState<string>("cs.AI");
+  const [maxResults, setMaxResults] = useState<number>(5);
+  const [results, setResults] = useState<Result[]>([]);
+  const [error, setError] = useState<string>("");
 
   const handleSearch = async () => {
     if (!query) {
@@ -30,7 +37,7 @@ const ArxivSearch = () => {
     }
   };
 
-  const toggleSummary = (index) => {
+  const toggleSummary = (index: number) => {
     const updatedResults = [...results];
     updatedResults[index].showFull = !updatedResults[index].showFull;
     setResults(updatedResults);

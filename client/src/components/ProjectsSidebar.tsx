@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import {
   GalleryVerticalEnd,
@@ -109,25 +109,8 @@ const data = {
 export function AppSidebar({ onComponentChange, ...props }: { onComponentChange: (component: string) => void }) {
   const navigate = useNavigate();
   const { name } = useParams<{ name: string }>();
-  const [institution, setInstitution] = useState<any>(null);
-  const [expenses, setExpenses] = useState<any[]>([
-    { id: 1, description: "Office rent", cost: 1500, date: "2025-01-01" },
-    { id: 2, description: "Software licenses", cost: 300, date: "2025-01-02" },
-    { id: 3, description: "Marketing budget", cost: 500, date: "2025-01-03" },
-    { id: 4, description: "Employee salaries", cost: 12000, date: "2025-01-04" },
-  ]);
-  const [actors, setActors] = useState<any[]>([
-    { id: 1, username: "John Doe", role: "Manager" },
-    { id: 2, username: "Jane Smith", role: "Developer" },
-    { id: 3, username: "Alice Brown", role: "Designer" },
-    { id: 4, username: "Bob White", role: "Tester" },
-  ]);
-  const [projects, setProjects] = useState<any[]>([
-    { projectID: 1, name: "Genesis", description: "A cutting-edge AI project" },
-    { projectID: 2, name: "Explorer", description: "A new space exploration initiative" },
-    { projectID: 3, name: "Quantum", description: "Research on quantum computing" },
-    { projectID: 4, name: "Aurora", description: "A renewable energy project" },
-  ]);
+  const [actors, setActors] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>([]);
   const [user, setUser] = useState<{ id: Number; email: string; username: string } | null>(null);
 
   const handleInstitutionExpensesClick = () => {
@@ -171,7 +154,6 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
 
         if (response.ok) {
           const institutionData = await response.json();
-          setInstitution(institutionData);
           const { institutionID } = institutionData;
           fetchAdditionalData(institutionID);
         } else {
@@ -185,25 +167,27 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
     };
 
     const fetchAdditionalData = async (institutionID: string) => {
+      const userData = localStorage.getItem("user");
+      if (!userData){
+        return;
+      }
+      const parsedData = JSON.parse(userData);
+      const actorID = parsedData.id;
       try {
-        const expensesResponse = await fetch(`/api/expense/institution/${institutionID}`, {
+        const actorsResponse = await fetch(`/api/user/institution/${institutionID}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
-        const actorsResponse = await fetch(`/api/users/institution/${institutionID}`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const projectsResponse = await fetch(`/api/projects/institution/${institutionID}`, {
+        const projectsResponse = await fetch(`/api/project/${actorID}/inside/${institutionID}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (expensesResponse.ok) {
-          setExpenses(await expensesResponse.json());
-        }
         if (actorsResponse.ok) {
-          setActors(await actorsResponse.json());
+          const actorsData = await actorsResponse.json();
+          setActors(actorsData);
+        } else{
+          console.error("Failed to fetch actors");
         }
         if (projectsResponse.ok) {
           setProjects(await projectsResponse.json());
@@ -221,14 +205,14 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
       title: "Actors",
       icon: Users,
       items: actors.map((actor) => ({
-        title: actor.username,
+        title: actor.actorUsername,
       })),
     },
     {
       title: "Projects",
       icon: FolderDot,
       items: projects.map((project) => ({
-        title: project.name,
+        title: project.projectName,
         url: `/institution/${name}/${project.projectID}`,
       })),
     },
@@ -247,7 +231,7 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
     <>
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
-          <TeamSwitcher institution={institution} />
+          <TeamSwitcher />
         </SidebarHeader>
         <SidebarContent>
           <NavMain items={navMainItems} onViewExpensesClick={handleInstitutionExpensesClick} ownerName={user?.username || "Default User"} />

@@ -1,17 +1,13 @@
-import { Landmark } from "lucide-react"
-
+import { Landmark } from "lucide-react";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { useParams } from "react-router";
 
-export function TeamSwitcher({
-  institution,
-}: {
-  institution: { name: string } | null
-}) {
-  const institutionName = institution?.name || "XD";
+export function TeamSwitcher() {
+  const { name } = useParams<{ name: string }>();
 
   return (
     <SidebarMenu>
@@ -25,12 +21,12 @@ export function TeamSwitcher({
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">
-              {institutionName}
+              {name}
             </span>
             <span className="truncate text-xs">Institution</span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
+  );
 }

@@ -1,4 +1,7 @@
+'use client'
+
 import * as React from "react"
+import { useNavigate } from "react-router"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,125 +13,154 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { useNavigate } from "react-router"
+
+interface Notification {
+  type: 'success' | 'error'
+  message: string
+}
 
 export function ProjectForm() {
-  const [name, setName] = React.useState("")
+  const [projectName, setProjectName] = React.useState("")
   const [attachment, setAttachment] = React.useState("")
+  const [notification, setNotification] = React.useState<Notification | null>(null)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
   const navigate = useNavigate()
 
-  // Funkcija za navigaciju na prethodnu rutu
   const handleGoBack = () => {
-    const previousRoute = localStorage.getItem("previousRoute");
-    localStorage.removeItem("previousRoute");
+    const previousRoute = localStorage.getItem("previousRoute")
+    localStorage.removeItem("previousRoute")
     localStorage.removeItem("institutionName")
-    navigate(previousRoute || "/dashboard") // Ako nije postavljena prethodna ruta, vrati se na /dashboard
+    navigate(previousRoute || "/dashboard")
+  }
+
+  const showNotification = (type: 'success' | 'error', message: string) => {
+    setNotification({ type, message })
+    setTimeout(() => setNotification(null), 5000) // Hide notification after 5 seconds
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault(); // Blokira slanje forme i ponovno ucitavanje stranice
-  
-    const userData = localStorage.getItem("user");
-    const name = localStorage.getItem("institutionName");
-  
-    if (userData && name) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        const actor_id = parsedUser.id;
-  
-        // Dohvati token za autorizaciju
-        const token = localStorage.getItem("token");
-  
-        if (token) {
-          const institutionResponse = await fetch(`/api/institution/name/${name}`, {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`, // Autorizacija s tokenom
-            },
-          });
-  
-          if (institutionResponse.ok) {
-            const institutionData = await institutionResponse.json();
-            console.log(institutionData)
-            const institution_id = institutionData.institutionID; // Pretpostavljamo da API vraća objekt s id
-  
-            const projectData = {
-              name,
-              attachment,
-              actor_id, // Mozda se promijeni na backendu
-              institution_id, // Mozda se promijeni na backendu
-            };
+    event.preventDefault()
+    setIsSubmitting(true)
 
-            console.log(projectData)
-  
-            const response = await fetch("/api/projects/add", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              body: JSON.stringify(projectData),
-            });
-  
-            if (response.ok) {
-              // Ako je odgovor dobar
-              console.log("Project submitted successfully!");
-              localStorage.removeItem("institutionName");
-              const previousRoute = localStorage.getItem("previousRoute");
-              localStorage.removeItem("previousRoute");
-              navigate(previousRoute || "/dashboard"); // Ako nije postavljena prethodna ruta, vrati se na /dashboard
-            } else {
-              console.log("Failed to submit project");
-            }
-          } else {
-            console.log("Failed to fetch institution ID");
-          }
-        } else {
-          console.log("Token not found");
-        }
-      } catch (error) {
-        console.log("Error submitting project", error);
-      }
-    } else {
-      console.log("User data or institution name not found");
+    if (!projectName.trim() || !attachment.trim()) {
+      showNotification('error', 'Please fill in all fields')
+      setIsSubmitting(false)
+      return
     }
-  };
+
+    const userData = localStorage.getItem("user")
+    const institutionName = localStorage.getItem("institutionName")
+
+    if (!userData || !institutionName) {
+      showNotification('error', 'User data or institution name not found')
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      const parsedUser = JSON.parse(userData)
+      const actorID = parsedUser.id
+      const token = localStorage.getItem("token")
+
+      if (!token) {
+        showNotification('error', 'Authentication token not found')
+        setIsSubmitting(false)
+        return
+      }
+
+      const institutionResponse = await fetch(`/api/institution/name/${institutionName}`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      })
+
+      if (!institutionResponse.ok) {
+        throw new Error('Failed to fetch institution ID')
+      }
+
+      const institutionData = await institutionResponse.json()
+      const institutionID = institutionData.institutionID
+
+      const projectData = {
+        projectName,
+        attachment,
+        actorID,
+        institutionID,
+      }
+
+      const response = await fetch("/api/project/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(projectData),
+      })
+
+      if (response.ok) {
+        showNotification('success', 'Project submitted successfully!')
+        localStorage.removeItem("institutionName")
+        const previousRoute = localStorage.getItem("previousRoute")
+        localStorage.removeItem("previousRoute")
+        setTimeout(() => navigate(previousRoute || "/dashboard"), 1000)
+      } else {
+        throw new Error('Failed to submit project')
+      }
+    } catch (error) {
+      console.error("Error submitting project", error)
+      showNotification('error', 'An error occurred while submitting the project')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Card className="w-[350px]">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Create project</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">Create Project</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input 
-                  id="name" 
-                  placeholder="Name of your project" 
-                  value={name}
-                  onChange={(e) => setName(e.target.value)} 
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="attachment">Attachment</Label>
-                <Textarea 
-                  id="attachment" 
-                  placeholder="Project attachment" 
-                  value={attachment}
-                  onChange={(e) => setAttachment(e.target.value)} 
-                  className="mb-6" // Dodaj margine na dnu Textarea
-                />
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input 
+                id="name" 
+                placeholder="Name of your project" 
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                required 
+              />
             </div>
-            <CardFooter className="flex justify-between mt-4"> {/* Dodan margin-top za razmak između dugmadi i forme */}
-              <Button variant="outline" onClick={handleGoBack}>Go back</Button>
-              <Button type="submit">Submit project</Button>
-            </CardFooter>
+            <div className="space-y-2">
+              <Label htmlFor="attachment">Attachment</Label>
+              <Textarea 
+                id="attachment" 
+                placeholder="Project attachment" 
+                value={attachment}
+                onChange={(e) => setAttachment(e.target.value)}
+                required
+                className="min-h-[100px]"
+              />
+            </div>
+            {notification && (
+              <div className={`p-3 rounded-md ${
+                notification.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              }`}>
+                {notification.message}
+              </div>
+            )}
           </form>
         </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={handleGoBack} disabled={isSubmitting}>
+            Go back
+          </Button>
+          <Button type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit project'}
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   )

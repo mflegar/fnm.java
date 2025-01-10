@@ -29,12 +29,12 @@ export function NavMain({
       url?: string;
     }[]; // For subitems
   }[];
-  onViewExpensesClick: () => void; // Tip za callback
-  ownerName: string; // Dodajte prop za ime vlasnika
+  onViewExpensesClick: () => void; // Callback function type
+  ownerName: string; // Prop for owner name
 }) {
   const handleChildClick = (title: string) => {
     if (title.toLowerCase() === "view expenses") {
-      onViewExpensesClick(); // Pozivanje callback funkcije
+      onViewExpensesClick(); // Calling callback function
     }
   };
 
@@ -42,7 +42,7 @@ export function NavMain({
     <SidebarGroup>
       <SidebarGroupLabel>General</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => {
+        {items.map((item, index) => {
           let noItemsMessage = ""; // Message for empty sections
 
           // Determine message based on the item type
@@ -56,7 +56,7 @@ export function NavMain({
 
           return (
             <Collapsible
-              key={item.title}
+              key={`${item.title}-${index}`} // Use both title and index to ensure uniqueness
               asChild
               defaultOpen={item.isActive}
               className="group/collapsible"
@@ -64,13 +64,11 @@ export function NavMain({
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   {item.title === "Institution Expenses" ? (
-                    // Ako je "Institution Expenses", samo dugme bez dropdowna
                     <SidebarMenuButton tooltip={item.title}>
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
                     </SidebarMenuButton>
                   ) : (
-                    // Ako nije "Institution Expenses", onda s dropdownom
                     <SidebarMenuButton tooltip={item.title}>
                       {item.icon && <item.icon />}
                       <span>{item.title}</span>
@@ -81,8 +79,8 @@ export function NavMain({
                 <CollapsibleContent>
                   {item.items && item.items.length > 0 ? (
                     <SidebarMenuSub>
-                      {item.items.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
+                      {item.items.map((subItem, subIndex) => (
+                        <SidebarMenuSubItem key={`${subItem.title}-${subIndex}`}> {/* Unique key for each subitem */}
                           <SidebarMenuSubButton asChild>
                             {subItem.url ? (
                               <a
@@ -96,7 +94,6 @@ export function NavMain({
                                 className="w-full text-left p-2"
                                 onClick={() => handleChildClick(subItem.title)}
                               >
-                                {/* Check if the actor is the owner */}
                                 <span>
                                   {subItem.title}
                                   {subItem.title === ownerName && ` - Owner`}
