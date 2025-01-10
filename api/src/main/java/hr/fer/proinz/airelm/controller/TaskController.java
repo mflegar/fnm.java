@@ -89,10 +89,11 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating task description: " + e.getMessage());
         }
     }
-    /*@GetMapping("/{actorID}/inside/{projectID}")
+    @GetMapping("/{actorID}/inside/{projectID}")
     public ResponseEntity<?> getTasksByActorInsideProject(@PathVariable Integer actorID, @PathVariable Integer projectID){
-
-    }*/
+        List<TaskDTO> tasks = taskService.getTasksByActorAndProject(actorID, projectID);
+        return ResponseEntity.ok(tasks);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {

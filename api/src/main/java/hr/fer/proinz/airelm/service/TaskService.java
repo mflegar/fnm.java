@@ -43,6 +43,15 @@ public class TaskService {
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
     }
+    public List<TaskDTO> getTasksByActorAndProject(Integer actorID, Integer projectID){
+        return taskRepository.findByActor_ActorIDAndProject_ProjectID(actorID, projectID).stream().map(
+                task -> new TaskDTO(
+                        task.getTaskID(),
+                        task.getProject().getProjectID(),
+                        task.getDescription(),
+                        task.getActor().getActorID()
+                )).collect(Collectors.toList());
+    }
     public TaskDTO getTask(Integer taskID) {
         Task task = taskRepository.findById(taskID).orElse(null);
         if (task == null) return null;

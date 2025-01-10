@@ -10,4 +10,5 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
     List<Task> findByActor_ActorID(Integer actorID);
     List<Task> findByProject_ProjectID(Integer projectID);
+    List<Task> findByActor_ActorIDAndProject_ProjectID(Integer actorID, Integer projectID);
 }
