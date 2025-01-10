@@ -60,7 +60,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({ proj
       console.error("No authorization token found!")
       return
     }
-
+  
     try {
       const response = await fetch(`/api/expense/project/${projectID}`, {
         method: "GET",
@@ -73,7 +73,16 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({ proj
         throw new Error("Failed to fetch expenses")
       }
       const data = await response.json()
-      setExpenses((prevExpenses) => [...prevExpenses, ...data])  // Append the expenses for the current project
+  
+      // Filter out any expenses that are already in the state
+      setExpenses((prevExpenses) => {
+        const newExpenses = data.filter((newExpense: Expense) => 
+          !prevExpenses.some((existingExpense: Expense) => existingExpense.expenseID === newExpense.expenseID)
+        );
+        
+        // Return the updated expenses, combining previous ones with new unique expenses
+        return [...prevExpenses, ...newExpenses]
+      })
     } catch (error) {
       console.error("Error fetching expenses:", error)
     }

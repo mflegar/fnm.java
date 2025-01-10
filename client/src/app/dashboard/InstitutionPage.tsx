@@ -1,19 +1,8 @@
 import { useState, useEffect } from "react";
 import { AppSidebar } from "@/components/ProjectsSidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Header } from "@/components/Projects_mainHeader";
 import { ExpensesTable } from "@/components/InstitutionExpenses";
 import { GeneratePDF } from "@/components/GeneratePDF";
@@ -31,9 +20,16 @@ interface Project {
   state: "pending" | "active" | "closed" | "rejected";
 }
 
+interface Institution {
+  institutionID: number;
+  institutionName: string;
+  link: string;
+  ownerID: number;
+}
+
 export default function Page() {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
-  const [institutionID, setInstitutionID] = useState<number | null>(null);
+  const [institution, setInstitution] = useState<Institution | null>(null);
   const [expenses, setExpenses] = useState<any[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
 
@@ -56,7 +52,7 @@ export default function Page() {
         }
 
         const data = await response.json();
-        setInstitutionID(data.institutionID);
+        setInstitution(data);
       } catch (err: any) {
         console.log(err);
       }
@@ -67,38 +63,38 @@ export default function Page() {
 
   useEffect(() => {
     const fetchExpenses = async () => {
-      if (!institutionID) return;
-  
+      if (!institution) return;
+
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`/api/expense/institution/${institutionID}`, {
+        const response = await fetch(`/api/expense/institution/${institution.institutionID}`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
           },
         });
-  
+
         if (!response.ok) {
           throw new Error("Failed to fetch expenses");
         }
-  
+
         const data = await response.json();
         setExpenses(data);
       } catch (err: any) {
         console.log(err);
       }
     };
-  
+
     fetchExpenses();
-  }, [institutionID]);
+  }, [institution]);
 
   useEffect(() => {
     const fetchProjects = async () => {
-      if (!institutionID) return;
+      if (!institution) return;
 
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`/api/project/institution/${institutionID}`, {
+        const response = await fetch(`/api/project/institution/${institution.institutionID}`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -117,10 +113,10 @@ export default function Page() {
     };
 
     fetchProjects();
-  }, [institutionID]);
+  }, [institution]);
 
   const handleComponentChange = (component: string) => {
-    if(activeComponent === component){
+    if (activeComponent === component) {
       setActiveComponent(null);
     } else {
       setActiveComponent(component);
@@ -132,7 +128,7 @@ export default function Page() {
       <AppSidebar onComponentChange={handleComponentChange} />
       <SidebarInset>
         <div className="flex flex-col h-screen">
-          <Header institutionName={institutionName} />
+          <Header institutionName={institution?.institutionName || "Loading..."} />
           <div className="flex-1 overflow-y-auto flex flex-col gap-4 p-4 pt-0">
             <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
               <div className="flex items-center gap-2">
@@ -160,19 +156,19 @@ export default function Page() {
             {activeComponent === "expenses" && (
               <div className="mt-6 min-h-[400px] flex-1 bg-muted/50 rounded-xl p-6">
                 <ExpensesTable expenses={expenses} />
-                <GeneratePDF expenses={expenses} institutionName={institutionName} name={null} />
+                <GeneratePDF expenses={expenses} institutionName={institution?.institutionName || ""} name={null} />
               </div>
             )}
-            {activeComponent === "notifications" && (
+            {activeComponent === "notifications" && institution && (
               <div className="mt-6 min-h-[400px] flex-1 bg-muted/50 rounded-xl p-6">
-                <Notifications />
+                <Notifications institution={institution} />
               </div>
             )}
             {!activeComponent && (
               <div className="flex flex-col md:flex-row items-start justify-between h-full bg-muted/10 pt-10 px-6 rounded-xl">
                 <div className="w-full md:w-1/2 text-left mb-6 md:mb-0 md:pr-8">
                   <h1 className="text-2xl font-bold text-primary mb-4">
-                    Welcome to Institution {institutionName}
+                    Welcome to Institution {institution?.institutionName || "Loading..."}
                   </h1>
                   <p className="text-lg text-muted-foreground">
                     We hope you're enjoying your stay here. Unfortunately, as a default user in this institution, this page may not be the most useful for you at the moment. 

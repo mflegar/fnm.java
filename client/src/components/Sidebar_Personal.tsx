@@ -1,7 +1,6 @@
 import {
   Folder,
   MoreHorizontal,
-  Trash2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -9,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -40,7 +38,7 @@ export function NavProjects({
   const handleProjectClick = (name: string) => {
     if (name.toLowerCase() === "institution dashboard") {
       onInstitutionDashboardClick();
-    } else if (name.toLowerCase() === "your notifications") {
+    } else if (name.toLowerCase() === "institution notifications") {
       onNotificationsClick(); // Poziva funkciju za "Your notifications"
     }
   };
@@ -84,11 +82,6 @@ export function NavProjects({
                 >
                   <Folder className="text-muted-foreground" />
                   <span>View</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Goat</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

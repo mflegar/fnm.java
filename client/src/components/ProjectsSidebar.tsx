@@ -19,6 +19,7 @@ import {
   SidebarFooter,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Sample data
 const data = {
@@ -28,79 +29,13 @@ const data = {
       logo: GalleryVerticalEnd,
     },
   ],
-  navMain: [
-    {
-      title: "Actors",
-      url: "#",
-      icon: Users,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: FolderDot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Institution expenses",
-      url: "#",
-      icon: BadgeDollarSign,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-  ],
   projects: [
     {
-      name: "Your notifications",
-      url: "#",
+      name: "Institution Notifications",
       icon: BellRing,
     },
     {
-      name: "Institution dashboard",
-      url: "#",
+      name: "Institution Dashboard",
       icon: LayoutDashboard,
     },
   ],
@@ -111,28 +46,25 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
   const { name } = useParams<{ name: string }>();
   const [actors, setActors] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
-  const [user, setUser] = useState<{ id: Number; email: string; username: string } | null>(null);
+  const [user, setUser] = useState<{ id: number; email: string; username: string } | null>(null);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true); // Dodano stanje za učitavanje
+
+  const token = localStorage.getItem("token"); // token
 
   const handleInstitutionExpensesClick = () => {
-    console.log("Expenses clicked")
     onComponentChange("expenses");
   };
-  
+
   const handleInstitutionDashboardClick = () => {
-    console.log("Institution Dashboard clicked")
     onComponentChange("dashboard");
   };
 
   const handleNotificationsClick = () => {
-    console.log("Notifications clicked");
     onComponentChange("notifications");
   };
 
-
-  const token = localStorage.getItem("token"); // token
-
   useEffect(() => {
-    // Fetch user data from localStorage
     const userData = localStorage.getItem("user");
     if (userData) {
       try {
@@ -146,6 +78,8 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
 
   useEffect(() => {
     const fetchInstitutionData = async () => {
+      if (!user) return;
+
       try {
         const response = await fetch(`/api/institution/name/${name}`, {
           method: "GET",
@@ -155,39 +89,32 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         if (response.ok) {
           const institutionData = await response.json();
           const { institutionID } = institutionData;
-          fetchAdditionalData(institutionID);
+          await Promise.all([checkOwnership(user.id, institutionID), fetchAdditionalData(institutionID)]);
         } else {
           console.error("Error fetching institution data");
-          //navigate("/dashboard")
+          navigate("/dashboard");
         }
       } catch (error) {
         console.error("Error fetching institution data:", error);
-        //navigate("/dashboard")
+        navigate("/dashboard");
+      } finally {
+        setLoading(false); // Završeno učitavanje
       }
     };
 
     const fetchAdditionalData = async (institutionID: string) => {
-      const userData = localStorage.getItem("user");
-      if (!userData){
-        return;
-      }
-      const parsedData = JSON.parse(userData);
-      const actorID = parsedData.id;
       try {
         const actorsResponse = await fetch(`/api/user/institution/${institutionID}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
-        const projectsResponse = await fetch(`/api/project/${actorID}/inside/${institutionID}`, {
+        const projectsResponse = await fetch(`/api/project/${user?.id}/inside/${institutionID}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
 
         if (actorsResponse.ok) {
-          const actorsData = await actorsResponse.json();
-          setActors(actorsData);
-        } else{
-          console.error("Failed to fetch actors");
+          setActors(await actorsResponse.json());
         }
         if (projectsResponse.ok) {
           setProjects(await projectsResponse.json());
@@ -197,12 +124,48 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
       }
     };
 
-    fetchInstitutionData();
-  }, [name, navigate, token]);
+    const checkOwnership = async (actorID: number, institutionID: string) => {
+      try {
+        const response = await fetch(`/api/user/${actorID}/isInstitutionOwner/${institutionID}`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.ok) {
+          setIsOwner(await response.json());
+        } else {
+          console.error("Failed to check ownership");
+        }
+      } catch (error) {
+        console.error("Error checking ownership:", error);
+      }
+    };
+
+    if (user) fetchInstitutionData();
+  }, [name, user, navigate]);
+
+  if (loading) {
+    // Skeleton prikaz dok se podaci učitavaju
+    return (
+      <Sidebar collapsible="icon" {...props}>
+        <SidebarHeader>
+          <Skeleton className="h-10 w-full" />
+        </SidebarHeader>
+        <SidebarContent>
+          <Skeleton className="h-10 w-full mb-4" />
+          <Skeleton className="h-10 w-full mb-4" />
+          <Skeleton className="h-10 w-full" />
+        </SidebarContent>
+        <SidebarFooter>
+          <Skeleton className="h-10 w-full" />
+        </SidebarFooter>
+      </Sidebar>
+    );
+  }
 
   const navMainItems = [
     {
-      title: "Actors",
+      title: "Users",
       icon: Users,
       items: actors.map((actor) => ({
         title: actor.actorUsername,
@@ -216,35 +179,39 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         url: `/institution/${name}/${project.projectID}`,
       })),
     },
-    {
-      title: "Institution Expenses",
-      icon: BadgeDollarSign,
-      items: [
-        {
-          title: "View Expenses",
-        },
-      ],
-    },
+    ...(isOwner
+      ? [
+          {
+            title: "Institution Expenses",
+            icon: BadgeDollarSign,
+            items: [
+              {
+                title: "View Expenses",
+              },
+            ],
+          },
+        ]
+      : []),
   ];
 
   return (
-    <>
-      <Sidebar collapsible="icon" {...props}>
-        <SidebarHeader>
-          <TeamSwitcher />
-        </SidebarHeader>
-        <SidebarContent>
-          <NavMain items={navMainItems} onViewExpensesClick={handleInstitutionExpensesClick} ownerName={user?.username || "Default User"} />
-          <NavProjects projects={data.projects} onInstitutionDashboardClick={handleInstitutionDashboardClick} onNotificationsClick={handleNotificationsClick} />
-        </SidebarContent>
-        <SidebarFooter>
-          {user ? (
-            <NavUser user={{ email: user.email, username: user.username }} />
-          ) : (
-            <div>Loading user...</div>
-          )}
-        </SidebarFooter>
-      </Sidebar>
-    </>
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader>
+        <TeamSwitcher />
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain items={navMainItems} onViewExpensesClick={handleInstitutionExpensesClick} ownerName={user?.username || "Default User"} />
+        {isOwner && (
+          <NavProjects
+            projects={data.projects}
+            onInstitutionDashboardClick={handleInstitutionDashboardClick}
+            onNotificationsClick={handleNotificationsClick}
+          />
+        )}
+      </SidebarContent>
+      <SidebarFooter>
+        {user ? <NavUser user={{ email: user.email, username: user.username }} /> : <div>Loading user...</div>}
+      </SidebarFooter>
+    </Sidebar>
   );
 }
