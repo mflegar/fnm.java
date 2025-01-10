@@ -8,13 +8,18 @@ import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
+import hr.fer.proinz.airelm.service.ActorService;
 import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +27,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("project")
 public class ProjectController {
-
+    @Autowired
+    private Environment env;
     @Autowired
     private ProjectService projectService;
     @Autowired
@@ -33,7 +39,8 @@ public class ProjectController {
     private ActorRepository actorRepository;
     @Autowired
     private InstitutionRepository institutionRepository;
-
+    @Autowired
+    private ActorService actorService;
     // Add project
     @PostMapping("/add")
     public ResponseEntity<String> addProject(@RequestBody ProjectDTO projectDTO) {
@@ -56,9 +63,13 @@ public class ProjectController {
             project.setActor(actor.get());
             projectRepository.save(project);
 
-            mailService.sendMail(institution.get().getOwner().getActorEmail(), "Project suggestion",
-                    String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
-                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment()));
+
+            String mailString = Files.readString(new ClassPathResource("mail/projectidea.html").getFile().toPath());
+            mailService.sendHTMLMail(institution.get().getOwner().getActorEmail(), "Project suggestion!",
+                    String.format(mailString, institution.get().getOwner().getActorUsername(),
+                            actor.get().getActorUsername(), project.getProjectName(), project.getAttachment(),
+                            String.format("%sprojectRequest?projectID=%s",
+                                    env.getProperty("spring.application.url"), project.getProjectID())));
 
             return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -121,8 +132,14 @@ public class ProjectController {
                 actorRepository.save(actor);
                 project.getActors().add(actor);  // adding actor to the project
                 projectRepository.save(project);
-                mailService.sendMail(project.getActor().getActorEmail(), "Project accepted!",
-                        String.format("Project %s has been accepted by the institution!", project.getProjectName()));
+                String mailString = Files.readString(new ClassPathResource("mail/projectaccepted.html").getFile().toPath());
+                mailService.sendHTMLMail(project.getActor().getActorEmail(), "Project accepted!",
+                        String.format(mailString, actor.getActorUsername(), project.getProjectName()));
+            } else if (newState == State.rejected){
+                projectRepository.save(project);
+                String mailString = Files.readString(new ClassPathResource("mail/projectrejected.html").getFile().toPath());
+                mailService.sendHTMLMail(project.getActor().getActorEmail(), "Project rejected!",
+                        String.format(mailString, actor.getActorUsername(), project.getProjectName()));
             }
 
             if(newState == State.closed){
@@ -141,6 +158,50 @@ public class ProjectController {
         }
     }
 
+    @PostMapping("/requestJoin/{projectID}")
+    public ResponseEntity<String> requestJoinProject(@PathVariable Integer projectID, @RequestBody Integer actorID) throws IOException {
+        Actor actor = actorRepository.findByActorID(actorID);
+        if (actor == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Actor not found!");
+        }
+        Project project = projectRepository.findById(projectID).orElse(null);
+        if (project == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Project not found!");
+        }
+        String mailString = Files.readString(new ClassPathResource("mail/projectjoinmail.html").getFile().toPath());
+        mailService.sendHTMLMail(actor.getActorEmail(), "Request to join project",
+                String.format(mailString, project.getActor().getActorUsername(), actor.getActorUsername(), project.getProjectName(),
+                        String.format(env.getProperty("spring.application.url") + "userRequest?projectID=%s&actorID=%s",
+                                projectID, actorID)));
+        return ResponseEntity.status(HttpStatus.OK).body("Project application successfully sent!");
+    }
+    @PostMapping("acceptActor")
+    public ResponseEntity<String> acceptActor(@RequestParam("projectID") Integer projectID,
+                                              @RequestParam("actorID") Integer actorID,
+                                              @RequestParam("accepted") Boolean accepted) throws IOException {
+        Project project = projectRepository.findById(projectID).orElse(null);
+        Actor actor = actorRepository.findById(actorID).orElse(null);
+        if (project == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found.");
+        }
+        if (actor == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor not found.");
+        }
+        if (accepted){
+            actor.getProjects().add(project); // adding project to the actor
+            actorRepository.save(actor);
+            project.getActors().add(actor);  // adding actor to the project
+            projectRepository.save(project);
+            String mailString = Files.readString(new ClassPathResource("mail/useraccepted.html").getFile().toPath());
+            mailService.sendHTMLMail(actor.getActorEmail(), "Application accepted!",
+                    String.format(mailString, actor.getActorUsername(), project.getProjectName(), project.getAttachment()));
+        } else {
+            String mailString = Files.readString(new ClassPathResource("mail/userrejected.html").getFile().toPath());
+            mailService.sendHTMLMail(actor.getActorEmail(), "Application rejected.",
+                    String.format(mailString, actor.getActorUsername(), project.getProjectName()));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Join request successfully updated.");
+    }
     // Get all projects
     @GetMapping("/")
     public ResponseEntity<List<ProjectDTO>> getAllProjects() {

@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class ProjectDTO {
     private Integer projectID;
 
-    @JsonProperty("name")
     private String projectName;
     @JsonProperty("start")
     private LocalDateTime startTime;

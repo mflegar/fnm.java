@@ -7,10 +7,14 @@ import hr.fer.proinz.airelm.repository.ProjectRepository;
 import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -42,9 +46,10 @@ public class TaskController {
             task.setProject(project);
 
             taskService.saveTask(task);
-
-            mailService.sendMail(actor.getActorEmail(), "Next task assigned to you!",
-                    String.format("Project: %s\nTask description: %s", task.getProject().getProjectName(), task.getDescription()));
+            String mailString = Files.readString(new ClassPathResource("mail/taskmail.html").getFile().toPath());
+            mailService.sendHTMLMail(actor.getActorEmail(), "Next task assigned to you!",
+                    String.format(mailString, actor.getActorUsername(), task.getProject().getProjectName(), task.getDescription(),
+                            "localhost:5780/tasklel"));
 
             return new ResponseEntity<>("Task successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -84,6 +89,10 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating task description: " + e.getMessage());
         }
     }
+    /*@GetMapping("/{actorID}/inside/{projectID}")
+    public ResponseEntity<?> getTasksByActorInsideProject(@PathVariable Integer actorID, @PathVariable Integer projectID){
+
+    }*/
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTask(@PathVariable Integer id) {

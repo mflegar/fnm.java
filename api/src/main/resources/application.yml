@@ -1,6 +1,7 @@
 spring:
   application:
     name: airelm
+    url: "http://localhost:5780/"
   datasource:
     url: '${POSTGRES_URL:}'
     username: '${POSTGRES_USERNAME:postgres}'
@@ -41,5 +42,6 @@ spring:
           auth: true
           starttls:
             enable: true
+
 server:
   port: '${PORT:8780}'

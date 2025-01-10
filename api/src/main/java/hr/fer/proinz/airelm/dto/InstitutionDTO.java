@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class InstitutionDTO {
     private Integer institutionID;
-    @JsonProperty("name")
     private String institutionName;
     @JsonProperty("link")
     private String institutionLink;
