@@ -44,6 +44,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/actuator/health").permitAll()
+
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
                 .oauth2Login(oauth2 -> oauth2
