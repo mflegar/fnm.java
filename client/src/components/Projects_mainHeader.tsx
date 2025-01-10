@@ -1,30 +1,30 @@
-'use client'
+"use client";
 
-import { useNavigate, useLocation } from "react-router"
-import { Button } from "@/components/ui/button"
+import { useNavigate, useLocation } from "react-router";
+import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
-  institutionName: string;  // Dodan prop za ime institucije
+  institutionName: string; // Dodan prop za ime institucije
 }
 
 export function Header({ institutionName }: HeaderProps) {
-  const router = useNavigate()
-  const location = useLocation()
+  const router = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
-    router('/logout')
-  }
+    router("/logout");
+  };
 
   const handleNewProject = () => {
-    const previousRoute = location.pathname  // Dohvati trenutnu rutu
-    localStorage.setItem("previousRoute", previousRoute)  // Spremi je u localStorage
-    localStorage.setItem("institutionName", institutionName)
-    router('/pp/new')
-  }
+    const previousRoute = location.pathname; // Dohvati trenutnu rutu
+    localStorage.setItem("previousRoute", previousRoute); // Spremi je u localStorage
+    localStorage.setItem("institutionName", institutionName);
+    router("/pp/new");
+  };
 
   const handleJoinProject = () => {
-    localStorage.setItem("institutionName", institutionName)
-    router('/pp/join')
+    localStorage.setItem("institutionName", institutionName);
+    router("/pp/join");
   };
 
   return (
@@ -42,5 +42,5 @@ export function Header({ institutionName }: HeaderProps) {
         </Button>
       </div>
     </header>
-  )
+  );
 }

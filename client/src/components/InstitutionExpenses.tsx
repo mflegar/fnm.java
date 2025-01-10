@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,40 +8,43 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 interface Expense {
-  expenseID: number
-  description: string
-  expense: number
-  actorID: number
-  projectID: number
+  expenseID: number;
+  description: string;
+  expense: number;
+  actorID: number;
+  projectID: number;
 }
 
 interface ExpensesTableProps {
-  expenses: Expense[]
+  expenses: Expense[];
 }
 
 export function ExpensesTable({ expenses }: ExpensesTableProps) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 7
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 7;
 
-  const totalPages = Math.ceil(expenses.length / pageSize)
+  const totalPages = Math.ceil(expenses.length / pageSize);
 
   const getCurrentPageExpenses = () => {
-    const startIndex = (currentPage - 1) * pageSize
-    const endIndex = startIndex + pageSize
-    return expenses.slice(startIndex, endIndex)
-  }
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return expenses.slice(startIndex, endIndex);
+  };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
+      setCurrentPage(page);
     }
-  }
+  };
 
-  const totalAmount = expenses.reduce((sum, expense) => sum + expense.expense, 0)
+  const totalAmount = expenses.reduce(
+    (sum, expense) => sum + expense.expense,
+    0
+  );
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
@@ -87,7 +90,9 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
               Previous
             </Button>
             <span className="px-4 py-2 text-lg font-semibold">
-              {totalPages === 0 ? "Page 1 of 1" : `Page ${currentPage} of ${totalPages}`}
+              {totalPages === 0
+                ? "Page 1 of 1"
+                : `Page ${currentPage} of ${totalPages}`}
             </span>
             <Button
               variant="outline"
@@ -101,5 +106,5 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
         </>
       )}
     </div>
-  )
+  );
 }

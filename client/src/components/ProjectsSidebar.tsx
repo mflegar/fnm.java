@@ -41,14 +41,23 @@ const data = {
   ],
 };
 
-export function AppSidebar({ onComponentChange, ...props }: { onComponentChange: (component: string) => void }) {
+export function AppSidebar({
+  onComponentChange,
+  ...props
+}: {
+  onComponentChange: (component: string) => void;
+}) {
   const navigate = useNavigate();
   const { name } = useParams<{ name: string }>();
   const [actors, setActors] = useState<any[]>([]);
   const [projects, setProjects] = useState<any[]>([]);
-  const [user, setUser] = useState<{ id: number; email: string; username: string } | null>(null);
+  const [user, setUser] = useState<{
+    id: number;
+    email: string;
+    username: string;
+  } | null>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true); // Dodano stanje za učitavanje
+  const [loading, setLoading] = useState<boolean>(true);
 
   const token = localStorage.getItem("token"); // token
 
@@ -69,7 +78,11 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
     if (userData) {
       try {
         const parsedUser = JSON.parse(userData);
-        setUser({ id: parsedUser.id, email: parsedUser.email, username: parsedUser.username });
+        setUser({
+          id: parsedUser.id,
+          email: parsedUser.email,
+          username: parsedUser.username,
+        });
       } catch (error) {
         console.error("Error parsing user data:", error);
       }
@@ -89,7 +102,10 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         if (response.ok) {
           const institutionData = await response.json();
           const { institutionID } = institutionData;
-          await Promise.all([checkOwnership(user.id, institutionID), fetchAdditionalData(institutionID)]);
+          await Promise.all([
+            checkOwnership(user.id, institutionID),
+            fetchAdditionalData(institutionID),
+          ]);
         } else {
           console.error("Error fetching institution data");
           navigate("/dashboard");
@@ -98,20 +114,26 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         console.error("Error fetching institution data:", error);
         navigate("/dashboard");
       } finally {
-        setLoading(false); // Završeno učitavanje
+        setLoading(false);
       }
     };
 
     const fetchAdditionalData = async (institutionID: string) => {
       try {
-        const actorsResponse = await fetch(`/api/user/institution/${institutionID}`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const projectsResponse = await fetch(`/api/project/${user?.id}/inside/${institutionID}`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const actorsResponse = await fetch(
+          `/api/user/institution/${institutionID}`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const projectsResponse = await fetch(
+          `/api/project/${user?.id}/inside/${institutionID}`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (actorsResponse.ok) {
           setActors(await actorsResponse.json());
@@ -126,10 +148,13 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
 
     const checkOwnership = async (actorID: number, institutionID: string) => {
       try {
-        const response = await fetch(`/api/user/${actorID}/isInstitutionOwner/${institutionID}`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+          `/api/user/${actorID}/isInstitutionOwner/${institutionID}`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (response.ok) {
           setIsOwner(await response.json());
@@ -145,7 +170,7 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
   }, [name, user, navigate]);
 
   if (loading) {
-    // Skeleton prikaz dok se podaci učitavaju
+    // Skeleton
     return (
       <Sidebar collapsible="icon" {...props}>
         <SidebarHeader>
@@ -200,7 +225,11 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navMainItems} onViewExpensesClick={handleInstitutionExpensesClick} ownerName={user?.username || "Default User"} />
+        <NavMain
+          items={navMainItems}
+          onViewExpensesClick={handleInstitutionExpensesClick}
+          ownerName={user?.username || "Default User"}
+        />
         {isOwner && (
           <NavProjects
             projects={data.projects}
@@ -210,7 +239,11 @@ export function AppSidebar({ onComponentChange, ...props }: { onComponentChange:
         )}
       </SidebarContent>
       <SidebarFooter>
-        {user ? <NavUser user={{ email: user.email, username: user.username }} /> : <div>Loading user...</div>}
+        {user ? (
+          <NavUser user={{ email: user.email, username: user.username }} />
+        ) : (
+          <div>Loading user...</div>
+        )}
       </SidebarFooter>
     </Sidebar>
   );

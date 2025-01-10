@@ -1,8 +1,4 @@
-import {
-  Folder,
-  MoreHorizontal,
-  type LucideIcon,
-} from "lucide-react";
+import { Folder, MoreHorizontal, type LucideIcon } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -77,9 +73,7 @@ export function NavProjects({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
-                <DropdownMenuItem
-                  onClick={() => handleProjectClick(item.name)}
-                >
+                <DropdownMenuItem onClick={() => handleProjectClick(item.name)}>
                   <Folder className="text-muted-foreground" />
                   <span>View</span>
                 </DropdownMenuItem>
