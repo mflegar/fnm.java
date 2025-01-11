@@ -10,7 +10,7 @@ public class ActorRoleInstitutionService {
     @Autowired
     ActorRoleInstitutionRepozitory actorRoleInstitutionRepozitory;
 
-    public void saveActorRoleInstitution(ActorRoleInstitution actorRoleInstitution){
+    public void saveActorRoleInstitution(ActorRoleInstitution actorRoleInstitution) {
         actorRoleInstitutionRepozitory.save(actorRoleInstitution);
     }
 }

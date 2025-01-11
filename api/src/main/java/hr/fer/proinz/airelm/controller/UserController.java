@@ -51,20 +51,24 @@ public class UserController {
             );
         }
     }
+
     @GetMapping("/institution/{id}")
     public ResponseEntity<List<ActorDTO>> getActorsByInstitution(@PathVariable Integer id) {
         return ResponseEntity.ok(actorService.getActorsByInstitution(id));
     }
+
     @GetMapping("/project/{id}")
     public ResponseEntity<?> getActorsByProject(@PathVariable Integer id) {
         return ResponseEntity.ok(actorService.getActorsByProject(id));
     }
+
     @GetMapping("/{actorID}/isInstitutionOwner/{institutionID}")
-    public ResponseEntity<Boolean> isOwnerOfInstitution(@PathVariable Integer actorID, @PathVariable Integer institutionID){
+    public ResponseEntity<Boolean> isOwnerOfInstitution(@PathVariable Integer actorID, @PathVariable Integer institutionID) {
         return ResponseEntity.ok(actorService.isOwnerOfInstitution(actorID, institutionID));
     }
+
     @GetMapping("/{actorID}/isProjectOwner/{projectID}")
-    public ResponseEntity<Boolean> isOwnerOfProject(@PathVariable Integer actorID, @PathVariable Integer projectID){
+    public ResponseEntity<Boolean> isOwnerOfProject(@PathVariable Integer actorID, @PathVariable Integer projectID) {
         return ResponseEntity.ok(actorService.isOwnerOfProject(actorID, projectID));
     }
 

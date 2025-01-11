@@ -71,7 +71,7 @@ public class InstitutionService {
 
     public InstitutionDTO getInstitutionByName(String name) {
         Institution institution = institutionRepository.findByInstitutionName(name).orElse(null);
-        if (institution == null){
+        if (institution == null) {
             return null;
         }
         return new InstitutionDTO(
@@ -80,6 +80,7 @@ public class InstitutionService {
                 institution.getInstitutionLink(),
                 institution.getOwner().getActorID());
     }
+
     public void deleteInstitution(Integer id) {
         institutionRepository.deleteById(id);
     }

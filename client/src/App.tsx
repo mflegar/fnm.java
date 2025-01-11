@@ -82,9 +82,6 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-
-
-
         </Routes>
       </UserProvider>
     </BrowserRouter>

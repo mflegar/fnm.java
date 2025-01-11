@@ -1,8 +1,6 @@
 package hr.fer.proinz.airelm.service;
 
-import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.dto.ProjectDTO;
-import hr.fer.proinz.airelm.entity.Institution;
 import hr.fer.proinz.airelm.entity.Project;
 import hr.fer.proinz.airelm.entity.State;
 import hr.fer.proinz.airelm.repository.ActorRepository;
@@ -11,7 +9,6 @@ import hr.fer.proinz.airelm.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -120,7 +117,7 @@ public class ProjectService {
 
     public ProjectDTO getProjectByName(String name) {
         Project project = projectRepository.findByProjectName(name).orElse(null);
-        if (project == null){
+        if (project == null) {
             return null;
         }
         return new ProjectDTO(

@@ -32,14 +32,15 @@ public class ExpenseService {
         return expenseRepository.save(expense);
     }
 
-    public void changeExpenseCost(Integer expenseID, Integer expenseCost){
+    public void changeExpenseCost(Integer expenseID, Integer expenseCost) {
         Optional<Expense> expense = expenseRepository.findById(expenseID);
-        if (expense.isEmpty()){
+        if (expense.isEmpty()) {
             throw new IllegalArgumentException("Invalid expense id.");
         }
         expense.get().setExpense_cost(expenseCost);
         expenseRepository.save(expense.get());
     }
+
     public List<ExpenseDTO> getExpensesByInstitution(Integer institutionID) {
         if (institutionID == null || institutionID <= 0) {
             throw new IllegalArgumentException("Invalid institution ID.");

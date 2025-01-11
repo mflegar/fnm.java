@@ -1,6 +1,5 @@
 package hr.fer.proinz.airelm.controller;
 
-import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.dto.ProjectDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.*;
@@ -44,14 +43,15 @@ public class ProjectController {
 
             if (actorOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid actorID.");
             Actor actor = actorOptional.get();
-            if (institutionOptional.isEmpty()) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid institution ID.");
+            if (institutionOptional.isEmpty())
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid institution ID.");
             Institution institution = institutionOptional.get();
 
             if (!institution.getActors().contains(actor)) {   //check if actor is in this institution
                 return ResponseEntity.badRequest().body("Actor is not in this institution.");
             }
             State state = State.pending;
-            if(institution.getOwner().equals(actor)) state = State.active;
+            if (institution.getOwner().equals(actor)) state = State.active;
 
             Project project = new Project();
 
@@ -64,7 +64,8 @@ public class ProjectController {
             project.setActor(actor);
             projectRepository.save(project);
 
-            if (institution.getOwner().equals(actor)) return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED); // only temporarily
+            if (institution.getOwner().equals(actor))
+                return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED); // only temporarily
 
             mailService.sendMail(institution.getOwner().getActorEmail(), "Project suggestion",
                     String.format("Researcher %s has suggested a new project idea!\nProject name: %s\nProject description: %s",
@@ -109,7 +110,7 @@ public class ProjectController {
 
             Project project = projectOpt.get();
 
-            if(project.getState() == newState){
+            if (project.getState() == newState) {
                 return ResponseEntity.status(HttpStatus.OK).body("The project is already in the requested state.");
 
 
@@ -125,7 +126,7 @@ public class ProjectController {
             project.setState(newState);  // Postavljanje novog stanja projekta
 
             Actor actor = project.getActor(); // actor that created the project
-            if(newState == State.active) {
+            if (newState == State.active) {
                 // saving in joins_project
                 actor.getProjects().add(project); // adding project to the actor
                 actorRepository.save(actor);
@@ -135,7 +136,7 @@ public class ProjectController {
                         String.format("Project %s has been accepted by the institution!", project.getProjectName()));
             }
 
-            if(newState == State.closed){
+            if (newState == State.closed) {
 
                 for (Actor act : project.getActors()) {
                     act.getProjects().remove(project);  // removing project from actor's set of projects
@@ -144,15 +145,14 @@ public class ProjectController {
                 project.getActors().clear(); //removing all actors that were on the project
 
 
-                for (Task task : project.getTasks()){
+                for (Task task : project.getTasks()) {
                     taskRepository.delete(task);
                 }
                 project.getTasks().clear();
 
 
                 projectRepository.save(project);
-            }
-            else projectRepository.save(project);  // Spremanje promjena u bazu
+            } else projectRepository.save(project);  // Spremanje promjena u bazu
             return ResponseEntity.ok("Project state successfully updated!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating project state: " + e.getMessage());

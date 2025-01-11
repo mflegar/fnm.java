@@ -14,6 +14,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
     Optional<Actor> findByActorEmail(String email);
 
     Optional<Actor> findByActorUsername(String username);
+
     List<Actor> findByProjects_ProjectID(Integer id);
+
     List<Actor> findByInstitutions_InstitutionID(Integer id);
 }

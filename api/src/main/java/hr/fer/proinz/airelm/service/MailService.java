@@ -14,9 +14,10 @@ public class MailService {
     private JavaMailSender javaMailSender;
 
     @Autowired
-    public MailService(Environment env){
+    public MailService(Environment env) {
         this.env = env;
     }
+
     public void sendMail(String mailAddress, String title, String mailMessage) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(env.getProperty("spring.mail.username"));

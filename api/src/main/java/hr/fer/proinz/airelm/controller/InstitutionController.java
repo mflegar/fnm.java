@@ -57,7 +57,6 @@ public class InstitutionController {
             owner.getInstitutions().add(institution); // adding institution to owner's set of institutions
 
 
-
             institutionService.saveInstitution(institution);
 
             Actor actor = institution.getOwner();
@@ -77,6 +76,7 @@ public class InstitutionController {
     public ResponseEntity<InstitutionDTO> getInstitutionByName(@PathVariable String name) {
         return ResponseEntity.ok(institutionService.getInstitutionByName(name));
     }
+
     @GetMapping("/owner/{ownerID}")
     public ResponseEntity<List<InstitutionDTO>> getInstitutionsByOwner(@PathVariable Integer ownerID) {
         List<InstitutionDTO> institutions = institutionService.getInstitutionsByOwner(ownerID);
@@ -180,7 +180,8 @@ public class InstitutionController {
 
         ActorRoleInstitution actorRoleInstitution = actorRoleInstitutionRepozitory.findByActorAndInstitution(actor, institution);
 
-        if (actorRoleInstitution.getRole().equals(Role.INSTITUTION_MANAGER)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Institution manager can not leave institution.");
+        if (actorRoleInstitution.getRole().equals(Role.INSTITUTION_MANAGER))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Institution manager can not leave institution.");
         actorRoleInstitutionRepozitory.delete(actorRoleInstitution);
 
 
@@ -196,7 +197,8 @@ public class InstitutionController {
     public ResponseEntity<String> deleteInstitution(@PathVariable Integer id) {
         try {
             Optional<Institution> institutionOpt = institutionRepository.findById(id);
-            if (institutionOpt.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+            if (institutionOpt.isEmpty())
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
 
             Institution institution = institutionOpt.get();
 

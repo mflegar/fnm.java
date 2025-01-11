@@ -1,7 +1,9 @@
 package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.TaskDTO;
-import hr.fer.proinz.airelm.entity.*;
+import hr.fer.proinz.airelm.entity.Actor;
+import hr.fer.proinz.airelm.entity.Project;
+import hr.fer.proinz.airelm.entity.Task;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
 import hr.fer.proinz.airelm.service.MailService;
@@ -24,6 +26,7 @@ public class TaskController {
     private TaskService taskService;
     @Autowired
     private MailService mailService;
+
     @PostMapping("/add")
     public ResponseEntity<String> addTask(@RequestBody TaskDTO taskDTO) {
         try {
@@ -33,7 +36,7 @@ public class TaskController {
                 return ResponseEntity.badRequest().body("Actor not found.");
             }
             Project project = projectRepository.findById(taskDTO.getProjectID()).orElse(null);
-            if (project == null){
+            if (project == null) {
                 return ResponseEntity.badRequest().body("Project not found.");
             }
             if (!project.getActors().contains(actor)) {   //check if actor is assigned to the project
@@ -54,21 +57,25 @@ public class TaskController {
             return new ResponseEntity<>("Error adding task: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping("/actor/{actorID}")
     public ResponseEntity<List<TaskDTO>> getTasksByActor(@PathVariable Integer actorID) {
         List<TaskDTO> tasks = taskService.getTasksByActor(actorID);
         return ResponseEntity.ok(tasks);
     }
+
     @GetMapping("/project/{projectID}")
     public ResponseEntity<List<TaskDTO>> getTasksByProject(@PathVariable Integer projectID) {
         List<TaskDTO> tasks = taskService.getTasksByProject(projectID);
         return ResponseEntity.ok(tasks);
     }
+
     @GetMapping("/")
     public ResponseEntity<List<TaskDTO>> getAllTasks() {
         List<TaskDTO> tasks = taskService.getTasks();
         return ResponseEntity.ok(tasks);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getTask(@PathVariable Integer id) {
         TaskDTO task = taskService.getTask(id);
@@ -78,6 +85,7 @@ public class TaskController {
         }
         return ResponseEntity.ok(task);
     }
+
     @PutMapping("/change/{id}")
     public ResponseEntity<String> changeTaskDescription(@PathVariable Integer id, @RequestBody String description) {
         try {

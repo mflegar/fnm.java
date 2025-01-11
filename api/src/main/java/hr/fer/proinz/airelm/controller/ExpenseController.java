@@ -1,7 +1,9 @@
 package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.ExpenseDTO;
-import hr.fer.proinz.airelm.entity.*;
+import hr.fer.proinz.airelm.entity.Actor;
+import hr.fer.proinz.airelm.entity.Expense;
+import hr.fer.proinz.airelm.entity.Project;
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
 import hr.fer.proinz.airelm.service.ExpenseService;
@@ -21,6 +23,7 @@ public class ExpenseController {
     private ProjectRepository projectRepository;
     @Autowired
     private ExpenseService expenseService;
+
     @PostMapping("/add")
     public ResponseEntity<String> addExpense(@RequestBody ExpenseDTO expenseDTO) {
         try {
@@ -30,7 +33,7 @@ public class ExpenseController {
                 return ResponseEntity.badRequest().body("Actor not found.");
             }
             Project project = projectRepository.findById(expenseDTO.getProjectID()).orElse(null);
-            if (project == null){
+            if (project == null) {
                 return ResponseEntity.badRequest().body("Project not found.");
             }
             if (!project.getActors().contains(actor)) {   //check if actor is assigned to the project
@@ -49,26 +52,31 @@ public class ExpenseController {
             return new ResponseEntity<>("Error adding expense: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping("/actor/{actorID}")
     public ResponseEntity<List<ExpenseDTO>> getExpensesByActor(@PathVariable Integer actorID) {
         List<ExpenseDTO> expenses = expenseService.getExpensesByActor(actorID);
         return ResponseEntity.ok(expenses);
     }
+
     @GetMapping("/project/{projectID}")
     public ResponseEntity<List<ExpenseDTO>> getExpensesByProject(@PathVariable Integer projectID) {
         List<ExpenseDTO> expenses = expenseService.getExpensesByProject(projectID);
         return ResponseEntity.ok(expenses);
     }
+
     @GetMapping("/institution/{institutionID}")
     public ResponseEntity<List<ExpenseDTO>> getExpensesByInstitution(@PathVariable Integer institutionID) {
         List<ExpenseDTO> expenses = expenseService.getExpensesByInstitution(institutionID);
         return ResponseEntity.ok(expenses);
     }
+
     @GetMapping("/")
     public ResponseEntity<List<ExpenseDTO>> getAllExpenses() {
         List<ExpenseDTO> expenses = expenseService.getExpenses();
         return ResponseEntity.ok(expenses);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getExpense(@PathVariable Integer id) {
         ExpenseDTO expenseDTO = expenseService.getExpense(id);
@@ -78,6 +86,7 @@ public class ExpenseController {
         }
         return ResponseEntity.ok(expenseDTO);
     }
+
     @PutMapping("/change/{id}")
     public ResponseEntity<String> changeExpenseCost(@PathVariable Integer id, @RequestBody Integer cost) {
         try {

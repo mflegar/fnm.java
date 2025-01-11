@@ -25,16 +25,18 @@ public class TaskService {
                 ))
                 .collect(Collectors.toList());
     }
-    public List<TaskDTO> getTasksByProject(Integer projectID){
+
+    public List<TaskDTO> getTasksByProject(Integer projectID) {
         return taskRepository.findByProject_ProjectID(projectID).stream().map(
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
                         task.getDescription(),
                         task.getActor().getActorID()
-        )).collect(Collectors.toList());
+                )).collect(Collectors.toList());
     }
-    public List<TaskDTO> getTasksByActor(Integer actorID){
+
+    public List<TaskDTO> getTasksByActor(Integer actorID) {
         return taskRepository.findByActor_ActorID(actorID).stream().map(
                 task -> new TaskDTO(
                         task.getTaskID(),
@@ -43,6 +45,7 @@ public class TaskService {
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
     }
+
     public TaskDTO getTask(Integer taskID) {
         Task task = taskRepository.findById(taskID).orElse(null);
         if (task == null) return null;
@@ -55,9 +58,9 @@ public class TaskService {
         );
     }
 
-    public void changeTaskDescription(Integer taskID, String description){
+    public void changeTaskDescription(Integer taskID, String description) {
         Task task = taskRepository.findById(taskID).orElse(null);
-        if (task == null){
+        if (task == null) {
             throw new IllegalArgumentException("Task with ID doesn't exist.");
         }
         task.setDescription(description);

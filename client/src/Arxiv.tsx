@@ -25,18 +25,23 @@ const ArxivSearch = () => {
     setIsLoading(true); // Postavi isLoading na true kad pretraga počne
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("No authentication token found. Please log in.");
       }
 
-      const response = await fetch(`/api/arxiv/search?query=${encodeURIComponent(query)}&category=${category}&maxResults=${maxResults}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `/api/arxiv/search?query=${encodeURIComponent(
+          query
+        )}&category=${category}&maxResults=${maxResults}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch results.");
@@ -84,7 +89,9 @@ const ArxivSearch = () => {
           onChange={(e) => setMaxResults(Number(e.target.value))}
         />
       </div>
-      <button className="search-button" onClick={handleSearch}>Search</button>
+      <button className="search-button" onClick={handleSearch}>
+        Search
+      </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -94,13 +101,15 @@ const ArxivSearch = () => {
       <ul id="search-results">
         {results.map((result, index) => (
           <li key={index} className="result-item">
-            <a href={result.link} target="_blank" rel="noopener noreferrer" className="result-title">
+            <a
+              href={result.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="result-title"
+            >
               {result.title}
             </a>
-            <p
-              onClick={() => toggleSummary(index)}
-              className="result-summary"
-            >
+            <p onClick={() => toggleSummary(index)} className="result-summary">
               {result.showFull
                 ? result.summary
                 : `${result.summary.split(". ").slice(0, 2).join(". ")}...`}

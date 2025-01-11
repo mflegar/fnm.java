@@ -44,8 +44,12 @@ const Logout = () => {
     <>
       <div className="logout-container">
         <img src="/images/Logo.png" alt="Logo" />
-        <p id="text">Thank you for using our application. Hope you are pleased!</p>
-        <button className="login-button" onClick={handleLogout} >Logout</button>
+        <p id="text">
+          Thank you for using our application. Hope you are pleased!
+        </p>
+        <button className="login-button" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </>
   );
