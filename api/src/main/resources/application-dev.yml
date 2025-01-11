@@ -1,6 +1,5 @@
 spring:
   application:
-    url:
-      url: "http://localhost:5780/"
+    url: "http://localhost:5780/"
   config:
     import: 'optional:file:.env.yml'
