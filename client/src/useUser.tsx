@@ -45,7 +45,7 @@ export const UserProvider = ({ children }: Props) => {
 
       if (response.ok) {
         const data = await response.json();
-        return data.valid === true;
+        return data === true;
       } else {
         return false;
       }
