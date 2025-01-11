@@ -56,7 +56,7 @@ const Home = () => {
 
   // Ako korisnik nije prijavljen, ponudi opciju za prijavu
   const handleGitHubLogin = () => {
-    window.location.href = "http://localhost:8780/oauth2/authorization/github";
+    window.location.href = "/api/oauth2/authorization/github";
   };
 
   return (
