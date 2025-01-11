@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,6 +93,19 @@ public class TaskService {
 
     public Task saveTask(Task task) {
         return taskRepository.save(task);
+    }
+
+    public TaskDTO getTaskByTaskName(String taskName){
+        Optional<Task> taskOptional = taskRepository.findByTaskName(taskName);
+        if (taskOptional.isEmpty()) return null;
+        Task task = taskOptional.get();
+        return new TaskDTO(
+                task.getTaskID(),
+                task.getProject().getProjectID(),
+                task.getTaskName(),
+                task.getDescription(),
+                task.getActor().getActorID()
+        );
     }
 
 }
