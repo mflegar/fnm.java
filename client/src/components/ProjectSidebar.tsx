@@ -3,10 +3,8 @@ import { useParams, useNavigate } from "react-router";
 import {
   GalleryVerticalEnd,
   Users,
-  FolderDot,
-  BadgeDollarSign,
-  BellRing,
   LayoutDashboard,
+  PiggyBank,
 } from "lucide-react";
 
 import {
@@ -32,7 +30,7 @@ const data = {
   personal: [
     {
       name: "Expenses",
-      icon: BellRing,
+      icon: PiggyBank,
     },
     {
       name: "Tasks",
@@ -48,7 +46,7 @@ export function ProjectSidebar({
   onComponentChange: (component: string) => void;
 }) {
   const navigate = useNavigate();
-  const { name, projectName } = useParams<{
+  const { projectName } = useParams<{
     name: string;
     projectName: string;
   }>();
@@ -93,7 +91,7 @@ export function ProjectSidebar({
       if (!user) return;
 
       try {
-        const response = await fetch(`/api/project/name/${name}`, {
+        const response = await fetch(`/api/project/name/${projectName}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -194,25 +192,11 @@ export function ProjectSidebar({
     },
     {
       title: "Tasks",
-      icon: FolderDot,
+      icon: LayoutDashboard,
       items: tasks.map((task) => ({
-        title: task.taskID,
-        url: `/institution/${name}/${projectName}/${task.taskID}`,
+        title: task.taskName,
       })),
     },
-    ...(isOwner
-      ? [
-          {
-            title: "Institution Expenses",
-            icon: BadgeDollarSign,
-            items: [
-              {
-                title: "View Expenses",
-              },
-            ],
-          },
-        ]
-      : []),
   ];
 
   return (

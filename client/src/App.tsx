@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute";
 import "./App.css";
-import ArxivSearch from "./Arxiv";
 import InstitutionForm from "./InstitutionForm.tsx";
 import ProjectForm from "./ProjectForm.tsx";
 import { UserProvider } from "./useUser"; // Importing the UserProvider
@@ -14,6 +13,8 @@ import JoinProject from "./JoinProject.tsx";
 import ProjectPage from "./app/dashboard/ProjectPage.tsx";
 import AddExpense from "./AddExpense.tsx";
 import { ProjectRequest } from "./ProjectRequest.tsx";
+import { UserRequest } from "./UserRequest.tsx";
+import AddTask from "./AddTask.tsx";
 
 const App = () => {
   return (
@@ -89,6 +90,16 @@ const App = () => {
             }
           />
           <Route
+            path="/task/add"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <AddTask />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/projectRequest"
             element={
               <ProtectedRoute>
@@ -99,10 +110,12 @@ const App = () => {
             }
           />
           <Route
-            path="/search"
+            path="/userRequest"
             element={
               <ProtectedRoute>
-                <ArxivSearch />
+                <h2>
+                  <UserRequest />
+                </h2>
               </ProtectedRoute>
             }
           />
