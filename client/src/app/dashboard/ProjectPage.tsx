@@ -18,6 +18,8 @@ import { ProjectHeader } from "@/components/Project_mainHeader";
 import { GeneratePDF } from "@/components/GeneratePDF";
 import { useParams } from "react-router";
 import { ExpensesTable } from "@/components/InstitutionExpenses";
+import { ArxivSearchForm } from "@/Arxiv";
+import { TaskManager } from "@/components/TaskManager";
 
 export default function ProjectPage() {
   const [activeComponent, setActiveComponent] = useState<string | null>(null);
@@ -151,8 +153,7 @@ export default function ProjectPage() {
             </header>
             {activeComponent === "tasks" && (
               <div className="mt-6 min-h-[400px] flex-1 bg-muted/50 rounded-xl p-6">
-                {/* TODO */}
-                <span>{tasks}</span>
+                <TaskManager tasks={tasks} />
               </div>
             )}
             {activeComponent === "expenses" && (
@@ -165,7 +166,9 @@ export default function ProjectPage() {
                 />
               </div>
             )}
-            {!activeComponent && <div>EJ ALO BIDIBOU</div>}
+            {!activeComponent && 
+              <ArxivSearchForm />
+            }
           </div>
         </div>
       </SidebarInset>

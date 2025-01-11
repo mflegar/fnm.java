@@ -4,7 +4,7 @@ import React from "react";
 
 type UserContextType = {
   token: string | null;
-  isLoggedIn: () => boolean;
+  isLoggedIn: () => Promise<boolean>;
   logout: () => void;
 };
 
@@ -32,8 +32,27 @@ export const UserProvider = ({ children }: Props) => {
     navigate("/");
   };
 
-  const isLoggedIn = () => {
-    return token !== null;
+  const isLoggedIn = async (): Promise<boolean> => {
+    if (token === null) return false;
+
+    try {
+      const response = await fetch("/api/validate-token", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.valid === true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error validating token:", error);
+      return false;
+    }
   };
 
   return (
