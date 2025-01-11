@@ -49,8 +49,7 @@ public class TaskController {
             taskService.saveTask(task);
             String mailString = Files.readString(new ClassPathResource("mail/taskmail.html").getFile().toPath());
             mailService.sendHTMLMail(actor.getActorEmail(), "Next task assigned to you!",
-                    String.format(mailString, actor.getActorUsername(), task.getProject().getProjectName(), task.getDescription(),
-                            "localhost:5780/tasklel"));
+                    String.format(mailString, actor.getActorUsername(), task.getProject().getProjectName(), task.getDescription()));
 
             return new ResponseEntity<>("Task successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
