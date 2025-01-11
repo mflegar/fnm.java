@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/validate-token").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/actuator/health").permitAll()
