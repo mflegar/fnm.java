@@ -1,15 +1,9 @@
-import {
-  Folder,
-  MoreHorizontal,
-  Trash2,
-  type LucideIcon,
-} from "lucide-react";
+import { Folder, MoreHorizontal, type LucideIcon } from "lucide-react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -21,35 +15,39 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-
 export function NavProjects({
-  projects,
-  onInstitutionDashboardClick,
-  onNotificationsClick, // Dodaj prop za "Your notifications"
+  personal,
+  onFirstOptionClick,
+  onSecondOptionClick, // Dodaj prop za "Your notifications"
 }: {
-  projects: {
+  personal: {
     name: string;
     url?: string;
     icon: LucideIcon;
   }[];
-  onInstitutionDashboardClick: () => void;
-  onNotificationsClick: () => void;
+  onFirstOptionClick: () => void;
+  onSecondOptionClick: () => void;
 }) {
   const { isMobile } = useSidebar();
-
-  const handleProjectClick = (name: string) => {
-    if (name.toLowerCase() === "institution dashboard") {
-      onInstitutionDashboardClick();
-    } else if (name.toLowerCase() === "your notifications") {
-      onNotificationsClick(); // Poziva funkciju za "Your notifications"
+  const handlePersonalClick = (name: string) => {
+    const lowerName = name.toLowerCase();
+    if (lowerName === "institution dashboard") {
+      onSecondOptionClick();
+    } else if (lowerName === "institution notifications") {
+      onFirstOptionClick();
+    } else if (lowerName === "expenses") {
+      onFirstOptionClick();
+    } else if (lowerName === "tasks") {
+      onSecondOptionClick();
+    } else {
+      console.warn(`Unhandled personal item click: ${name}`);
     }
   };
-
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Personal</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.map((item) => (
+        {personal.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               {item.url ? (
@@ -60,7 +58,7 @@ export function NavProjects({
               ) : (
                 <button
                   className="w-full text-left p-2 flex items-center gap-2"
-                  onClick={() => handleProjectClick(item.name)}
+                  onClick={() => handlePersonalClick(item.name)}
                 >
                   <item.icon />
                   <span>{item.name}</span>
@@ -79,16 +77,9 @@ export function NavProjects({
                 side={isMobile ? "bottom" : "right"}
                 align={isMobile ? "end" : "start"}
               >
-                <DropdownMenuItem
-                  onClick={() => handleProjectClick(item.name)}
-                >
+                <DropdownMenuItem onClick={() => handlePersonalClick(item.name)}>
                   <Folder className="text-muted-foreground" />
                   <span>View</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Trash2 className="text-muted-foreground" />
-                  <span>Goat</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

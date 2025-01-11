@@ -7,7 +7,7 @@ import {
 import { useParams } from "react-router";
 
 export function TeamSwitcher() {
-  const { name } = useParams<{ name: string }>();
+  const { name, projectName } = useParams<{ name: string; projectName?: string }>();
 
   return (
     <SidebarMenu>
@@ -21,9 +21,11 @@ export function TeamSwitcher() {
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">
-              {name}
+              {projectName || name}
             </span>
-            <span className="truncate text-xs">Institution</span>
+            <span className="truncate text-xs">
+              {projectName ? "Project" : "Institution"}
+            </span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
