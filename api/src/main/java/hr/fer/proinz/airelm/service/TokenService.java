@@ -2,6 +2,7 @@ package hr.fer.proinz.airelm.service;
 
 import hr.fer.proinz.airelm.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -12,13 +13,13 @@ import java.util.Base64;
 @Service
 public class TokenService {
 
-    private static final String SECRET_KEY = "AireLMapp";
+    @Autowired
+    private Environment env;
 
     @Autowired
     private ActorRepository actorRepository;
 
     public String generateToken(Integer userID) {
-
         long issuedAt = Instant.now().getEpochSecond(); // Current timestamp
         long expiresAt = issuedAt + 3600; // Token valid for 1 hour
 
@@ -26,7 +27,7 @@ public class TokenService {
 
         //System.out.println("Payload: " + payload);
 
-        String signature = createHash(payload, SECRET_KEY);
+        String signature = createHash(payload, env.getProperty("spring.application.token-secret-key"));
         //System.out.println("Generated Signature: " + signature);
 
         String token = Base64.getEncoder().encodeToString(payload.getBytes(StandardCharsets.UTF_8)) + "." + signature;
@@ -54,7 +55,7 @@ public class TokenService {
             //System.out.println("Decoded Signature: " + signature);
 
             // Check signature
-            String recalculatedHash = createHash(payloadJson, SECRET_KEY);
+            String recalculatedHash = createHash(payloadJson, env.getProperty("spring.application.token-secret-key"));
             //System.out.println("Recalculated Signature: " + recalculatedHash);
 
             if (!recalculatedHash.equals(signature)) {
