@@ -12,3 +12,109 @@ input[type="number"] {
   border-radius: 5px;
   border: 1px solid #ddd;
 }
+.header-container {
+  background-color: red;
+  padding: 5%;
+  text-align: center;
+}
+
+.header-title {
+  color: black;
+  font-weight: bold;
+  margin: 0;
+
+  font-size: 1.5rem;
+}
+.form-container {
+  display: flex;
+  flex-direction: column;
+ 
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid black;
+
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  /* Make inputs and select take full width of their container */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+  .form-container {
+    flex-direction: row;
+    /* On large screens, align elements horizontally */
+    justify-content: space-between;
+    /* Evenly space items */
+  }
+
+  .form-container input,
+  .form-container select {
+    width: 30%;
+  }
+}
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #28a745;
+  background-color: white;
+  color: #28a745;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin: 10px;
+}
+
+.search-button:hover {
+  background-color: #28a745;
+ 
+  color: white;
+}
+
+.search-button:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(40, 167, 69, 0.6);
+}
+#search-results {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  background-color: #f9f9f9;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 15px;
+  transition: background-color 0.3s;
+}
+
+.result-item:hover {
+  background-color: #f1f1f1;
+}
+
+.result-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.result-title:hover {
+  text-decoration: underline;
+}
+
+.result-summary {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.result-summary:hover {
+  color: #007bff;
+}
