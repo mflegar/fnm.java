@@ -114,4 +114,11 @@ public class TaskController {
             return new ResponseEntity<>("Error deleting task: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<?> getTaskByName(@PathVariable String name){
+        TaskDTO taskDTO = taskService.getTaskByTaskName(name);
+        if (taskDTO == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
+        return ResponseEntity.ok(taskDTO);
+    }
 }

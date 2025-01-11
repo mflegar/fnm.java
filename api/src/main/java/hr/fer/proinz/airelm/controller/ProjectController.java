@@ -1,6 +1,7 @@
 package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.ProjectDTO;
+import hr.fer.proinz.airelm.dto.TaskDTO;
 import hr.fer.proinz.airelm.entity.*;
 import hr.fer.proinz.airelm.repository.*;
 import hr.fer.proinz.airelm.service.MailService;
@@ -67,7 +68,13 @@ public class ProjectController {
 
             project.setInstitution(institution);
             project.setActor(actor);
+
+            project.getActors().add(actor);  // adding actor to the project
+
             projectRepository.save(project);
+
+            actor.getProjects().add(project); // adding project to the actor
+            actorRepository.save(actor);
 
             if (institution.getOwner().equals(actor))
                 return new ResponseEntity<>("Project successfully added!", HttpStatus.CREATED); // only temporarily
@@ -276,8 +283,10 @@ public class ProjectController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<ProjectDTO> getInstitutionByName(@PathVariable String name) {
-        return ResponseEntity.ok(projectService.getProjectByName(name));
+    public ResponseEntity<?> getProjectByName(@PathVariable String name) {
+        ProjectDTO projectDTO = projectService.getProjectByName(name);
+        if (projectDTO == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Project not found.");
+        return ResponseEntity.ok(projectDTO);
     }
 
 }

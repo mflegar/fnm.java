@@ -22,7 +22,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-    @Column(name = "task_name", nullable = false)
+    @Column(name = "task_name", nullable = false, unique = true)
     private String taskName;
     @JsonProperty("description")
     @Column(name = "description", nullable = false)
