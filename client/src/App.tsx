@@ -11,6 +11,9 @@ import { UserProvider } from "./useUser"; // Importing the UserProvider
 import Page from "./app/dashboard/InstitutionPage.tsx";
 import Logout from "./Logout.tsx";
 import JoinProject from "./JoinProject.tsx";
+import ProjectPage from "./app/dashboard/ProjectPage.tsx";
+import AddExpense from "./AddExpense.tsx";
+import { ProjectRequest } from "./ProjectRequest.tsx";
 
 const App = () => {
   return (
@@ -31,6 +34,16 @@ const App = () => {
               <ProtectedRoute>
                 <h2>
                   <Page />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/institution/:name/:projectName"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <ProjectPage />
                 </h2>
               </ProtectedRoute>
             }
@@ -61,6 +74,26 @@ const App = () => {
               <ProtectedRoute>
                 <h2>
                   <JoinProject />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/expense/add"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <AddExpense />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/projectRequest"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <ProjectRequest />
                 </h2>
               </ProtectedRoute>
             }

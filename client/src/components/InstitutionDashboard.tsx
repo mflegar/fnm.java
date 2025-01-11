@@ -301,7 +301,6 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
           ))}
         </select>
       </div>
-
       {/* Generate PDF Button */}
       {selectedProject && (
         <div className="mt-4 flex justify-center gap-2">
@@ -314,7 +313,6 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
           </Button>
         </div>
       )}
-
       {/* Pagination controls */}
       <div className="mt-4 flex justify-center gap-2">
         <Button

@@ -8,10 +8,7 @@ import {
   BellRing,
   LayoutDashboard,
 } from "lucide-react";
-import { NavMain } from "@/components/Sidebar_General";
-import { NavProjects } from "@/components/Sidebar_Personal";
-import { NavUser } from "@/components/ProjectsFooter";
-import { TeamSwitcher } from "@/components/ProjectsHeader";
+
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +16,10 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TeamSwitcher } from "./ProjectsHeader";
+import { NavUser } from "./ProjectsFooter";
+import { NavProjects } from "./Sidebar_Personal";
+import { ProjectGeneral } from "./Project_General";
 
 // Sample data
 const data = {
@@ -30,26 +31,29 @@ const data = {
   ],
   personal: [
     {
-      name: "Institution Notifications",
+      name: "Expenses",
       icon: BellRing,
     },
     {
-      name: "Institution Dashboard",
+      name: "Tasks",
       icon: LayoutDashboard,
     },
   ],
 };
 
-export function AppSidebar({
+export function ProjectSidebar({
   onComponentChange,
   ...props
 }: {
   onComponentChange: (component: string) => void;
 }) {
   const navigate = useNavigate();
-  const { name } = useParams<{ name: string }>();
+  const { name, projectName } = useParams<{
+    name: string;
+    projectName: string;
+  }>();
   const [actors, setActors] = useState<any[]>([]);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<any[]>([]);
   const [user, setUser] = useState<{
     id: number;
     email: string;
@@ -60,16 +64,12 @@ export function AppSidebar({
 
   const token = localStorage.getItem("token"); // token
 
-  const handleInstitutionExpensesClick = () => {
+  const handleProjectExpensesClick = () => {
     onComponentChange("expenses");
   };
 
-  const handleInstitutionDashboardClick = () => {
-    onComponentChange("dashboard");
-  };
-
-  const handleNotificationsClick = () => {
-    onComponentChange("notifications");
+  const handleProjectTasksClick = () => {
+    onComponentChange("tasks");
   };
 
   useEffect(() => {
@@ -89,44 +89,42 @@ export function AppSidebar({
   }, []);
 
   useEffect(() => {
-    const fetchInstitutionData = async () => {
+    const fetchProjectData = async () => {
       if (!user) return;
 
       try {
-        const response = await fetch(`/api/institution/name/${name}`, {
+        const response = await fetch(`/api/project/name/${name}`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.ok) {
-          const institutionData = await response.json();
-          const { institutionID } = institutionData;
+          const projectData = await response.json();
+          const { projectID } = projectData;
           await Promise.all([
-            checkOwnership(user.id, institutionID),
-            fetchAdditionalData(institutionID),
+            checkOwnership(user.id, projectID),
+            fetchAdditionalData(projectID),
           ]);
         } else {
-          console.error("Error fetching institution data");
-          navigate("/dashboard");
+          console.error("Error fetching project data");
+          //navigate(`/institution/${name}`);
         }
       } catch (error) {
-        console.error("Error fetching institution data:", error);
-        navigate("/dashboard");
+        console.error("Error fetching project data:", error);
+        //navigate(`/institution/${name}`);
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchAdditionalData = async (institutionID: string) => {
+    const fetchAdditionalData = async (projectID: string) => {
       try {
-        const actorsResponse = await fetch(
-          `/api/user/institution/${institutionID}`,
-          {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        const projectsResponse = await fetch(
-          `/api/project/${user?.id}/inside/${institutionID}`,
+        // Dobiti usere koji su u projektu
+        const actorsResponse = await fetch(`/api/user/project/${projectID}`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const tasksResponse = await fetch(
+          `/api/task/${user?.id}/inside/${projectID}`,
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -136,18 +134,18 @@ export function AppSidebar({
         if (actorsResponse.ok) {
           setActors(await actorsResponse.json());
         }
-        if (projectsResponse.ok) {
-          setProjects(await projectsResponse.json());
+        if (tasksResponse.ok) {
+          setTasks(await tasksResponse.json());
         }
       } catch (error) {
-        console.error("Error fetching additional data:", error);
+        console.log("Error fetching additional data:", error);
       }
     };
 
-    const checkOwnership = async (actorID: number, institutionID: string) => {
+    const checkOwnership = async (actorID: number, projectID: string) => {
       try {
         const response = await fetch(
-          `/api/user/${actorID}/isInstitutionOwner/${institutionID}`,
+          `/api/user/${actorID}/isProjectOwner/${projectID}`,
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -160,12 +158,12 @@ export function AppSidebar({
           console.error("Failed to check ownership");
         }
       } catch (error) {
-        console.error("Error checking ownership:", error);
+        console.log("Error checking ownership:", error);
       }
     };
 
-    if (user) fetchInstitutionData();
-  }, [name, user, navigate]);
+    if (user) fetchProjectData();
+  }, [projectName, user, navigate]);
 
   if (loading) {
     // Skeleton
@@ -195,11 +193,11 @@ export function AppSidebar({
       })),
     },
     {
-      title: "Projects",
+      title: "Tasks",
       icon: FolderDot,
-      items: projects.map((project) => ({
-        title: project.projectName,
-        url: `/institution/${name}/${project.projectName}`,
+      items: tasks.map((task) => ({
+        title: task.taskID,
+        url: `/institution/${name}/${projectName}/${task.taskID}`,
       })),
     },
     ...(isOwner
@@ -223,16 +221,15 @@ export function AppSidebar({
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain
+        <ProjectGeneral
           items={navMainItems}
-          onViewExpensesClick={handleInstitutionExpensesClick}
           ownerName={user?.username || "Default User"}
         />
         {isOwner && (
           <NavProjects
             personal={data.personal}
-            onSecondOptionClick={handleInstitutionDashboardClick}
-            onFirstOptionClick={handleNotificationsClick}
+            onSecondOptionClick={handleProjectTasksClick}
+            onFirstOptionClick={handleProjectExpensesClick}
           />
         )}
       </SidebarContent>

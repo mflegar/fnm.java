@@ -54,10 +54,8 @@ export const GeneratePDF = ({
 
     // Use autoTable.previous.finalY to get the position of the last row
     const lastTableY = (doc as any).autoTable.previous.finalY;
-
     // Display Total Cost after the table
     doc.text(`Total Cost: $${totalCost.toFixed(2)}`, 20, lastTableY + 10);
-
     // Save the PDF file
     doc.save(filename);
   };

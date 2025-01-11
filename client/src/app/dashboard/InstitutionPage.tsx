@@ -20,7 +20,6 @@ import { GeneratePDF } from "@/components/GeneratePDF";
 import { useParams } from "react-router";
 import { InstitutionDashboard } from "@/components/InstitutionDashboard";
 import { Notifications } from "@/components/InstitutionNotifications";
-
 interface Project {
   projectID: number;
   projectName: string;
@@ -46,7 +45,6 @@ export default function Page() {
 
   const { name } = useParams<{ name: string }>();
   const institutionName = name || "DefaultInstitution";
-
   useEffect(() => {
     const fetchInstitution = async () => {
       try {
@@ -71,7 +69,6 @@ export default function Page() {
         console.log(err);
       }
     };
-
     fetchInstitution();
   }, [institutionName]);
 
@@ -124,7 +121,6 @@ export default function Page() {
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
         }
-
         const data = await response.json();
         setProjects(data);
       } catch (err: any) {
@@ -142,7 +138,6 @@ export default function Page() {
       setActiveComponent(component);
     }
   };
-
   return (
     <SidebarProvider>
       <AppSidebar onComponentChange={handleComponentChange} />
@@ -171,7 +166,6 @@ export default function Page() {
                 </Breadcrumb>
               </div>
             </header>
-
             {activeComponent === "dashboard" && (
               <div className="mt-6 min-h-[400px] flex-1 bg-muted/50 rounded-xl p-6">
                 <InstitutionDashboard projects={projects} />
