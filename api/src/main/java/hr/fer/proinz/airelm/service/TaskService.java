@@ -20,6 +20,7 @@ public class TaskService {
                 .map(task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 ))
@@ -31,6 +32,7 @@ public class TaskService {
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
@@ -41,6 +43,18 @@ public class TaskService {
                 task -> new TaskDTO(
                         task.getTaskID(),
                         task.getProject().getProjectID(),
+                        task.getTaskName(),
+                        task.getDescription(),
+                        task.getActor().getActorID()
+                )).collect(Collectors.toList());
+    }
+
+    public List<TaskDTO> getTasksByActorAndProject(Integer actorID, Integer projectID) {
+        return taskRepository.findByActor_ActorIDAndProject_ProjectID(actorID, projectID).stream().map(
+                task -> new TaskDTO(
+                        task.getTaskID(),
+                        task.getProject().getProjectID(),
+                        task.getTaskName(),
                         task.getDescription(),
                         task.getActor().getActorID()
                 )).collect(Collectors.toList());
@@ -53,6 +67,7 @@ public class TaskService {
         return new TaskDTO(
                 task.getTaskID(),
                 task.getProject().getProjectID(),
+                task.getTaskName(),
                 task.getDescription(),
                 task.getActor().getActorID()
         );

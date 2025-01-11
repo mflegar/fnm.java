@@ -9,10 +9,12 @@ import hr.fer.proinz.airelm.repository.ProjectRepository;
 import hr.fer.proinz.airelm.service.MailService;
 import hr.fer.proinz.airelm.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Files;
 import java.util.List;
 
 @RestController
@@ -44,13 +46,14 @@ public class TaskController {
             }
             Task task = new Task();
             task.setActor(actor);
+            task.setTaskName(taskDTO.getTaskName());
             task.setDescription(taskDTO.getDescription());
             task.setProject(project);
 
             taskService.saveTask(task);
-
-            mailService.sendMail(actor.getActorEmail(), "Next task assigned to you!",
-                    String.format("Project: %s\nTask description: %s", task.getProject().getProjectName(), task.getDescription()));
+            String mailString = Files.readString(new ClassPathResource("mail/taskmail.html").getFile().toPath());
+            mailService.sendHTMLMail(actor.getActorEmail(), "Next task assigned to you!",
+                    String.format(mailString, actor.getActorUsername(), task.getProject().getProjectName(), task.getDescription()));
 
             return new ResponseEntity<>("Task successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -94,6 +97,12 @@ public class TaskController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error updating task description: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/{actorID}/inside/{projectID}")
+    public ResponseEntity<?> getTasksByActorInsideProject(@PathVariable Integer actorID, @PathVariable Integer projectID) {
+        List<TaskDTO> tasks = taskService.getTasksByActorAndProject(actorID, projectID);
+        return ResponseEntity.ok(tasks);
     }
 
     @DeleteMapping("/delete/{id}")
