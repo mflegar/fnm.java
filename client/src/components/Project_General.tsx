@@ -48,27 +48,39 @@ export function ProjectGeneral({
 
   const handleMarkAsDone = async (taskTitle: string) => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Authorization token not found in localStorage.");
+      }
+  
       // Fetch taskID based on taskTitle
-      const response = await fetch(`/api/task/name/${taskTitle}`);
+      const response = await fetch(`/api/task/name/${taskTitle}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(`Failed to fetch task ID for "${taskTitle}".`);
       }
-
+  
       const { taskID } = await response.json();
       if (!taskID) {
         throw new Error(`No task ID found for "${taskTitle}".`);
       }
-
+  
       // Send DELETE request to remove the task
       const deleteResponse = await fetch(`/api/task/delete/${taskID}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (!deleteResponse.ok) {
         throw new Error(`Failed to delete task with ID "${taskID}".`);
       }
-
+  
       console.log(`Task "${taskTitle}" (ID: ${taskID}) has been deleted.`);
-
+  
       // Remove the task from the state (taskItems)
       setTaskItems((prevItems) => {
         return prevItems.map((item) => {
