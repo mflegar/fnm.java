@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class test_A {
+public class testA {
 
     public static void main(String[] args) {
         // Postavi putanju do ChromeDriver-a
@@ -15,7 +15,7 @@ public class test_A {
 
         try {
             // Otvori stranicu
-            driver.get("https://www.google.com");
+            driver.get("http://localhost:5780/");
 
             // Nađi polje za pretraživanje i pošalji tekst
             WebElement searchBox = driver.findElement(By.name("q"));
