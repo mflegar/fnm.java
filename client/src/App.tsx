@@ -15,6 +15,9 @@ import AddExpense from "./AddExpense.tsx";
 import { ProjectRequest } from "./ProjectRequest.tsx";
 import { UserRequest } from "./UserRequest.tsx";
 import AddTask from "./AddTask.tsx";
+import JoinInstitution from "./JoinInstitution.tsx";
+import DashboardPage from "./app/dashboard/DashboardPage.tsx";
+import AuthRedirect from "./auth-redirect.tsx";
 
 const App = () => {
   return (
@@ -27,8 +30,19 @@ const App = () => {
         <Routes>
           {/* Starting page */}
           <Route path="/" element={<Home />} />
+          <Route path="/auth-redirect" element={<AuthRedirect />} /> {/* Used to save token and user in LocalStorage */}
 
           {/* Protected routes (need to be signed in to GitHub) */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <DashboardPage />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/institution/:name"
             element={
@@ -75,6 +89,16 @@ const App = () => {
               <ProtectedRoute>
                 <h2>
                   <JoinProject />
+                </h2>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/institution/join"
+            element={
+              <ProtectedRoute>
+                <h2>
+                  <JoinInstitution />
                 </h2>
               </ProtectedRoute>
             }

@@ -52,6 +52,7 @@ export function ProjectForm() {
 
     const userData = localStorage.getItem("user");
     const institutionName = localStorage.getItem("institutionName");
+    localStorage.removeItem("institutionName");
 
     if (!userData || !institutionName) {
       showNotification("error", "User data or institution name not found");

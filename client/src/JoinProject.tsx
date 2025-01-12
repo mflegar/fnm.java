@@ -60,6 +60,7 @@ export default function JoinProject() {
   useEffect(() => {
     // Uzmi institutionName i Bearer token iz localStorage
     const storedInstitutionName = localStorage.getItem("institutionName");
+    localStorage.removeItem("institutionName");
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
 

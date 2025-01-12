@@ -144,6 +144,7 @@ export function AddExpense() {
 
   React.useEffect(() => {
     const projectName = localStorage.getItem("projectName");
+    localStorage.removeItem("projectName");
     if (projectName) {
       fetchProjectID(projectName);
     }

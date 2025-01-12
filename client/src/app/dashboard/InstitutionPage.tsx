@@ -20,6 +20,7 @@ import { GeneratePDF } from "@/components/GeneratePDF";
 import { useParams } from "react-router";
 import { InstitutionDashboard } from "@/components/InstitutionDashboard";
 import { Notifications } from "@/components/InstitutionNotifications";
+
 interface Project {
   projectID: number;
   projectName: string;
@@ -42,9 +43,11 @@ export default function Page() {
   const [institution, setInstitution] = useState<Institution | null>(null);
   const [expenses, setExpenses] = useState<any[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isOwner, setIsOwner] = useState(false);
 
   const { name } = useParams<{ name: string }>();
   const institutionName = name || "DefaultInstitution";
+
   useEffect(() => {
     const fetchInstitution = async () => {
       try {
@@ -71,6 +74,16 @@ export default function Page() {
     };
     fetchInstitution();
   }, [institutionName]);
+
+  useEffect(() => {
+    if (institution) {
+      const user = localStorage.getItem("user");
+      if (user) {
+        const parsedUser = JSON.parse(user);
+        setIsOwner(parsedUser.id === institution.ownerID);
+      }
+    }
+  }, [institution]);
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -138,6 +151,7 @@ export default function Page() {
       setActiveComponent(component);
     }
   };
+
   return (
     <SidebarProvider>
       <AppSidebar onComponentChange={handleComponentChange} />
@@ -189,21 +203,40 @@ export default function Page() {
             {!activeComponent && (
               <div className="flex flex-col md:flex-row items-start justify-between h-full bg-muted/10 pt-10 px-6 rounded-xl">
                 <div className="w-full md:w-1/2 text-left mb-6 md:mb-0 md:pr-8">
-                  <h1 className="text-2xl font-bold text-primary mb-4">
-                    Welcome to Institution{" "}
-                    {institution?.institutionName || "Loading..."}
-                  </h1>
-                  <p className="text-lg text-muted-foreground">
-                    We hope you're enjoying your stay here. Unfortunately, as a
-                    default user in this institution, this page may not be the
-                    most useful for you at the moment. To get started, you can
-                    click on the sidebar to explore the{" "}
-                    <span className="font-semibold">"Projects"</span> section,
-                    where you can open an ongoing project you are in or request
-                    to create a new project or join a current one using the{" "}
-                    <span className="font-semibold">"Join Project"</span> option
-                    at the top right.
-                  </p>
+                  {isOwner ? (
+                    <>
+                      <h1 className="text-2xl font-bold text-primary mb-4">
+                        Welcome, Owner of {institution?.institutionName || "Loading..."}!
+                      </h1>
+                      <p className="text-lg text-muted-foreground">
+                        As the owner of this institution, you have access to exclusive
+                        features and management tools. Explore the sidebar to manage{" "}
+                        <span className="font-semibold">projects</span>, review{" "}
+                        <span className="font-semibold">expenses</span>, and oversee{" "}
+                        <span className="font-semibold">notifications</span>. Use the{" "}
+                        <span className="font-semibold">"Dashboard"</span> section for an
+                        overview of ongoing activities. Thank you for leading{" "}
+                        {institution?.institutionName || "this institution"}!
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h1 className="text-2xl font-bold text-primary mb-4">
+                        Welcome to Institution{" "}
+                        {institution?.institutionName || "Loading..."}
+                      </h1>
+                      <p className="text-lg text-muted-foreground">
+                        We hope you're enjoying your stay here. Unfortunately, as a default
+                        user in this institution, this page may not be the most useful for
+                        you at the moment. To get started, you can click on the sidebar to
+                        explore the <span className="font-semibold">"Projects"</span>{" "}
+                        section, where you can open an ongoing project you are in or
+                        request to create a new project or join a current one using the{" "}
+                        <span className="font-semibold">"Join Project"</span> option
+                        at the top right.
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="w-full md:w-1/2 flex flex-col items-center justify-center md:justify-start md:items-start">
                   <div className="w-full h-px bg-gray-200 my-6 md:hidden"></div>
