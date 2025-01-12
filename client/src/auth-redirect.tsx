@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { useEffect } from "react"
-import { useNavigate } from "react-router"
-import { Loader2 } from 'lucide-react'
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { Loader2 } from 'lucide-react';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const AuthRedirect = () => {
-  const router = useNavigate()
+  const router = useNavigate();
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -15,10 +15,10 @@ const AuthRedirect = () => {
         // Check authentication via API
         const response = await fetch("/api/user-info", {
           credentials: "include",
-        })
+        });
 
         if (response.ok) {
-          const userData = await response.json()
+          const userData = await response.json();
 
           // Store user data and token in localStorage
           localStorage.setItem(
@@ -28,21 +28,31 @@ const AuthRedirect = () => {
               email: userData.email,
               username: userData.username,
             })
-          )
-          localStorage.setItem("token", userData.token)
+          );
+          localStorage.setItem("token", userData.token);
 
-          router("/dashboard")
+          // Add a timeout before navigating
+          setTimeout(() => {
+            router("/dashboard");
+          }, 500); // 500ms timeout
         } else {
-          router("/")
+          // Add a timeout before navigating
+          setTimeout(() => {
+            router("/");
+          }, 500); // 500ms timeout
         }
       } catch (error) {
-        console.error("Authentication check failed:", error)
-        router("/")
-      }
-    }
+        console.error("Authentication check failed:", error);
 
-    checkAuthentication()
-  }, [router])
+        // Add a timeout before navigating
+        setTimeout(() => {
+          router("/");
+        }, 500); // 500ms timeout
+      }
+    };
+
+    checkAuthentication();
+  }, [router]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -56,7 +66,7 @@ const AuthRedirect = () => {
         </CardContent>
       </Card>
     </div>
-  )
-}
+  );
+};
 
 export default AuthRedirect;
