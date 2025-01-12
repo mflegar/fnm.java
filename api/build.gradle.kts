@@ -42,7 +42,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("org.seleniumhq.selenium:selenium-java:4.27.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.27.0")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.11.4")
 }
 
