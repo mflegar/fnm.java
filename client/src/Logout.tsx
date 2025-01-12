@@ -5,16 +5,12 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    const userData = localStorage.getItem("user");
     const token = localStorage.getItem("token"); // Dohvati token iz localStorage
-    console.log(userData);
-    console.log(token);
 
     try {
-      // Pošalji zahtjev za odjavu prema backendu
       const response = await fetch("/api/logout", {
         method: "POST",
-        credentials: "include", // Uključi kolačiće
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Dodaj Bearer token u zaglavlje
@@ -27,16 +23,12 @@ const Logout = () => {
         console.error("Logout failed on the backend.");
       }
 
-      // Ukloni korisničke podatke iz localStorage bez obzira na odgovor
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      console.log("Deleted!");
-      console.log(localStorage);
     } catch (error) {
       console.error("Error during logout:", error);
     }
 
-    // Navigiraj korisnika na početnu stranicu
     navigate("/");
   };
 

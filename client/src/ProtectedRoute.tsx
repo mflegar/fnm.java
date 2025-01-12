@@ -11,6 +11,8 @@ const ProtectedRoute = ({ children }: Props) => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
+      // Add a delay before checking authentication
+      await new Promise((resolve) => setTimeout(resolve, 500)); // 500ms delay
       const loggedIn = await isLoggedIn();
       setIsAuthenticated(loggedIn);
     };
@@ -19,7 +21,7 @@ const ProtectedRoute = ({ children }: Props) => {
   }, [isLoggedIn]);
 
   if (isAuthenticated === null) {
-    // Optionally, you can show a loading state here while checking the authentication
+    // Optionally display a loading state
     return <div>Loading...</div>;
   }
 
