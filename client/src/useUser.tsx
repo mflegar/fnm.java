@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: Props) => {
   };
 
   const isLoggedIn = async (): Promise<boolean> => {
-    if (token === null) return false;
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch("/api/validate-token", {

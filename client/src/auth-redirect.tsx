@@ -1,20 +1,26 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+'use client'
+
+import { useEffect } from "react"
+import { useNavigate } from "react-router"
+import { Loader2 } from 'lucide-react'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 const AuthRedirect = () => {
-  const navigate = useNavigate();
+  const router = useNavigate()
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      if (localStorage.getItem("token")) navigate("/dashboard");
       try {
+        // Check authentication via API
         const response = await fetch("/api/user-info", {
           credentials: "include",
-        });
+        })
 
         if (response.ok) {
-          const userData = await response.json();
+          const userData = await response.json()
 
+          // Store user data and token in localStorage
           localStorage.setItem(
             "user",
             JSON.stringify({
@@ -22,22 +28,35 @@ const AuthRedirect = () => {
               email: userData.email,
               username: userData.username,
             })
-          );
-          localStorage.setItem("token", userData.token);
+          )
+          localStorage.setItem("token", userData.token)
 
-          navigate("/dashboard");
+          router("/dashboard")
         } else {
-          navigate("/");
+          router("/")
         }
-      } catch {
-        navigate("/");
+      } catch (error) {
+        console.error("Authentication check failed:", error)
+        router("/")
       }
-    };
+    }
 
-    checkAuthentication();
-  }, [navigate]);
+    checkAuthentication()
+  }, [router])
 
-  return <div>Redirecting...</div>;
-};
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>Authenticating</CardTitle>
+          <CardDescription>Please wait while we verify your credentials.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
 
 export default AuthRedirect;
