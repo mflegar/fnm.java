@@ -165,22 +165,19 @@ export default function JoinProject() {
     const actorID = parsedUser.id;
 
     if (selectedProject) {
-      fetch(`/api/project/requestJoin`, {
+      fetch(`/api/project/requestJoin/${selectedProject}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          actorID: actorID,
-          projectID: selectedProject,
-        }),
+        body: JSON.stringify(actorID),
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to submit join request");
           }
-          return response.json();
+          return response.text();
         })
         .then((data) => {
           console.log("Join request submitted successfully:", data);

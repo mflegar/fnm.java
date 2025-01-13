@@ -191,7 +191,7 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Project not found!");
         }
         String mailString = Files.readString(new ClassPathResource("mail/projectjoinmail.html").getFile().toPath());
-        mailService.sendHTMLMail(actor.getActorEmail(), "Request to join project",
+        mailService.sendHTMLMail(project.getActor().getActorEmail(), "Request to join project",
                 String.format(mailString, project.getActor().getActorUsername(), actor.getActorUsername(), project.getProjectName(),
                         String.format(env.getProperty("spring.application.url") + "userRequest?projectID=%s&actorID=%s",
                                 projectID, actorID)));
