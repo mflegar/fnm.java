@@ -33,8 +33,8 @@ public class testLogin {
             WebElement passwordField = driver.findElement(By.id("password"));
 
             // Enter username and password
-            usernameField.sendKeys("GrmiSijeva"); //TODO This should be changed for testing purpouses
-            passwordField.sendKeys("_27EF+TWhS");
+            usernameField.sendKeys(" "); //TODO This should be changed for testing purpouses
+            passwordField.sendKeys(" ");
 
             // Optionally, submit the form or find the login button to click
             // Assuming the form submits when pressing ENTER in the password field
