@@ -22,14 +22,14 @@ public class LoginUtils {
             // 2. Click the login button
             WebElement loginButton = driver.findElement(By.className("login-button"));
             loginButton.click();
-            Thread.sleep(3000);
+            Thread.sleep(6000);
 
             // 3. Enter username and password
             WebElement usernameField = driver.findElement(By.id("login_field"));
             WebElement passwordField = driver.findElement(By.id("password"));
 
-            usernameField.sendKeys(" ");
-            passwordField.sendKeys(" ");
+            usernameField.sendKeys("GrmiSijeva");
+            passwordField.sendKeys("_27EF+TWhS");
             passwordField.submit();
 
             // 4. Wait for login to complete
