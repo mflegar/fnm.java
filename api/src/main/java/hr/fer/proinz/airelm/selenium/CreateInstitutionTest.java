@@ -15,11 +15,11 @@ public class CreateInstitutionTest {
 
         // Five institutions in a 2D array: { [name, link], ... }
         String[][] institutions = {
-                {"My New Institution #1", "http://some-url-1.com"},
-                {"My New Institution #2", "http://some-url-2.com"},
-                {"My New Institution #3", "http://some-url-3.com"},
-                {"My New Institution #4", "http://some-url-4.com"},
-                {"My New Institution #5", "http://some-url-5.com"}
+                {"Moj novi Institution #1", "http://some-url-1.com"},
+                {"Moj novi Institution #2", "http://some-url-2.com"},
+                {"Moj novi Institution #3", "http://some-url-3.com"},
+                {"Moj novi Institution #4", "http://some-url-4.com"},
+                {"Moj novi Institution #5", "http://some-url-5.com"}
         };
 
         try {

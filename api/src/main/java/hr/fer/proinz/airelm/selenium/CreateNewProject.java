@@ -27,11 +27,11 @@ public class CreateNewProject {
 
             // 4. Prepare project data
             String[][] projects = {
-                    {"Project 1", "Attachment for project 1..."},
-                    {"Project 2", "Attachment for project 2..."},
-                    {"Project 3", "Attachment for project 3..."},
-                    {"Project 4", "Attachment for project 4..."},
-                    {"Project 5", "Attachment for project 5..."}
+                    {"Project 1", "Attachment for project 6..."},
+                    {"Project 2", "Attachment for project 7..."},
+                    {"Project 3", "Attachment for project 8..."},
+                    {"Project 4", "Attachment for project 9..."},
+                    {"Project 5", "Attachment for project 10..."}
             };
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
