@@ -1,11 +1,13 @@
 spring:
   application:
     name: airelm
+    url: '${WEB_URL:}'
+    token-secret-key: '${TOKEN_SECRET_KEY:}'
   datasource:
     url: '${POSTGRES_URL:}'
     username: '${POSTGRES_USERNAME:postgres}'
     password: '${POSTGRES_PASSWORD:}'
-    driverClassName: 'org.postgresql.Driver'
+    driver-class-name: 'org.postgresql.Driver'
   jpa:
     hibernate:
       ddl-auto: update

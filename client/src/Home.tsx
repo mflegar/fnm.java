@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "./Home.css";
+import githubLogo from "./assets/github-mark-white.svg";
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -56,16 +57,24 @@ const Home = () => {
 
   // Ako korisnik nije prijavljen, ponudi opciju za prijavu
   const handleGitHubLogin = () => {
-    window.location.href = "http://localhost:8780/oauth2/authorization/github";
+    window.location.href = "/api/oauth2/authorization/github";
   };
 
   return (
     <>
       <div className="home-container">
         <img src="/images/Logo.png"></img>
-        <p id="text">AIReLM is an application that enables good organization and monitoring of the flow while working on a specific project. To get started, you have to login!</p>
-        <button onClick={handleGitHubLogin} className="login-button">
-          Login with GitHub
+        <p id="text">
+          AIReLM is an application that enables good organization and monitoring
+          of the flow while working on a specific project. To get started, you
+          have to login!
+        </p>
+        <button
+          onClick={handleGitHubLogin}
+          className="login-button flex justify-center items-center"
+        >
+          <img src={githubLogo} alt="GitHub" className="size-8 mx-2" />
+          Log in with GitHub
         </button>
       </div>
     </>

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,40 +8,78 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 interface Expense {
-  expenseID: number
-  description: string
-  expense: number
-  actorID: number
-  projectID: number
+  expenseID: number;
+  description: string;
+  expense: number;
+  actorID: number;
+  projectID: number;
 }
 
 interface ExpensesTableProps {
-  expenses: Expense[]
+  expenses: Expense[];
 }
 
 export function ExpensesTable({ expenses }: ExpensesTableProps) {
-  const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 7
+  const [currentPage, setCurrentPage] = useState(1);
+  const [actorNames, setActorNames] = useState<{ [key: number]: string }>({});
+  const pageSize = 7;
 
-  const totalPages = Math.ceil(expenses.length / pageSize)
+  const totalPages = Math.ceil(expenses.length / pageSize);
 
   const getCurrentPageExpenses = () => {
-    const startIndex = (currentPage - 1) * pageSize
-    const endIndex = startIndex + pageSize
-    return expenses.slice(startIndex, endIndex)
-  }
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return expenses.slice(startIndex, endIndex);
+  };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
+      setCurrentPage(page);
     }
-  }
+  };
 
-  const totalAmount = expenses.reduce((sum, expense) => sum + expense.expense, 0)
+  const totalAmount = expenses.reduce(
+    (sum, expense) => sum + expense.expense,
+    0
+  );
+
+  useEffect(() => {
+    const fetchActorNames = async () => {
+      const uniqueActorIDs = Array.from(new Set(expenses.map((e) => e.actorID)));
+      const fetchedNames: { [key: number]: string } = {};
+      const token = localStorage.getItem("token");
+
+      await Promise.all(
+        uniqueActorIDs.map(async (actorID) => {
+          try {
+            const response = await fetch(`/api/user/${actorID}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            if (response.ok) {
+              const data = await response.json();
+              fetchedNames[actorID] = data.actorUsername;
+            } else {
+              console.error(`Failed to fetch actor with ID: ${actorID}`);
+              fetchedNames[actorID] = "Unknown";
+            }
+          } catch (error) {
+            console.error(`Error fetching actor with ID: ${actorID}`, error);
+            fetchedNames[actorID] = "Unknown";
+          }
+        })
+      );
+
+      setActorNames(fetchedNames);
+    };
+
+    fetchActorNames();
+  }, [expenses]);
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
@@ -61,7 +99,7 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
               <TableRow>
                 <TableHead>Description</TableHead>
                 <TableHead>Cost</TableHead>
-                <TableHead>Actor ID</TableHead>
+                <TableHead>Actor</TableHead>
                 <TableHead>Project ID</TableHead>
               </TableRow>
             </TableHeader>
@@ -70,7 +108,7 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
                 <TableRow key={expense.expenseID}>
                   <TableCell>{expense.description}</TableCell>
                   <TableCell>${expense.expense.toFixed(2)}</TableCell>
-                  <TableCell>{expense.actorID}</TableCell>
+                  <TableCell>{actorNames[expense.actorID] || "Loading..."}</TableCell>
                   <TableCell>{expense.projectID}</TableCell>
                 </TableRow>
               ))}
@@ -87,7 +125,9 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
               Previous
             </Button>
             <span className="px-4 py-2 text-lg font-semibold">
-              {totalPages === 0 ? "Page 1 of 1" : `Page ${currentPage} of ${totalPages}`}
+              {totalPages === 0
+                ? "Page 1 of 1"
+                : `Page ${currentPage} of ${totalPages}`}
             </span>
             <Button
               variant="outline"
@@ -101,5 +141,5 @@ export function ExpensesTable({ expenses }: ExpensesTableProps) {
         </>
       )}
     </div>
-  )
+  );
 }

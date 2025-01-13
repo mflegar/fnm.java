@@ -1,8 +1,8 @@
 <!-- markdownlint-disable-file MD033 MD041 -->
 > [!NOTE]
-> As per course requirements, the repository name must match our team's name. For reference, the actual project title and description are below.
+> As per [course](#project-descriptionoverview) requirements, we have ensured that the repository name exactly matches our team name. Please see below for the project overview.
 
-# AIReLM &ensp;![Version Tag](https://img.shields.io/github/v/tag/mflegar/fnm.java?sort=semver&filter=v*)&nbsp;![Web Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/web.yml?label=web)&nbsp;![API Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/api.yml?label=api)
+# AIReLM &ensp;[![Version Tag](https://img.shields.io/github/v/tag/mflegar/fnm.java?sort=semver&filter=v*&label=version)](https://github.com/mflegar/fnm.java/tags)&nbsp;[![Web Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/web.yml?label=build%3Aweb)](https://github.com/mflegar/fnm.java/actions/workflows/web.yml)&nbsp;[![API Workflow Status](https://img.shields.io/github/actions/workflow/status/mflegar/fnm.java/api.yml?label=build%3Aapi)](https://github.com/mflegar/fnm.java/actions/workflows/api.yml)
 
 This repository is based on a [project template](https://github.com/VladoSruk/Programsko-inzenjerstvo) provided by [Associate Professor Vlado Sruk, PhD](https://www.fer.unizg.hr/en/vlado.sruk). We have modified this template to suit our needs and would like to acknowledge the professor's effort in providing a solid foundation for our project assignment.
 

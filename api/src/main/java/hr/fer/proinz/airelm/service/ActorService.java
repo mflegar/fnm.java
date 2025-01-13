@@ -8,13 +8,11 @@ import hr.fer.proinz.airelm.repository.ActorRepository;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
 import hr.fer.proinz.airelm.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +24,7 @@ public class ActorService {
     InstitutionRepository institutionRepository;
     @Autowired
     ProjectRepository projectRepository;
+
     public ActorService() {
 
     }
@@ -38,7 +37,8 @@ public class ActorService {
                         actor.getActorUsername()))
                 .collect(Collectors.toList());
     }
-    public List<ActorDTO> getActorsByProject(Integer id){
+
+    public List<ActorDTO> getActorsByProject(Integer id) {
         return actorRepository.findByProjects_ProjectID(id).stream()
                 .map(actor -> new ActorDTO(
                         actor.getActorID(),
@@ -46,7 +46,8 @@ public class ActorService {
                         actor.getActorUsername()))
                 .collect(Collectors.toList());
     }
-    public List<ActorDTO> getActorsByInstitution(Integer id){
+
+    public List<ActorDTO> getActorsByInstitution(Integer id) {
         return actorRepository.findByInstitutions_InstitutionID(id).stream()
                 .map(actor -> new ActorDTO(
                         actor.getActorID(),
@@ -54,16 +55,18 @@ public class ActorService {
                         actor.getActorUsername()))
                 .collect(Collectors.toList());
     }
-    public Boolean isOwnerOfInstitution(Integer actorID, Integer institutionID){
+
+    public Boolean isOwnerOfInstitution(Integer actorID, Integer institutionID) {
         Institution institution = institutionRepository.findById(institutionID).orElse(null);
-        if (institution == null){
+        if (institution == null) {
             throw new IllegalArgumentException("Institution not found.");
         }
         return Objects.equals(institution.getOwner().getActorID(), actorID);
     }
-    public Boolean isOwnerOfProject(Integer actorID, Integer projectID){
+
+    public Boolean isOwnerOfProject(Integer actorID, Integer projectID) {
         Project project = projectRepository.findById(projectID).orElse(null);
-        if (project == null){
+        if (project == null) {
             throw new IllegalArgumentException("Project not found.");
         }
         return Objects.equals(project.getActor().getActorID(), actorID);
@@ -94,6 +97,7 @@ public class ActorService {
                 actor.getActorUsername()
         );
     }
+
     public boolean deleteActor(Integer id) {
         if (actorRepository.existsById(id)) {
             actorRepository.deleteById(id);

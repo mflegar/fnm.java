@@ -46,11 +46,20 @@ export function NavMain({
           let noItemsMessage = ""; // Message for empty sections
 
           // Determine message based on the item type
-          if (item.title === "Actors" && (!item.items || item.items.length === 0)) {
+          if (
+            item.title === "Actors" &&
+            (!item.items || item.items.length === 0)
+          ) {
             noItemsMessage = "No Actors in institution";
-          } else if (item.title === "Projects" && (!item.items || item.items.length === 0)) {
+          } else if (
+            item.title === "Projects" &&
+            (!item.items || item.items.length === 0)
+          ) {
             noItemsMessage = "No Projects in institution";
-          } else if (item.title === "Institution Expenses" && (!item.items || item.items.length === 0)) {
+          } else if (
+            item.title === "Institution Expenses" &&
+            (!item.items || item.items.length === 0)
+          ) {
             noItemsMessage = "No Expenses for institution";
           }
 
@@ -80,7 +89,11 @@ export function NavMain({
                   {item.items && item.items.length > 0 ? (
                     <SidebarMenuSub>
                       {item.items.map((subItem, subIndex) => (
-                        <SidebarMenuSubItem key={`${subItem.title}-${subIndex}`}> {/* Unique key for each subitem */}
+                        <SidebarMenuSubItem
+                          key={`${subItem.title}-${subIndex}`}
+                        >
+                          {" "}
+                          {/* Unique key for each subitem */}
                           <SidebarMenuSubButton asChild>
                             {subItem.url ? (
                               <a
@@ -105,7 +118,9 @@ export function NavMain({
                       ))}
                     </SidebarMenuSub>
                   ) : (
-                    <div className="p-4 text-sm text-muted-foreground">{noItemsMessage}</div>
+                    <div className="p-4 text-sm text-muted-foreground">
+                      {noItemsMessage}
+                    </div>
                   )}
                 </CollapsibleContent>
               </SidebarMenuItem>

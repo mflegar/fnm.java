@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        text-align: center;
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .content p {
+        line-height: 1.6;
+      }
+      .footer {
+        text-align: center;
+        color: #555555;
+        font-size: 14px;
+        margin-top: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 5px;
+        color: #ffffff;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .button.reject {
+        background-color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>Project Join Request</h1>
+      </div>
+      <div class="content">
+        <p>Dear %s,</p>
+        <p>%s has requested to join your project "<strong>%s</strong>".</p>
+        <p>
+          Please click one of the buttons below to either accept or reject the
+          request:
+        </p>
+        <p>
+          <a href="%s" class="button">View application</a>
+        </p>
+      </div>
+      <div class="footer">
+        <p>Thank you for managing your project!</p>
+      </div>
+    </div>
+  </body>
+</html>

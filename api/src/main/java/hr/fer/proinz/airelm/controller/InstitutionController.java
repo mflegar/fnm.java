@@ -2,9 +2,13 @@ package hr.fer.proinz.airelm.controller;
 
 import hr.fer.proinz.airelm.dto.InstitutionDTO;
 import hr.fer.proinz.airelm.entity.Actor;
+import hr.fer.proinz.airelm.entity.ActorRoleInstitution;
 import hr.fer.proinz.airelm.entity.Institution;
+import hr.fer.proinz.airelm.entity.Role;
 import hr.fer.proinz.airelm.repository.ActorRepository;
+import hr.fer.proinz.airelm.repository.ActorRoleInstitutionRepozitory;
 import hr.fer.proinz.airelm.repository.InstitutionRepository;
+import hr.fer.proinz.airelm.service.ActorRoleInstitutionService;
 import hr.fer.proinz.airelm.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +30,13 @@ public class InstitutionController {
     private ActorRepository actorRepository;
 
     @Autowired
-    InstitutionRepository institutionRepository;
+    private InstitutionRepository institutionRepository;
+
+    @Autowired
+    private ActorRoleInstitutionRepozitory actorRoleInstitutionRepozitory;
+
+    @Autowired
+    private ActorRoleInstitutionService actorRoleInstitutionService;
 
     @PostMapping("/add")
     public ResponseEntity<String> addInstitution(@RequestBody InstitutionDTO institutionDTO) {
@@ -47,8 +57,15 @@ public class InstitutionController {
             owner.getInstitutions().add(institution); // adding institution to owner's set of institutions
 
 
-
             institutionService.saveInstitution(institution);
+
+            Actor actor = institution.getOwner();
+            ActorRoleInstitution actorRoleInstitution = new ActorRoleInstitution();
+            actorRoleInstitution.setInstitution(institution);
+            actorRoleInstitution.setActor(actor);
+            actorRoleInstitution.setRole(Role.INSTITUTION_MANAGER);
+
+            actorRoleInstitutionService.saveActorRoleInstitution(actorRoleInstitution);
             return new ResponseEntity<>("Institution successfully added!", HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding institution: " + e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -59,6 +76,7 @@ public class InstitutionController {
     public ResponseEntity<InstitutionDTO> getInstitutionByName(@PathVariable String name) {
         return ResponseEntity.ok(institutionService.getInstitutionByName(name));
     }
+
     @GetMapping("/owner/{ownerID}")
     public ResponseEntity<List<InstitutionDTO>> getInstitutionsByOwner(@PathVariable Integer ownerID) {
         List<InstitutionDTO> institutions = institutionService.getInstitutionsByOwner(ownerID);
@@ -114,10 +132,20 @@ public class InstitutionController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Actor is already a member of this institution.");
         }
 
+        //adding row to joins_institution
         // add institution to the actor
         actor.getInstitutions().add(institution);
         // add actor to the institution
         institution.getActors().add(actor);
+
+        ActorRoleInstitution actorRoleInstitution = new ActorRoleInstitution();
+        actorRoleInstitution.setInstitution(institution);
+        actorRoleInstitution.setActor(actor);
+        actorRoleInstitution.setRole(Role.RESEARCHER);
+
+        actorRoleInstitutionService.saveActorRoleInstitution(actorRoleInstitution);
+
+
         actorRepository.save(actor);
 
         return ResponseEntity.ok("Actor successfully joined the institution.");
@@ -149,6 +177,14 @@ public class InstitutionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Actor is not a member of this institution.");
         }
 
+
+        ActorRoleInstitution actorRoleInstitution = actorRoleInstitutionRepozitory.findByActorAndInstitution(actor, institution);
+
+        if (actorRoleInstitution.getRole().equals(Role.INSTITUTION_MANAGER))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Institution manager can not leave institution.");
+        actorRoleInstitutionRepozitory.delete(actorRoleInstitution);
+
+
         // actor is leaving institution
         actor.getInstitutions().remove(institution);
         institution.getActors().remove(actor);
@@ -156,5 +192,24 @@ public class InstitutionController {
 
         return ResponseEntity.ok("Actor successfully left the institution.");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteInstitution(@PathVariable Integer id) {
+        try {
+            Optional<Institution> institutionOpt = institutionRepository.findById(id);
+            if (institutionOpt.isEmpty())
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Institution not found.");
+
+            Institution institution = institutionOpt.get();
+
+            institutionRepository.delete(institution);
+
+            return ResponseEntity.ok("Institution successfully deleted.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting institution: " + e.getMessage());
+        }
+    }
+
 
 }

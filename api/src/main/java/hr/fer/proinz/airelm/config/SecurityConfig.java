@@ -4,6 +4,7 @@ import hr.fer.proinz.airelm.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +21,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Autowired
+    private Environment env;
+    @Autowired
     private CustomTokenFilter customTokenFilter;
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
@@ -35,11 +38,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/login/oauth2/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/validate-token").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/actuator/health").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/**").authenticated()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
@@ -47,7 +55,7 @@ public class SecurityConfig {
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:5780", true)
+                        .defaultSuccessUrl(env.getProperty("spring.application.url"), true)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)) // Custom service integration
                 )
@@ -73,7 +81,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5780")  // React frontend
+                        .allowedOrigins(env.getProperty("spring.application.url"))  // React frontend
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

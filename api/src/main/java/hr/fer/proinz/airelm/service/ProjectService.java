@@ -9,7 +9,6 @@ import hr.fer.proinz.airelm.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -114,5 +113,21 @@ public class ProjectService {
                 .filter(projectDTO -> projectDTO.getInstitutionID().equals(institutionID))
                 .filter(projectDTO -> projectDTO.getState().equals(State.active)) // Filter by state "active" - it is not needed but
                 .toList();
+    }
+
+    public ProjectDTO getProjectByName(String name) {
+        Project project = projectRepository.findByProjectName(name).orElse(null);
+        if (project == null) {
+            return null;
+        }
+        return new ProjectDTO(
+                project.getProjectID(),
+                project.getProjectName(),
+                project.getStartTime(),
+                project.getAttachment(),
+                project.getActor().getActorID(),
+                project.getInstitution().getInstitutionID(),
+                project.getState()
+        );
     }
 }

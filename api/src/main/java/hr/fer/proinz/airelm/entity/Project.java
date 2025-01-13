@@ -27,7 +27,7 @@ public class Project {
     private Integer projectID;
 
     @JsonProperty("name")
-    @Column(name = "project_name", nullable = false)
+    @Column(name = "project_name", nullable = false, unique = true)
     private String projectName;
 
     @JsonProperty("start")

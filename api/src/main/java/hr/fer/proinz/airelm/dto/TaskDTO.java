@@ -12,6 +12,7 @@ import lombok.Setter;
 public class TaskDTO {
     private Integer taskID;        // Part of composite primary key
     private Integer projectID;     // Part of composite primary key
+    private String taskName;
     private String description;    // Task description
     private Integer actorID;       // Referencing Actor entity
 }

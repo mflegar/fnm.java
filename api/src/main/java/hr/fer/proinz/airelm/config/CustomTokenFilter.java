@@ -24,7 +24,9 @@ public class CustomTokenFilter extends OncePerRequestFilter {
 
         // Ignore these 3 routes for now
         if (requestURI.startsWith("/generate-token") || requestURI.startsWith("/login/oauth2")
-                || requestURI.startsWith("/user-info") || requestURI.startsWith("https://api.github.com/user/emails")) {
+                || requestURI.startsWith("/validate-token")
+                || requestURI.startsWith("/user-info") || requestURI.startsWith("https://api.github.com/user/emails")
+                || requestURI.startsWith("/actuator/health")) {
             filterChain.doFilter(request, response); // Continue with the request
             return;
         }
