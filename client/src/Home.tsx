@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "./Home.css";
+import githubLogo from "./assets/github-mark-white.svg";
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -68,8 +69,12 @@ const Home = () => {
           of the flow while working on a specific project. To get started, you
           have to login!
         </p>
-        <button onClick={handleGitHubLogin} className="login-button">
-          Login with GitHub
+        <button
+          onClick={handleGitHubLogin}
+          className="login-button flex justify-center items-center"
+        >
+          <img src={githubLogo} alt="GitHub" className="size-8 mx-2" />
+          Log in with GitHub
         </button>
       </div>
     </>
