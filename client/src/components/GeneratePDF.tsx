@@ -86,9 +86,8 @@ export const GeneratePDF = ({
 
     // Generate table using autoTable
     (doc as any).autoTable({
-      head: [["ID", "Description", "Cost", "Actor", "Project"]], // Replaced 'Project ID' with 'Project'
+      head: [[ "Description", "Cost", "Actor", "Project"]], // Replaced 'Project ID' with 'Project'
       body: expenses.map((expense) => [
-        expense.expenseID,
         expense.description,
         `$${expense.expense.toFixed(2)}`,
         actorNamesMap.get(expense.actorID) || "Unknown", // Use actorUsername or fallback
