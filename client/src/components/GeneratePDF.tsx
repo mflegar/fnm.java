@@ -19,7 +19,7 @@ export const GeneratePDF = ({
   institutionName,
   name,
 }: GeneratePDFProps) => {
-  const handleGeneratePDF = () => {
+  const handleGeneratePDF = async () => {
     const doc = new jsPDF();
 
     const reportName = name || institutionName || "default_report"; // Default to "default_report" if both are null
@@ -31,18 +31,68 @@ export const GeneratePDF = ({
       0
     );
 
+    // Fetch actor usernames and project names
+    const actorNamesMap = new Map<number, string>();
+    const projectNamesMap = new Map<number, string>();
+
+    for (const expense of expenses) {
+      // Fetch actor username if not already fetched
+      if (!actorNamesMap.has(expense.actorID)) {
+        try {
+          const response = await fetch(`/api/user/${expense.actorID}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          if (response.ok) {
+            const actor = await response.json();
+            actorNamesMap.set(expense.actorID, actor.actorUsername);
+          } else {
+            console.error(`Failed to fetch actor with ID ${expense.actorID}`);
+            actorNamesMap.set(expense.actorID, "Unknown"); // Fallback if API fails
+          }
+        } catch (error) {
+          console.error(`Error fetching actor with ID ${expense.actorID}`, error);
+          actorNamesMap.set(expense.actorID, "Unknown");
+        }
+      }
+
+      // Fetch project name if not already fetched
+      if (!projectNamesMap.has(expense.projectID)) {
+        try {
+          const response = await fetch(`/api/project/${expense.projectID}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          if (response.ok) {
+            const project = await response.json();
+            projectNamesMap.set(expense.projectID, project.projectName);
+          } else {
+            console.error(`Failed to fetch project with ID ${expense.projectID}`);
+            projectNamesMap.set(expense.projectID, "Unknown"); // Fallback if API fails
+          }
+        } catch (error) {
+          console.error(`Error fetching project with ID ${expense.projectID}`, error);
+          projectNamesMap.set(expense.projectID, "Unknown");
+        }
+      }
+    }
+
     // Adding title to the PDF
     doc.text("Institution Expenses", 20, 20);
 
     // Generate table using autoTable
     (doc as any).autoTable({
-      head: [["ID", "Description", "Cost", "Actor ID", "Project ID"]], // Removed 'Date' from table headers
+      head: [["ID", "Description", "Cost", "Actor", "Project"]], // Replaced 'Project ID' with 'Project'
       body: expenses.map((expense) => [
         expense.expenseID,
         expense.description,
         `$${expense.expense.toFixed(2)}`,
-        expense.actorID, // Added actorID to the table
-        expense.projectID, // Added projectID to the table
+        actorNamesMap.get(expense.actorID) || "Unknown", // Use actorUsername or fallback
+        projectNamesMap.get(expense.projectID) || "Unknown", // Use projectName or fallback
       ]),
       startY: 30, // Start table below the title
       margin: { top: 20 },
