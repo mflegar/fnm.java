@@ -55,7 +55,7 @@ public class SecurityConfig {
                         .anyRequest().denyAll() // Sve ostale zahtjeve blokiraj
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl(env.getProperty("spring.application.url"), true)
+                        .defaultSuccessUrl("http://localhost:5780/auth-redirect", true)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)) // Custom service integration
                 )
