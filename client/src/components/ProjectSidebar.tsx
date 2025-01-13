@@ -59,6 +59,7 @@ export function ProjectSidebar({
   } | null>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [ownerName, setOwnerName] = useState<string>("Default User");
 
   const token = localStorage.getItem("token"); // token
 
@@ -97,7 +98,10 @@ export function ProjectSidebar({
         });
         if (response.ok) {
           const projectData = await response.json();
-          const { projectID } = projectData;
+          const { projectID, actorID } = projectData;
+
+          fetchOwnerName(actorID);
+
           await Promise.all([
             checkOwnership(user.id, projectID),
             fetchAdditionalData(projectID),
@@ -111,6 +115,23 @@ export function ProjectSidebar({
         //navigate(`/institution/${name}`);
       } finally {
         setLoading(false);
+      }
+    };
+
+    const fetchOwnerName = async (actorID: number) => {
+      try {
+        const response = await fetch(`/api/user/${actorID}`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.ok) {
+          const ownerData = await response.json();
+          setOwnerName(ownerData.actorUsername);
+        } else {
+          console.error("Error fetching owner name");
+        }
+      } catch (error) {
+        console.error("Error fetching owner name:", error);
       }
     };
 
@@ -207,7 +228,7 @@ export function ProjectSidebar({
       <SidebarContent>
         <ProjectGeneral
           items={navMainItems}
-          ownerName={user?.username || "Default User"}
+          ownerName={ownerName}
         />
         {isOwner && (
           <NavProjects

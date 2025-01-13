@@ -57,6 +57,7 @@ export function AppSidebar({
   } | null>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [ownerName, setOwnerName] = useState<string>("Default User");
 
   const token = localStorage.getItem("token"); // token
 
@@ -99,7 +100,10 @@ export function AppSidebar({
         });
         if (response.ok) {
           const institutionData = await response.json();
-          const { institutionID } = institutionData;
+          const { institutionID, ownerID } = institutionData;
+
+          fetchOwnerName(ownerID);
+
           await Promise.all([
             checkOwnership(user.id, institutionID),
             fetchAdditionalData(institutionID),
@@ -113,6 +117,24 @@ export function AppSidebar({
         navigate("/dashboard");
       } finally {
         setLoading(false);
+      }
+    };
+
+    const fetchOwnerName = async (ownerID: number) => {
+      try {
+        const response = await fetch(`/api/user/${ownerID}`, {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.ok) {
+          const ownerData = await response.json();
+          console.log(ownerData)
+          setOwnerName(ownerData.actorUsername);
+        } else {
+          console.error("Error fetching owner name");
+        }
+      } catch (error) {
+        console.error("Error fetching owner name:", error);
       }
     };
 
@@ -226,7 +248,7 @@ export function AppSidebar({
         <NavMain
           items={navMainItems}
           onViewExpensesClick={handleInstitutionExpensesClick}
-          ownerName={user?.username || "Default User"}
+          ownerName={ownerName}
         />
         {isOwner && (
           <NavProjects
