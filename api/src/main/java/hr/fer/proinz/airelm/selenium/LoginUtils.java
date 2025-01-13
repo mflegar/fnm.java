@@ -28,8 +28,8 @@ public class LoginUtils {
             WebElement usernameField = driver.findElement(By.id("login_field"));
             WebElement passwordField = driver.findElement(By.id("password"));
 
-            usernameField.sendKeys("GrmiSijeva");
-            passwordField.sendKeys("_27EF+TWhS");
+            usernameField.sendKeys("sisa");
+            passwordField.sendKeys("guza");
             passwordField.submit();
 
             // 4. Wait for login to complete
