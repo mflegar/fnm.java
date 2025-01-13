@@ -9,43 +9,65 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CreateInstitutionTest {
+
     public static void main(String[] args) {
         WebDriver driver = null;
+
+        // Five institutions in a 2D array: { [name, link], ... }
+        String[][] institutions = {
+                {"My New Institution #1", "http://some-url-1.com"},
+                {"My New Institution #2", "http://some-url-2.com"},
+                {"My New Institution #3", "http://some-url-3.com"},
+                {"My New Institution #4", "http://some-url-4.com"},
+                {"My New Institution #5", "http://some-url-5.com"}
+        };
+
         try {
-            // 1. Login (reuse your existing code)
+            // 1. Login (reuse your existing LoginUtils code)
             driver = LoginUtils.login();
-
-            // 2. Navigate to the "Create new institution" page
-            //    If it doesn't auto-redirect after login:
-            driver.get("http://localhost:5780/institution/new");
-
-            // 3. Fill the "Institution name" field (id="institutionName")
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement nameField = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("institutionName"))
-            );
-            nameField.sendKeys("My New Institution");
 
-            // 4. Fill the "Institution link" field (id="link")
-            WebElement linkField = driver.findElement(By.id("link"));
-            linkField.sendKeys("http://some-url-whatever.com");
+            // 2. Loop over each institution
+            for (int i = 0; i < institutions.length; i++) {
+                String instName = institutions[i][0];
+                String instLink = institutions[i][1];
 
-            // 5. Locate and click the submit button by its text
-            //    <button type="submit">Create new institution</button>
-            By submitBtnLocator = By.xpath("//button[text()='Create new institution']");
-            WebElement submitButton = wait.until(
-                    ExpectedConditions.elementToBeClickable(submitBtnLocator)
-            );
-            submitButton.click();
+                // 3. Navigate to the "Create new institution" page
+                //    If you need to click a button from the dashboard, do that
+                //    Here, we directly navigate to the form URL:
+                driver.get("http://localhost:5780/institution/new");
 
-            // 6. (Optional) Wait or verify success
-            Thread.sleep(2000);
-            System.out.println("Institution creation process completed successfully!");
+                // 4. Fill out the Institution Name
+                WebElement nameField = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(By.id("institutionName"))
+                );
+                nameField.clear();
+                nameField.sendKeys(instName);
+
+                // 5. Fill out the Institution Link
+                WebElement linkField = driver.findElement(By.id("link"));
+                linkField.clear();
+                linkField.sendKeys(instLink);
+
+                // 6. Click the "Create new institution" button by text
+                By submitBtnLocator = By.xpath("//button[text()='Create new institution']");
+                WebElement submitButton = wait.until(
+                        ExpectedConditions.elementToBeClickable(submitBtnLocator)
+                );
+                submitButton.click();
+
+                // 7. Optional: Wait or verify success
+                Thread.sleep(2000);
+
+                System.out.println("Created institution: " + instName + " (" + instLink + ")");
+            }
+
+            System.out.println("All institutions have been created successfully!");
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            // 7. Close the browser
+            // 8. Quit the browser
             if (driver != null) {
                 driver.quit();
             }
